@@ -89,20 +89,48 @@
         .case-link{font-size:11px;font-weight:700;color:#3347FF;text-decoration:none;text-transform:uppercase;letter-spacing:.05em;transition:opacity .2s}
         .case-link:hover{opacity:.7}
 
-        /* CAREER PATH */
-        .path-wrapper{position:relative;padding-left:60px}
-        .path-line{position:absolute;left:20px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#3347FF 0%,#4ADE80 100%)}
-        .path-item{position:relative;margin-bottom:52px}
-        .path-item:last-child{margin-bottom:0}
-        .path-dot{position:absolute;left:-49px;top:6px;width:18px;height:18px;border-radius:50%;background:#3347FF;border:3px solid #F5F0EB;box-shadow:0 0 0 3px #3347FF}
-        .path-item.current .path-dot{background:#4ADE80;box-shadow:0 0 0 3px #4ADE80;animation:pulse 2s ease-in-out infinite}
-        @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(74,222,128,.4)}50%{box-shadow:0 0 0 8px rgba(74,222,128,.1)}}
-        .path-year{font-size:11px;font-weight:700;color:#3347FF;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
-        .path-item.current .path-year{color:#4ADE80}
-        .path-company{font-family:"Unbounded",sans-serif;font-weight:700;font-size:18px;margin-bottom:4px}
-        .path-role{font-size:13px;color:#888;margin-bottom:10px}
-        .path-insight{font-size:13px;line-height:1.65;color:#555;background:#fff;border-radius:12px;padding:16px 20px;border-left:3px solid #3347FF;max-width:680px}
-        .path-item.current .path-insight{border-left-color:#4ADE80}
+        /* CAREER PATH — RPG LEVELS */
+        .path-wrapper{display:flex;flex-direction:column;gap:0}
+        .level-item{display:grid;grid-template-columns:80px 1fr;gap:0;position:relative}
+        .level-item:not(:last-child)::after{content:"";position:absolute;left:39px;top:80px;bottom:-1px;width:2px;background:linear-gradient(to bottom,#3347FF,rgba(51,71,255,.15));z-index:0}
+        .level-badge{display:flex;flex-direction:column;align-items:center;padding-top:8px;position:relative;z-index:1}
+        .level-num{font-family:"Unbounded",sans-serif;font-weight:900;font-size:9px;letter-spacing:.12em;color:#3347FF;text-transform:uppercase;margin-bottom:4px}
+        .level-circle{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid #3347FF;display:flex;align-items:center;justify-content:center;font-family:"Unbounded",sans-serif;font-weight:900;font-size:16px;color:#3347FF;box-shadow:0 0 0 4px rgba(51,71,255,.1)}
+        .level-item.current .level-circle{background:#3347FF;color:#fff;box-shadow:0 0 0 4px rgba(51,71,255,.2),0 0 20px rgba(51,71,255,.3);animation:glow-pulse 2s ease-in-out infinite}
+        .level-item.current .level-num{color:#4ADE80}
+        @keyframes glow-pulse{0%,100%{box-shadow:0 0 0 4px rgba(51,71,255,.2),0 0 20px rgba(51,71,255,.3)}50%{box-shadow:0 0 0 8px rgba(51,71,255,.1),0 0 32px rgba(51,71,255,.2)}}
+        .level-content{padding:8px 0 48px 24px}
+        .level-year{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+        .level-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(16px,2vw,22px);margin-bottom:4px;line-height:1.1}
+        .level-role{font-size:12px;color:#888;margin-bottom:12px;font-weight:500}
+        .level-unlock{display:inline-flex;align-items:center;gap:6px;background:#3347FF;color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:12px}
+        .level-item.current .level-unlock{background:#4ADE80;color:#1a1a1a}
+        .level-unlock::before{content:"🔓";font-size:11px}
+        .level-insight{font-size:13px;line-height:1.7;color:#555;background:#fff;border-radius:14px;padding:16px 20px;max-width:600px;border:1px solid rgba(0,0,0,.06)}
+        .level-item.current .level-title{color:#3347FF}
+
+        /* CASE SCREENSHOTS */
+        .case-preview{width:100%;height:160px;object-fit:cover;object-position:top;border-radius:12px;margin-bottom:14px;border:1px solid rgba(0,0,0,.06)}
+        .case-card.dark .case-preview{border-color:rgba(255,255,255,.1)}
+
+        /* WEBINARS */
+        .webinars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        .webinar-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;cursor:default}
+        .webinar-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+        .webinar-thumb{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1a 0%,#2a2a3a 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+        .webinar-thumb-img{width:100%;height:100%;object-fit:cover;display:block}
+        .webinar-play{position:absolute;width:40px;height:40px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.2)}
+        .webinar-play svg{width:16px;height:16px;fill:#fff;margin-left:2px}
+        .webinar-info{padding:14px 16px}
+        .webinar-tag{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#3347FF;font-weight:700;margin-bottom:6px}
+        .webinar-title{font-size:13px;font-weight:600;line-height:1.4;color:#1a1a1a;margin-bottom:4px}
+        .webinar-meta{font-size:11px;color:#aaa}
+        @media(max-width:900px){
+            .level-item{grid-template-columns:56px 1fr}
+            .level-item:not(:last-child)::after{left:27px}
+            .level-circle{width:36px;height:36px;font-size:13px}
+            .webinars-grid{grid-template-columns:1fr}
+        }
 
         /* TEAM */
         .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -176,6 +204,7 @@
         <a href="#about">Обо мне</a>
         <a href="#cases">Кейсы</a>
         <a href="#path">Мой путь</a>
+        <a href="#webinars">Вебинары</a>
         <a href="#formats">Форматы</a>
         <a href="#contacts" class="nav-btn">Обсудить задачу</a>
     </div>
@@ -314,6 +343,7 @@
         </div>
         <div class="case-card dark">
             <div>
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663336470601/abwmYEJBEpAhThYk.webp" alt="Distill — игровой спецпроект" class="case-preview">
                 <div class="case-tag">Спецпроект · Школа метанавыков (Distill)</div>
                 <h3>Игровой спецпроект — охват до 1 млн без платного трафика</h3>
                 <p class="case-result">Геймифицированный лендинг: пользователь проходит рабочий день как уровень в игре, делает выборы, видит как падает энергия — в конце диагноз и CTA в Telegram. Вирусный механизм без бюджета на рекламу.</p>
@@ -326,6 +356,7 @@
         </div>
         <div class="case-card">
             <div>
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663336470601/yWZStHLWckYbTokg.webp" alt="Логомашина — спецпроект" class="case-preview">
                 <div class="case-tag">Брендинг · Логомашина</div>
                 <h3>Коммерческий рост как директор по развитию</h3>
                 <p class="case-result">Выстроил отдел продаж, запустил новые каналы привлечения, вырастил выручку компании на 150%.</p>
@@ -337,6 +368,7 @@
         </div>
         <div class="case-card">
             <div>
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663336470601/oZcOrqKabbDMxLgK.webp" alt="Онлайн-колледж №1" class="case-preview">
                 <div class="case-tag">EdTech · Онлайн-колледж №1</div>
                 <h3>Запуск маркетинга нового образовательного продукта</h3>
                 <p class="case-result">Запустил маркетинг и продажи нового продукта с нуля: стратегия, команда, воронки, контент. Вывел на плановые показатели за 3 месяца.</p>
@@ -349,67 +381,177 @@
     </div>
 </section>
 
-<!-- CAREER PATH -->
+<!-- CAREER PATH — RPG LEVELS -->
 <section class="section" id="path" style="padding-top:0">
     <div class="section-label">Мой путь</div>
-    <h2 class="section-title">Как я<br><span>сюда пришёл</span></h2>
+    <h2 class="section-title">Прокачка<br><span>персонажа</span></h2>
     <div class="path-wrapper">
-        <div class="path-line"></div>
 
-        <div class="path-item">
-            <div class="path-dot"></div>
-            <div class="path-year">2012–2014</div>
-            <div class="path-company">Старт в digital</div>
-            <div class="path-role">Контент-менеджер / SMM-специалист</div>
-            <div class="path-insight">Первые шаги: контент, сообщества, первые рекламные кампании. Понял, что маркетинг — это про деньги, а не про лайки.</div>
+        <div class="level-item">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">01</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2012–2014</div>
+                <div class="level-title">Старт в digital</div>
+                <div class="level-role">Контент-менеджер / SMM-специалист</div>
+                <div class="level-unlock">Навык разблокирован: работа с аудиторией</div>
+                <div class="level-insight">Первые шаги: контент, сообщества, первые рекламные кампании. Понял, что маркетинг — это про деньги, а не про лайки.</div>
+            </div>
         </div>
 
-        <div class="path-item">
-            <div class="path-dot"></div>
-            <div class="path-year">2014–2016</div>
-            <div class="path-company">Первый системный маркетинг</div>
-            <div class="path-role">Маркетолог / Руководитель отдела маркетинга</div>
-            <div class="path-insight">Перешёл от контента к системному маркетингу: воронки, CRM, аналитика. Начал видеть маркетинг как коммерческий инструмент.</div>
+        <div class="level-item">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">02</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2014–2016</div>
+                <div class="level-title">Системный маркетинг</div>
+                <div class="level-role">Маркетолог / Руководитель отдела маркетинга</div>
+                <div class="level-unlock">Навык разблокирован: воронки, CRM, аналитика</div>
+                <div class="level-insight">Перешёл от контента к системному маркетингу: воронки, CRM, аналитика. Начал видеть маркетинг как коммерческий инструмент.</div>
+            </div>
         </div>
 
-        <div class="path-item">
-            <div class="path-dot"></div>
-            <div class="path-year">2016–2018</div>
-            <div class="path-company">Логомашина</div>
-            <div class="path-role">Директор по маркетингу и коммерческому развитию</div>
-            <div class="path-insight">Первый опыт как коммерческий директор: выстроил отдел продаж, запустил новые каналы, вырастил выручку на 150%. Научился соединять маркетинг и продажи.</div>
+        <div class="level-item">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">03</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2016–2018</div>
+                <div class="level-title">Логомашина</div>
+                <div class="level-role">Директор по маркетингу и коммерческому развитию</div>
+                <div class="level-unlock">Навык разблокирован: отдел продаж, +150% выручка</div>
+                <div class="level-insight">Первый опыт как коммерческий директор: выстроил отдел продаж, запустил новые каналы, вырастил выручку на 150%. Научился соединять маркетинг и продажи.</div>
+            </div>
         </div>
 
-        <div class="path-item">
-            <div class="path-dot"></div>
-            <div class="path-year">2018–2020</div>
-            <div class="path-company">Prime Kraft</div>
-            <div class="path-role">Директор по маркетингу</div>
-            <div class="path-insight">FMCG и маркетплейсы: построил систему продаж через Ozon и Wildberries, вывел бренд на новый уровень. Понял, как работает коммерция в физическом продукте.</div>
+        <div class="level-item">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">04</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2018–2020</div>
+                <div class="level-title">Prime Kraft</div>
+                <div class="level-role">Директор по маркетингу</div>
+                <div class="level-unlock">Навык разблокирован: FMCG, маркетплейсы, юнит-экономика</div>
+                <div class="level-insight">FMCG и маркетплейсы: построил систему продаж через Ozon и Wildberries, вывел бренд на новый уровень. Понял, как работает коммерция в физическом продукте.</div>
+            </div>
         </div>
 
-        <div class="path-item">
-            <div class="path-dot"></div>
-            <div class="path-year">2020–2024</div>
-            <div class="path-company">SkillFactory · Онлайн-колледж №1</div>
-            <div class="path-role">Директор по маркетингу / CMO</div>
-            <div class="path-insight">6 лет в EdTech — самый интенсивный период. Строил маркетинговые системы с нуля, управлял командами 15+ человек, запускал продукты, перестраивал воронки. Рост выручки x3.</div>
+        <div class="level-item">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">05</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2020–2024</div>
+                <div class="level-title">SkillFactory · Онлайн-колледж №1</div>
+                <div class="level-role">Директор по маркетингу / CMO</div>
+                <div class="level-unlock">Навык разблокирован: EdTech, команда 15+, рост x3</div>
+                <div class="level-insight">6 лет в EdTech — самый интенсивный период. Строил маркетинговые системы с нуля, управлял командами 15+ человек, запускал продукты, перестраивал воронки. Рост выручки x3.</div>
+            </div>
         </div>
 
-        <div class="path-item">
-            <div class="path-dot"></div>
-            <div class="path-year">2024–2025</div>
-            <div class="path-company">Distill / Школа метанавыков</div>
-            <div class="path-role">Директор по маркетингу</div>
-            <div class="path-insight">Игровые спецпроекты, вирусный маркетинг, нестандартные механики. Охват до 1 млн без платного трафика. Лучший маркетинг — тот, который хочется пересылать.</div>
+        <div class="level-item">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">06</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2024–2025</div>
+                <div class="level-title">Distill / Школа метанавыков</div>
+                <div class="level-role">Директор по маркетингу</div>
+                <div class="level-unlock">Навык разблокирован: геймификация, 1М+ охват без бюджета</div>
+                <div class="level-insight">Игровые спецпроекты, вирусный маркетинг, нестандартные механики. Охват до 1 млн без платного трафика. Лучший маркетинг — тот, который хочется пересылать.</div>
+            </div>
         </div>
 
-        <div class="path-item current">
-            <div class="path-dot"></div>
-            <div class="path-year">2025 — сейчас</div>
-            <div class="path-company">Независимый консультант</div>
-            <div class="path-role">Консультант по маркетингу и коммерческому росту</div>
-            <div class="path-insight">Работаю с бизнесами напрямую: нахожу узкие места, собираю стратегию, подключаю команду под реализацию. Всё, что накопил за 12 лет — теперь в формате консалтинга.</div>
+        <div class="level-item current">
+            <div class="level-badge">
+                <div class="level-num">LVL</div>
+                <div class="level-circle">07</div>
+            </div>
+            <div class="level-content">
+                <div class="level-year">2025 — сейчас</div>
+                <div class="level-title">Независимый консультант</div>
+                <div class="level-role">Консультант по маркетингу и коммерческому росту</div>
+                <div class="level-unlock">Финальный босс: скучные воронки без конверсии</div>
+                <div class="level-insight">Работаю с бизнесами напрямую: нахожу узкие места, собираю стратегию, подключаю команду под реализацию. Всё, что накопил за 12 лет — теперь в формате консалтинга.</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- WEBINARS -->
+<section class="section" id="webinars" style="padding-top:0">
+    <div class="section-label">Вебинарное направление</div>
+    <h2 class="section-title">Запустил<br><span>с нуля</span></h2>
+    <div class="webinars-grid">
+        <div class="webinar-card">
+            <div class="webinar-thumb" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)">
+                <div class="webinar-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            </div>
+            <div class="webinar-info">
+                <div class="webinar-tag">EdTech · Воронки</div>
+                <div class="webinar-title">Как выстроить вебинарную воронку с нуля</div>
+                <div class="webinar-meta">Онлайн-колледж №1</div>
+            </div>
+        </div>
+        <div class="webinar-card">
+            <div class="webinar-thumb" style="background:linear-gradient(135deg,#0f3460 0%,#533483 100%)">
+                <div class="webinar-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            </div>
+            <div class="webinar-info">
+                <div class="webinar-tag">Маркетинг · Стратегия</div>
+                <div class="webinar-title">Геймификация в маркетинге: механики и кейсы</div>
+                <div class="webinar-meta">Distill / Школа метанавыков</div>
+            </div>
+        </div>
+        <div class="webinar-card">
+            <div class="webinar-thumb" style="background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%)">
+                <div class="webinar-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            </div>
+            <div class="webinar-info">
+                <div class="webinar-tag">EdTech · Продажи</div>
+                <div class="webinar-title">Автовебинарная воронка: от идеи до запуска</div>
+                <div class="webinar-meta">SkillFactory</div>
+            </div>
+        </div>
+        <div class="webinar-card">
+            <div class="webinar-thumb" style="background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 100%)">
+                <div class="webinar-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            </div>
+            <div class="webinar-info">
+                <div class="webinar-tag">Маркетинг · Рост</div>
+                <div class="webinar-title">Как вырасти x3 без увеличения бюджета</div>
+                <div class="webinar-meta">SkillFactory</div>
+            </div>
+        </div>
+        <div class="webinar-card">
+            <div class="webinar-thumb" style="background:linear-gradient(135deg,#2c1654 0%,#4a0e8f 100%)">
+                <div class="webinar-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            </div>
+            <div class="webinar-info">
+                <div class="webinar-tag">EdTech · Контент</div>
+                <div class="webinar-title">Контент-стратегия для онлайн-школы</div>
+                <div class="webinar-meta">Онлайн-колледж №1</div>
+            </div>
+        </div>
+        <div class="webinar-card">
+            <div class="webinar-thumb" style="background:linear-gradient(135deg,#7b2d00 0%,#c44b00 100%)">
+                <div class="webinar-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            </div>
+            <div class="webinar-info">
+                <div class="webinar-tag">Маркетинг · CRM</div>
+                <div class="webinar-title">CRM-маркетинг: как монетизировать базу</div>
+                <div class="webinar-meta">SkillFactory</div>
+            </div>
         </div>
     </div>
 </section>
