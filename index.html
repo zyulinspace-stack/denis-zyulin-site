@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Денис Зюлин — консультант по маркетингу и росту бизнеса</title>
+    <title>Денис Зюлин — Архитектор воронок и управленец</title>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
@@ -22,7 +22,7 @@
         .hero{min-height:100vh;max-width:1200px;margin:0 auto;padding:120px 40px 40px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;align-items:start}
         .hero-name{grid-column:1/-1;font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(52px,9vw,130px);line-height:.88;letter-spacing:-.05em}
         .hero-role{grid-column:1/3;font-family:"Unbounded",sans-serif;font-weight:300;font-size:clamp(16px,2.2vw,28px);line-height:1.25;color:#888;margin-top:8px}
-        .hero-photo{grid-column:3/4;grid-row:2/5;justify-self:center}
+        .hero-photo{grid-column:3/4;grid-row:2/4;justify-self:center}
         .photo-card{width:200px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.06);transform:rotate(-2deg)}
         .photo-card img{width:100%;height:240px;object-fit:cover;object-position:top center;display:block}
         .photo-card-label{padding:12px 14px;font-size:11px;color:#888}
@@ -44,6 +44,22 @@
         .hero-logos{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
         .hero-logos-label{font-size:10px;color:#bbb;text-transform:uppercase;letter-spacing:.1em;margin-right:4px}
         .logo-pill{font-size:11px;font-weight:500;color:#888;background:rgba(0,0,0,.05);padding:6px 12px;border-radius:100px}
+
+        /* HERO JOURNEY ADDITIONS */
+        .hero-eyebrow{grid-column:1/-1;margin-bottom:-8px}
+        .hero-level-badge{display:inline-flex;align-items:center;gap:8px;background:#3347FF;color:#fff;font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;padding:7px 16px;border-radius:100px}
+        .hero-level-badge::before{content:"🚀";font-size:12px}
+        .hero-journey-map{grid-column:3/5;grid-row:2/5;align-self:start}
+
+        /* ABOUT STATS ROW */
+        .about-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;padding-top:40px;border-top:1px solid rgba(0,0,0,.08)}
+        .about-stat{text-align:center}
+        .about-stat-val{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,3.5vw,44px);color:#3347FF;display:block;line-height:1}
+        .about-stat-lbl{font-size:11px;color:#aaa;margin-top:6px;display:block;line-height:1.4}
+        @media(max-width:768px){
+            .about-stats-row{grid-template-columns:repeat(2,1fr)}
+            .hero-journey-map{grid-column:1/-1;grid-row:auto}
+        }
 
         /* TICKER */
         .ticker{background:#3347FF;color:#fff;padding:14px 0;overflow:hidden;font-family:"Unbounded",sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
@@ -212,44 +228,36 @@
 
 <!-- HERO -->
 <section class="hero">
+    <div class="hero-eyebrow">
+        <span class="hero-level-badge">LVL 07 · ТЕКУЩИЙ УРОВЕНЬ</span>
+    </div>
     <h1 class="hero-name">Денис<br>Зюлин</h1>
-    <p class="hero-role">консультант<br>по маркетингу<br>и росту бизнеса</p>
+    <p class="hero-role">Архитектор воронок<br>и управленец</p>
 
     <div class="hero-photo">
         <div class="photo-card">
             <img src="567.webp" alt="Денис Зюлин">
             <div class="photo-card-label">
                 <strong>Денис Зюлин</strong>
-                маркетинг · EdTech · рост
+                маркетинг · EdTech · геймификация
             </div>
         </div>
     </div>
 
-    <div class="color-blocks">
-        <div class="cb cb-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <div class="cb cb-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-        </div>
-        <div class="cb cb-3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        </div>
-        <div class="cb cb-4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
+    <div class="hero-journey-map">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663336470601/NssLwSRdjh887FxMxbkyZX/hero-journey-map-Q6kL8o7VzxXPQf7QUhaPeK.webp" alt="Путь героя — 7 уровней прокачки" style="width:100%;border-radius:16px;opacity:0.9">
     </div>
 
-    <p class="hero-desc">12 лет в маркетинге. 6 лет в EdTech. Нахожу узкие места в маркетинге и продажах, собираю систему роста и подключаю команду под реализацию.</p>
+    <p class="hero-desc">Прошёл путь от специалиста до управленца за 14 лет. Строю геймифицированные воронки и спецпроекты, которые продают без скуки — с командой, под ключ.</p>
 
     <div class="hero-stats">
-        <div><span class="stat-val">12+</span><span class="stat-lbl">лет опыта</span></div>
-        <div><span class="stat-val">x3</span><span class="stat-lbl">рост выручки</span></div>
-        <div><span class="stat-val">20+</span><span class="stat-lbl">проектов</span></div>
+        <div><span class="stat-val">14+</span><span class="stat-lbl">лет в маркетинге</span></div>
+        <div><span class="stat-val">100+</span><span class="stat-lbl">запусков вебинарных воронок</span></div>
+        <div><span class="stat-val">500M+</span><span class="stat-lbl">принесённая прибыль</span></div>
     </div>
 
     <div class="hero-bottom">
-        <a href="#contacts" class="hero-btn">Обсудить задачу →</a>
+        <a href="#contacts" class="hero-btn">Обсудить проект →</a>
         <div class="hero-logos">
             <span class="hero-logos-label">Работал с:</span>
             <span class="logo-pill">Prime Kraft</span>
@@ -264,22 +272,40 @@
 <!-- TICKER -->
 <div class="ticker">
     <div class="ticker-inner">
-        Маркетинг &nbsp;/&nbsp; Продажи &nbsp;/&nbsp; EdTech &nbsp;/&nbsp; Воронки &nbsp;/&nbsp; Стратегия &nbsp;/&nbsp; Контент &nbsp;/&nbsp; Рост бизнеса &nbsp;/&nbsp; Problem Solving &nbsp;/&nbsp; CRM &nbsp;/&nbsp; Консалтинг &nbsp;/&nbsp; Маркетинг &nbsp;/&nbsp; Продажи &nbsp;/&nbsp; EdTech &nbsp;/&nbsp; Воронки &nbsp;/&nbsp; Стратегия &nbsp;/&nbsp; Контент &nbsp;/&nbsp; Рост бизнеса &nbsp;/&nbsp; Problem Solving &nbsp;/&nbsp; CRM &nbsp;/&nbsp; Консалтинг &nbsp;/&nbsp;
+        Геймифицированные воронки &nbsp;/&nbsp; Спецпроекты &nbsp;/&nbsp; Performance Marketing &nbsp;/&nbsp; EdTech &nbsp;/&nbsp; Управление командой &nbsp;/&nbsp; Вебинарные воронки &nbsp;/&nbsp; 14+ лет в маркетинге &nbsp;/&nbsp; 100+ запусков &nbsp;/&nbsp; Архитектор воронок &nbsp;/&nbsp; Геймифицированные воронки &nbsp;/&nbsp; Спецпроекты &nbsp;/&nbsp; Performance Marketing &nbsp;/&nbsp; EdTech &nbsp;/&nbsp; Управление командой &nbsp;/&nbsp; Вебинарные воронки &nbsp;/&nbsp; 14+ лет в маркетинге &nbsp;/&nbsp; 100+ запусков &nbsp;/&nbsp; Архитектор воронок &nbsp;/&nbsp;
     </div>
 </div>
 
 <!-- ABOUT -->
 <section class="section" id="about">
-    <div class="section-label">Обо мне</div>
-    <h2 class="section-title">Не просто маркетолог —<br><span>человек, который видит</span><br>бизнес как систему</h2>
+    <div class="section-label">Кто я</div>
+    <h2 class="section-title">Практик и управленец.<br><span>14 лет в маркетинге.</span></h2>
     <div class="about-grid">
         <div class="about-text">
-            <p>Я работаю на стыке маркетинга, продаж и коммерческой логики. 12 лет я занимаюсь тем, что нахожу точки, где бизнес теряет деньги, и собираю решение, которое работает.</p>
-            <p>За 6 лет в EdTech я прошёл путь от маркетолога до директора по маркетингу и коммерческому развитию. Строил команды, запускал продукты, перестраивал воронки и выводил компании на новый уровень выручки.</p>
-            <p>Я не продаю красивые презентации. Я прихожу туда, где есть реальная проблема, нахожу её корень и предлагаю решение, которое можно внедрить.</p>
+            <p>Начинал специалистом — прошёл все позиции в маркетинге снизу вверх. Сейчас управляю командой и беру проекты под ключ: от стратегии до результата в цифрах.</p>
+            <p>Специализация — геймифицированные воронки и спецпроекты. Делаю маркетинг, в который хочется заходить. Не даю советы — делаю сам, с командой продюсера, дизайнера и технического специалиста.</p>
+            <p>Знаю каждое направление изнутри — поэтому управляю командой по результату, а не по процессу.</p>
         </div>
         <div class="about-quote">
-            Если в бизнесе не выполняется план — это всегда про систему, а не про удачу. Я помогаю найти, где именно она ломается.
+            Я не консультант с презентациями. Я архитектор — прихожу, проектирую систему и строю её вместе с командой до результата.
+        </div>
+    </div>
+    <div class="about-stats-row">
+        <div class="about-stat">
+            <span class="about-stat-val">14+</span>
+            <span class="about-stat-lbl">лет в маркетинге</span>
+        </div>
+        <div class="about-stat">
+            <span class="about-stat-val">100+</span>
+            <span class="about-stat-lbl">запусков вебинарных воронок</span>
+        </div>
+        <div class="about-stat">
+            <span class="about-stat-val">500M+</span>
+            <span class="about-stat-lbl">принесённая прибыль</span>
+        </div>
+        <div class="about-stat">
+            <span class="about-stat-val">4</span>
+            <span class="about-stat-lbl">крупных кейса с результатом</span>
         </div>
     </div>
 </section>
@@ -314,29 +340,31 @@
 
 <!-- CASES -->
 <section class="section" id="cases" style="padding-top:0">
-    <div class="section-label">Кейсы</div>
-    <h2 class="section-title">Результаты,<br>которые говорят<br><span>сами за себя</span></h2>
+    <div class="section-label">Битвы и победы</div>
+    <h2 class="section-title">Кейсы.<br><span>Реальные цифры.</span></h2>
     <div class="cases-grid">
         <div class="case-card">
             <div>
+                <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=600&q=80" alt="SkillFactory — вебинарные воронки" class="case-preview">
                 <div class="case-tag">EdTech · SkillFactory</div>
-                <h3>Рост выручки x3 за счёт перестройки маркетинга</h3>
-                <p class="case-result">Перестроил маркетинговую систему с нуля: воронки, команда, контент, CRM. Вывел компанию на новый уровень привлечения и удержания.</p>
+                <h3>Вебинарное направление с нуля — 100+ запусков</h3>
+                <p class="case-result">Выстроил вебинарное направление с нуля: воронки, команда, автоматизация. Провёл более 100 запусков вебинарных воронок с суммарной прибылью 500M+.</p>
                 <div class="case-metrics">
-                    <div class="case-metric">x3<span>рост выручки</span></div>
-                    <div class="case-metric">+40%<span>конверсия</span></div>
+                    <div class="case-metric">100+<span>запусков</span></div>
+                    <div class="case-metric">500M+<span>прибыль</span></div>
                 </div>
             </div>
             <a href="#" class="case-link">Подробнее →</a>
         </div>
         <div class="case-card">
             <div>
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" alt="Prime Kraft — спортивное питание" class="case-preview">
                 <div class="case-tag">FMCG · Prime Kraft</div>
-                <h3>Выход на маркетплейсы и рост продаж</h3>
-                <p class="case-result">Построил систему продаж через Ozon и Wildberries с нуля. Разработал стратегию присутствия и запустил рекламные кампании.</p>
+                <h3>Рост конверсии на 25% и ROMI 233%</h3>
+                <p class="case-result">Перестроил маркетинговую систему бренда спортивного питания: воронки, CJM, A/B-тесты. Результат — рост конверсии и рекордный ROMI.</p>
                 <div class="case-metrics">
-                    <div class="case-metric">+200%<span>продажи</span></div>
-                    <div class="case-metric">x2<span>охват</span></div>
+                    <div class="case-metric">+25%<span>конверсия</span></div>
+                    <div class="case-metric">233%<span>ROMI</span></div>
                 </div>
             </div>
             <a href="#" class="case-link">Подробнее →</a>
@@ -357,11 +385,12 @@
         <div class="case-card">
             <div>
                 <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663336470601/yWZStHLWckYbTokg.webp" alt="Логомашина — спецпроект" class="case-preview">
-                <div class="case-tag">Брендинг · Логомашина</div>
-                <h3>Коммерческий рост как директор по развитию</h3>
-                <p class="case-result">Выстроил отдел продаж, запустил новые каналы привлечения, вырастил выручку компании на 150%.</p>
+                <div class="case-tag">EdTech · Логомашина</div>
+                <h3>Спецпроект-конференция и геймифицированные воронки</h3>
+                <p class="case-result">Создал спецпроект «Лекторий» — конференция с регистрацией, прогревом и переходом в платное. Параллельно — геймифицированные воронки с чат-ботом и механикой подарков.</p>
                 <div class="case-metrics">
-                    <div class="case-metric">+150%<span>выручка</span></div>
+                    <div class="case-metric">+15%<span>доходимость</span></div>
+                    <div class="case-metric">×2<span>конверсия</span></div>
                 </div>
             </div>
             <a href="#" class="case-link">Подробнее →</a>
@@ -370,10 +399,11 @@
             <div>
                 <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663336470601/oZcOrqKabbDMxLgK.webp" alt="Онлайн-колледж №1" class="case-preview">
                 <div class="case-tag">EdTech · Онлайн-колледж №1</div>
-                <h3>Запуск маркетинга нового образовательного продукта</h3>
-                <p class="case-result">Запустил маркетинг и продажи нового продукта с нуля: стратегия, команда, воронки, контент. Вывел на плановые показатели за 3 месяца.</p>
+                <h3>Мини-игра «Выживи до ОГЭ» — 8500+ игроков</h3>
+                <p class="case-result">Полноценная игровая воронка прямо на сайте: персонаж прыгает через учебники, отвечает на вопросы ОГЭ, в конце — тест профессий и заявка. Вирусный охват без платного трафика.</p>
                 <div class="case-metrics">
-                    <div class="case-metric">3 мес<span>до плана</span></div>
+                    <div class="case-metric">8500+<span>игроков</span></div>
+                    <div class="case-metric">4.8<span>рейтинг</span></div>
                 </div>
             </div>
             <a href="#" class="case-link">Подробнее →</a>
