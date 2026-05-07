@@ -265,7 +265,7 @@
         <a href="#about">Обо мне</a>
         <a href="#cases">Кейсы</a>
         <a href="#path">Мой путь</a>
-        <a href="#webinars">Вебинары</a>
+
         <a href="#formats">Форматы</a>
         <a href="#contacts" class="nav-btn">Обсудить задачу</a>
     </div>
@@ -669,8 +669,8 @@
     </div>
 </section>
 
-<!-- WEBINARS -->
-<section class="section" id="webinars" style="padding-top:0">
+<!-- WEBINARS (hidden by default, shown when webinar filter active) -->
+<section class="section" id="webinars" style="padding-top:32px;display:none">
     <div class="section-label">Вебинарное направление</div>
     <h2 class="section-title">Вебинарные<br><span>проекты</span></h2>
     <div class="webinars-grid">
@@ -850,6 +850,7 @@
 (function(){
     var btns = document.querySelectorAll('.filter-btn');
     var cards = document.querySelectorAll('#cases-grid .case-card');
+    var webinarsSection = document.getElementById('webinars');
     btns.forEach(function(btn){
         btn.addEventListener('click', function(){
             var filter = btn.getAttribute('data-filter');
@@ -862,6 +863,10 @@
                     card.classList.add('hidden');
                 }
             });
+            // show webinars gallery only on webinar tab
+            if (webinarsSection) {
+                webinarsSection.style.display = (filter === 'webinar') ? 'block' : 'none';
+            }
             // fix dark card span on filter
             var darkCard = document.querySelector('.case-card.dark');
             if (darkCard && !darkCard.classList.contains('hidden')) {
