@@ -61,9 +61,21 @@
         }
 
         /* TICKER */
-        .ticker{background:#3347FF;color:#fff;padding:14px 0;overflow:hidden;font-family:"Unbounded",sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+        .ticker{background:#3347FF;color:#fff;padding:14px 0;overflow:hidden;font-family:"Unbounded",sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;white-space:nowrap;cursor:default}
         .ticker-inner{display:inline-block;animation:ticker-scroll 22s linear infinite}
+        .ticker:hover .ticker-inner{animation-play-state:paused}
         @keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+        /* LEVEL UP FLASH */
+        .level-item{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}
+        .level-item.revealed{opacity:1;transform:translateY(0)}
+        .levelup-flash{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0}
+        .levelup-flash.active{animation:levelup-anim .7s ease forwards}
+        .levelup-text{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(36px,8vw,96px);color:#fff;letter-spacing:.08em;text-shadow:0 0 40px rgba(51,71,255,.8),0 0 80px rgba(51,71,255,.4);mix-blend-mode:normal}
+        @keyframes levelup-anim{0%{opacity:0;transform:scale(.7)}25%{opacity:1;transform:scale(1.05)}60%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
+
+        /* PARALLAX HERO */
+        .hero-photo,.color-blocks{transition:transform .1s ease-out;will-change:transform}
 
         /* SECTIONS */
         .section{max-width:1200px;margin:0 auto;padding:80px 40px}
@@ -842,7 +854,66 @@
     </div>
 </footer>
 
+<!-- LEVEL UP FLASH OVERLAY -->
+<div class="levelup-flash" id="levelup-flash">
+    <div class="levelup-flash-bg" style="position:absolute;inset:0;background:rgba(51,71,255,.15);backdrop-filter:blur(2px)"></div>
+    <div class="levelup-text">LEVEL UP</div>
+</div>
+
 <script>
+// ── 1. TICKER PAUSE ON HOVER (CSS handles it) ──
+
+// ── 2. PARALLAX HERO ──
+(function(){
+    var hero = document.querySelector('.hero');
+    var photo = document.querySelector('.hero-photo');
+    var blocks = document.querySelector('.color-blocks');
+    if (!hero || !photo || !blocks) return;
+    document.addEventListener('mousemove', function(e){
+        var rect = hero.getBoundingClientRect();
+        if (e.clientY < rect.top || e.clientY > rect.bottom) return;
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = (e.clientX - cx) / rect.width;
+        var dy = (e.clientY - cy) / rect.height;
+        photo.style.transform = 'translate(' + (dx * 12) + 'px,' + (dy * 8) + 'px)';
+        blocks.style.transform = 'translate(' + (dx * -18) + 'px,' + (dy * -12) + 'px)';
+    });
+    hero.addEventListener('mouseleave', function(){
+        photo.style.transform = '';
+        blocks.style.transform = '';
+    });
+})();
+
+// ── 3. RPG LEVEL UP REVEAL ──
+(function(){
+    var flash = document.getElementById('levelup-flash');
+    var items = document.querySelectorAll('.level-item');
+    var triggered = new Set();
+
+    function showFlash() {
+        flash.classList.remove('active');
+        void flash.offsetWidth; // reflow to restart animation
+        flash.classList.add('active');
+        flash.addEventListener('animationend', function handler(){
+            flash.classList.remove('active');
+            flash.removeEventListener('animationend', handler);
+        });
+    }
+
+    var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if (entry.isIntersecting && !triggered.has(entry.target)) {
+                triggered.add(entry.target);
+                entry.target.classList.add('revealed');
+                showFlash();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    items.forEach(function(item){ observer.observe(item); });
+})();
+
 function sendLeadToTelegram() {
     var name = document.getElementById('lead-name').value.trim();
     var tg = document.getElementById('lead-tg').value.trim();
