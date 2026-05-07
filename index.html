@@ -810,8 +810,10 @@
 </section>
 
 <!-- ZIP-PAK -->
-<section id="lead-magnet" style="background:#F7F7F5;padding:0;margin:0">
-    <div style="max-width:1200px;margin:0 auto;padding:80px 40px 0">
+<section id="lead-magnet" style="background:#F7F7F5;padding:0;margin:0;position:relative;overflow:hidden">
+    <!-- dot grid background -->
+    <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,.08) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0"></div>
+    <div style="max-width:1200px;margin:0 auto;padding:80px 40px 0;position:relative;z-index:1">
 
         <!-- HEADER ROW -->
         <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:32px;flex-wrap:wrap">
@@ -833,31 +835,37 @@
         <!-- ITEMS GRID 2x3 -->
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px">
             <div class="zip-item" data-zip-idx="0" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,opacity .4s,transform .4s;opacity:0;transform:translateY(20px)" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="margin-bottom:16px"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="2" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.5"/><rect x="8" y="8" width="10" height="1.5" rx=".75" fill="#4CAF50"/><rect x="8" y="11.5" width="10" height="1.5" rx=".75" fill="#4CAF50"/><rect x="8" y="15" width="7" height="1.5" rx=".75" fill="#4CAF50"/><rect x="14" y="20" width="14" height="10" rx="2" fill="#4CAF50"/><text x="21" y="28" font-size="6" font-weight="700" fill="white" text-anchor="middle">XLS</text></svg></div>
                 <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">01 / funnel_template.xlsx</div>
                 <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Шаблон воронки</div>
                 <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Готовая структура вебинарной воронки от трафика до продажи</p>
             </div>
             <div class="zip-item" data-zip-idx="1" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,opacity .4s,transform .4s;opacity:0;transform:translateY(20px)" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="margin-bottom:16px"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="2" fill="#FFEBEE" stroke="#F44336" stroke-width="1.5"/><rect x="8" y="8" width="10" height="1.5" rx=".75" fill="#F44336"/><rect x="8" y="11.5" width="10" height="1.5" rx=".75" fill="#F44336"/><rect x="8" y="15" width="7" height="1.5" rx=".75" fill="#F44336"/><rect x="14" y="20" width="14" height="10" rx="2" fill="#F44336"/><text x="21" y="28" font-size="6" font-weight="700" fill="white" text-anchor="middle">PDF</text></svg></div>
                 <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">02 / launch_checklist.pdf</div>
                 <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Чеклист запуска</div>
                 <p style="font-size:13px;color:#888;line-height:1.65;margin:0">100+ пунктов от аудита воронки до постзапускового анализа</p>
             </div>
             <div class="zip-item" data-zip-idx="2" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,opacity .4s,transform .4s;opacity:0;transform:translateY(20px)" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="margin-bottom:16px"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="2" fill="#F3F3F3" stroke="#1a1a1a" stroke-width="1.5"/><rect x="8" y="8" width="10" height="1.5" rx=".75" fill="#1a1a1a"/><rect x="8" y="11.5" width="10" height="1.5" rx=".75" fill="#1a1a1a"/><rect x="8" y="15" width="7" height="1.5" rx=".75" fill="#1a1a1a"/><rect x="14" y="20" width="14" height="10" rx="2" fill="#1a1a1a"/><text x="21" y="28" font-size="5" font-weight="700" fill="white" text-anchor="middle">NTN</text></svg></div>
                 <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">03 / hypothesis_framework.notion</div>
                 <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Фреймворк гипотез</div>
                 <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Быстрая генерация и приоритизация гипотез роста</p>
             </div>
             <div class="zip-item" data-zip-idx="3" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,opacity .4s,transform .4s;opacity:0;transform:translateY(20px)" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="margin-bottom:16px"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="2" fill="#FFEBEE" stroke="#F44336" stroke-width="1.5"/><rect x="8" y="8" width="10" height="1.5" rx=".75" fill="#F44336"/><rect x="8" y="11.5" width="10" height="1.5" rx=".75" fill="#F44336"/><rect x="8" y="15" width="7" height="1.5" rx=".75" fill="#F44336"/><rect x="14" y="20" width="14" height="10" rx="2" fill="#F44336"/><text x="21" y="28" font-size="6" font-weight="700" fill="white" text-anchor="middle">PDF</text></svg></div>
                 <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">04 / gameloop_map.pdf</div>
                 <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Карта геймлупа</div>
                 <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Как встраивать игровую механику в любую маркетинговую воронку</p>
             </div>
             <div class="zip-item" data-zip-idx="4" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,opacity .4s,transform .4s;opacity:0;transform:translateY(20px)" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="margin-bottom:16px"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="2" fill="#FFEBEE" stroke="#F44336" stroke-width="1.5"/><rect x="8" y="8" width="10" height="1.5" rx=".75" fill="#F44336"/><rect x="8" y="11.5" width="10" height="1.5" rx=".75" fill="#F44336"/><rect x="8" y="15" width="7" height="1.5" rx=".75" fill="#F44336"/><rect x="14" y="20" width="14" height="10" rx="2" fill="#F44336"/><text x="21" y="28" font-size="6" font-weight="700" fill="white" text-anchor="middle">PDF</text></svg></div>
                 <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">05 / case_breakdown.pdf</div>
                 <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Разбор кейса</div>
                 <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Детальный разбор реального запуска с цифрами и ошибками</p>
             </div>
             <div class="zip-item" data-zip-idx="5" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,opacity .4s,transform .4s;opacity:0;transform:translateY(20px)" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="margin-bottom:16px"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="2" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.5"/><rect x="8" y="8" width="10" height="1.5" rx=".75" fill="#4CAF50"/><rect x="8" y="11.5" width="10" height="1.5" rx=".75" fill="#4CAF50"/><rect x="8" y="15" width="7" height="1.5" rx=".75" fill="#4CAF50"/><rect x="14" y="20" width="14" height="10" rx="2" fill="#4CAF50"/><text x="21" y="28" font-size="6" font-weight="700" fill="white" text-anchor="middle">XLS</text></svg></div>
                 <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">06 / growth_audit.xlsx</div>
                 <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Аудит роста</div>
                 <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Шаблон для самостоятельной диагностики маркетинга и поиска точек роста</p>
