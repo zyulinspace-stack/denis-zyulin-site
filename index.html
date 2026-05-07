@@ -292,9 +292,9 @@
     </div>
 
     <div class="hero-stats">
-        <div><span class="stat-val">14+</span><span class="stat-lbl">лет в маркетинге</span></div>
-        <div><span class="stat-val">100+</span><span class="stat-lbl">запусков вебинарных воронок</span></div>
-        <div><span class="stat-val">500M+</span><span class="stat-lbl">принесённая прибыль</span></div>
+        <div><span class="stat-val" data-count="14" data-suffix="+">14+</span><span class="stat-lbl">лет в маркетинге</span></div>
+        <div><span class="stat-val" data-count="50" data-suffix="+">50+</span><span class="stat-lbl">реализованных проектов</span></div>
+        <div><span class="stat-val" data-count="500" data-suffix="M+">500M+</span><span class="stat-lbl">принесённая прибыль</span></div>
     </div>
 
     <div class="hero-bottom">
@@ -333,19 +333,19 @@
     </div>
     <div class="about-stats-row">
         <div class="about-stat">
-            <span class="about-stat-val">14+</span>
+            <span class="about-stat-val" data-count="14" data-suffix="+">14+</span>
             <span class="about-stat-lbl">лет в маркетинге</span>
         </div>
         <div class="about-stat">
-            <span class="about-stat-val">100+</span>
-            <span class="about-stat-lbl">запусков вебинарных воронок</span>
+            <span class="about-stat-val" data-count="50" data-suffix="+">50+</span>
+            <span class="about-stat-lbl">реализованных проектов</span>
         </div>
         <div class="about-stat">
-            <span class="about-stat-val">500M+</span>
+            <span class="about-stat-val" data-count="500" data-suffix="M+">500M+</span>
             <span class="about-stat-lbl">принесённая прибыль</span>
         </div>
         <div class="about-stat">
-            <span class="about-stat-val">4</span>
+            <span class="about-stat-val" data-count="4" data-suffix="">4</span>
             <span class="about-stat-lbl">крупных кейса с результатом</span>
         </div>
     </div>
@@ -885,7 +885,37 @@
     });
 })();
 
-// ── 3. RPG LEVEL UP REVEAL ──
+// ── 3. COUNTER ANIMATION ──
+(function(){
+    function animateCounter(el) {
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1200;
+        var start = null;
+        function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+        function step(ts){
+            if (!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            el.textContent = Math.round(easeOut(progress) * target) + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    var counters = document.querySelectorAll('[data-count]');
+    var counted = new Set();
+    var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if (entry.isIntersecting && !counted.has(entry.target)){
+                counted.add(entry.target);
+                animateCounter(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(function(c){ obs.observe(c); });
+})();
+
+// ── 4. RPG LEVEL UP REVEAL ──
 (function(){
     var flash = document.getElementById('levelup-flash');
     var items = document.querySelectorAll('.level-item');
