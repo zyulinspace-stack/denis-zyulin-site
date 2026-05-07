@@ -539,20 +539,6 @@
         </div>
     </div>
 
-    <!-- LEAD MAGNET -->
-    <div class="stack-lead">
-        <div class="stack-lead-text">
-            <div class="stack-lead-badge">Бесплатно · Пакет материалов</div>
-            <h3>Пакет крутого<br>маркетолога <span>2026</span></h3>
-            <p>Собрал всё что реально работает: шаблоны воронок, чеклисты запусков, фреймворки для гипотез и разборы кейсов. Отправлю в Telegram — бесплатно.</p>
-        </div>
-        <div class="stack-lead-form">
-            <input type="text" id="lead-name" placeholder="Ваше имя" autocomplete="off">
-            <input type="text" id="lead-tg" placeholder="Telegram (@username)" autocomplete="off">
-            <button onclick="sendLeadToTelegram()">Получить пакет →</button>
-            <div class="form-note">Отправлю лично в Telegram в течение дня</div>
-        </div>
-    </div>
 </section>
 
 <!-- CAREER PATH — RPG LEVELS -->
@@ -820,6 +806,54 @@
         <div class="pain-item"><span class="pain-icon">🔍</span>Нужен сильный маркетолог, но непонятно как найти</div>
         <div class="pain-item"><span class="pain-icon">🌀</span>Бизнес вырос, а маркетинг остался хаотичным</div>
         <div class="pain-item"><span class="pain-icon">💡</span>Нужен человек, который быстро поймёт, где проблема</div>
+    </div>
+</section>
+
+<!-- LEAD MAGNET FULL WIDTH -->
+<section id="lead-magnet" style="background:#111;padding:0;margin:0">
+    <div style="max-width:1200px;margin:0 auto;padding:72px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+        <div>
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:7px 16px;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:28px;letter-spacing:.02em">🎁 Бесплатно · Пакет материалов</div>
+            <h2 style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,60px);color:#fff;line-height:1.0;letter-spacing:-.03em;margin-bottom:24px">Пакет крутого<br>маркетолога<br><span style="color:#4ADE80">2026</span></h2>
+            <p style="font-size:15px;color:rgba(255,255,255,.5);line-height:1.75;max-width:420px">Собрал всё что реально работает: шаблоны воронок, чеклисты запусков, фреймворки для гипотез и разборы кейсов. Отправлю в Telegram — бесплатно.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+            <input type="text" id="lead-name" placeholder="Ваше имя" autocomplete="off" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 22px;font-size:16px;color:#fff;outline:none;font-family:'Inter',sans-serif;width:100%;box-sizing:border-box;transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.3)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            <input type="text" id="lead-tg" placeholder="Telegram (@username)" autocomplete="off" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 22px;font-size:16px;color:#fff;outline:none;font-family:'Inter',sans-serif;width:100%;box-sizing:border-box;transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.3)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            <button onclick="sendLeadToTelegram()" style="background:#3347FF;color:#fff;border:none;border-radius:14px;padding:19px 28px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Unbounded',sans-serif;letter-spacing:.01em;width:100%;margin-top:2px;transition:background .2s" onmouseover="this.style.background='#2236ee'" onmouseout="this.style.background='#3347FF'">Получить пакет →</button>
+            <div style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-top:4px">Отправлю лично в Telegram в течение дня</div>
+        </div>
+    </div>
+
+    <!-- ЧТО В НАБОРЕ -->
+    <div style="max-width:1200px;margin:0 auto;padding:0 40px 72px">
+        <h3 style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(20px,2.5vw,32px);color:#fff;margin-bottom:32px">Что в наборе</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+            <div style="background:#1a1a1a;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07)">
+                <div style="background:linear-gradient(135deg,#1e2a6e,#3347FF);height:180px;display:flex;align-items:center;justify-content:center;font-size:48px">🗂️</div>
+                <div style="padding:24px">
+                    <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:10px">Шаблон воронки</div>
+                    <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:20px">Готовая структура вебинарной воронки: от трафика до продажи. Адаптируй под любой продукт.</p>
+                    <div style="font-size:11px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:.08em">Включён в пакет ✓</div>
+                </div>
+            </div>
+            <div style="background:#1a1a1a;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07)">
+                <div style="background:linear-gradient(135deg,#1b3a1b,#4ADE80);height:180px;display:flex;align-items:center;justify-content:center;font-size:48px">✅</div>
+                <div style="padding:24px">
+                    <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:10px">Чеклист запуска</div>
+                    <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:20px">100+ пунктов для подготовки запуска: от аудита воронки до постзапускового анализа.</p>
+                    <div style="font-size:11px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:.08em">Включён в пакет ✓</div>
+                </div>
+            </div>
+            <div style="background:#1a1a1a;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07)">
+                <div style="background:linear-gradient(135deg,#3a1a00,#FF4D4D);height:180px;display:flex;align-items:center;justify-content:center;font-size:48px">💡</div>
+                <div style="padding:24px">
+                    <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:10px">Фреймворк гипотез</div>
+                    <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:20px">Система для быстрой генерации и приоритизации гипотез роста. Работает в любой нише.</p>
+                    <div style="font-size:11px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:.08em">Включён в пакет ✓</div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
