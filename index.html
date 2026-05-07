@@ -181,6 +181,30 @@
         .btn-outline{background:transparent;color:#fff;padding:16px 36px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;border:2px solid rgba(255,255,255,.2);transition:border-color .2s}
         .btn-outline:hover{border-color:rgba(255,255,255,.5)}
 
+        /* FULL STACK */
+        .stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
+        .stack-card{background:#fff;border-radius:20px;padding:28px;border:1px solid transparent;transition:border-color .2s,transform .2s;cursor:default}
+        .stack-card:hover{border-color:#3347FF;transform:translateY(-3px)}
+        .stack-card-num{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:#3347FF;margin-bottom:10px;letter-spacing:.1em}
+        .stack-card h3{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.2}
+        .stack-card ul{list-style:none;padding:0}
+        .stack-card ul li{font-size:12px;line-height:1.6;color:#888;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.04);display:flex;gap:8px;align-items:flex-start}
+        .stack-card ul li::before{content:"→";color:#3347FF;font-weight:700;flex-shrink:0;font-size:11px}
+        .stack-lead{background:#1a1a1a;border-radius:24px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+        .stack-lead-text h3{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(20px,2.5vw,30px);color:#fff;line-height:1.1;margin-bottom:12px}
+        .stack-lead-text h3 span{color:#4ADE80}
+        .stack-lead-text p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:20px}
+        .stack-lead-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:8px 16px;font-size:11px;color:rgba(255,255,255,.7);margin-bottom:20px}
+        .stack-lead-badge::before{content:"🎁";font-size:13px}
+        .stack-lead-form{display:flex;flex-direction:column;gap:12px}
+        .stack-lead-form input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 18px;font-size:14px;color:#fff;outline:none;transition:border-color .2s;font-family:"Inter",sans-serif}
+        .stack-lead-form input::placeholder{color:rgba(255,255,255,.35)}
+        .stack-lead-form input:focus{border-color:rgba(255,255,255,.35)}
+        .stack-lead-form button{background:#3347FF;color:#fff;border:none;border-radius:12px;padding:15px 28px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .2s;font-family:"Inter",sans-serif}
+        .stack-lead-form button:hover{opacity:.85}
+        .stack-lead-form .form-note{font-size:11px;color:rgba(255,255,255,.35);text-align:center}
+        @media(max-width:900px){.stack-grid{grid-template-columns:1fr}.stack-lead{grid-template-columns:1fr;padding:32px 24px}}
+
         /* FOOTER */
         .footer{max-width:1200px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(0,0,0,.08)}
         .footer-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:13px}
@@ -416,6 +440,119 @@
     </div>
 </section>
 
+<!-- FULL STACK -->
+<section class="section" id="stack" style="padding-top:0">
+    <div class="section-label">Экспертиза</div>
+    <h2 class="section-title">Полный<br><span>стек</span></h2>
+    <p style="font-size:15px;color:#888;line-height:1.7;max-width:600px;margin-bottom:40px">Владею каждым направлением лично — поэтому управляю командой по результату, а не по процессу.</p>
+    <div class="stack-grid">
+        <div class="stack-card">
+            <div class="stack-card-num">01 / Стратегия</div>
+            <h3>Стратегия и исследования</h3>
+            <ul>
+                <li>Выбор рынка на основе данных</li>
+                <li>Тест спроса трафиком для выбора ниши</li>
+                <li>Формирование гипотез и планирование</li>
+                <li>Проектирование маркетинговых воронок</li>
+                <li>Качественные исследования и UX</li>
+                <li>AI в исследованиях</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">02 / Трафик</div>
+            <h3>Performance Marketing</h3>
+            <ul>
+                <li>Метрики и показатели эффективности</li>
+                <li>Telegram Ads, Яндекс Директ, Google Ads</li>
+                <li>Facebook Ads, ВКонтакте</li>
+                <li>SEO</li>
+                <li>Аналитика, плейсменты, соцдем, девайсы</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">03 / Контент</div>
+            <h3>Креатив</h3>
+            <ul>
+                <li>Создание конверсионных посадочных страниц</li>
+                <li>Эффективные креативы на основе данных</li>
+                <li>Growth Hacks — методология гипотез</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">04 / Продажи</div>
+            <h3>Воронки</h3>
+            <ul>
+                <li>Вебинарная воронка</li>
+                <li>Мессенджер и email-маркетинг</li>
+                <li>Мобайл-воронки с paywall и freemium</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">05 / Инфлюенс</div>
+            <h3>Блогеры / Инфлюенсер-маркетинг</h3>
+            <ul>
+                <li>Стратегия работы с блогерами</li>
+                <li>Поиск блогеров и составление брифа</li>
+                <li>Аналитика рекламных интеграций</li>
+                <li>Менеджмент в инфлюенсер-маркетинге</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">06 / Процессы</div>
+            <h3>Процессы в маркетинге</h3>
+            <ul>
+                <li>Отчётность, дашборды, KPI, автоматизации</li>
+                <li>Управление командой по результату</li>
+                <li>Системный скоринг гипотез</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">07 / Данные</div>
+            <h3>Аналитика</h3>
+            <ul>
+                <li>GTM, Google Analytics, Яндекс Метрика</li>
+                <li>Facebook Pixel</li>
+                <li>Сбор отчётности и сквозная аналитика</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">08 / B2B</div>
+            <h3>B2B маркетинг</h3>
+            <ul>
+                <li>Воронка в B2B. Мультиканальная цепочка касаний</li>
+                <li>PR и продажи на конференциях</li>
+                <li>Cold Outreach. Маркетинг + продажи</li>
+            </ul>
+        </div>
+        <div class="stack-card">
+            <div class="stack-card-num">09 / Соцсети</div>
+            <h3>SMM</h3>
+            <ul>
+                <li>Стратегия и контент-план</li>
+                <li>Система аналитики в контенте</li>
+                <li>Прогрев, упаковка, коммуникации</li>
+                <li>Reels на миллионы просмотров</li>
+                <li>Найм SMM-команды</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- LEAD MAGNET -->
+    <div class="stack-lead">
+        <div class="stack-lead-text">
+            <div class="stack-lead-badge">Бесплатно · Пакет материалов</div>
+            <h3>Пакет крутого<br>маркетолога <span>2026</span></h3>
+            <p>Собрал всё что реально работает: шаблоны воронок, чеклисты запусков, фреймворки для гипотез и разборы кейсов. Отправлю в Telegram — бесплатно.</p>
+        </div>
+        <div class="stack-lead-form">
+            <input type="text" id="lead-name" placeholder="Ваше имя" autocomplete="off">
+            <input type="text" id="lead-tg" placeholder="Telegram (@username)" autocomplete="off">
+            <button onclick="sendLeadToTelegram()">Получить пакет →</button>
+            <div class="form-note">Отправлю лично в Telegram в течение дня</div>
+        </div>
+    </div>
+</section>
+
 <!-- CAREER PATH — RPG LEVELS -->
 <section class="section" id="path" style="padding-top:0">
     <div class="section-label">Мой путь</div>
@@ -540,7 +677,7 @@
 <!-- WEBINARS -->
 <section class="section" id="webinars" style="padding-top:0">
     <div class="section-label">Вебинарное направление</div>
-    <h2 class="section-title">Запустил<br><span>с нуля</span></h2>
+    <h2 class="section-title">Вебинарные<br><span>проекты</span></h2>
     <div class="webinars-grid">
         <div class="webinar-card">
             <div class="webinar-thumb" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)">
@@ -705,5 +842,26 @@
     </div>
 </footer>
 
+<script>
+function sendLeadToTelegram() {
+    var name = document.getElementById('lead-name').value.trim();
+    var tg = document.getElementById('lead-tg').value.trim();
+    if (!name || !tg) {
+        alert('Пожалуйста, заполните имя и Telegram');
+        return;
+    }
+    var btn = document.querySelector('.stack-lead-form button');
+    btn.textContent = 'Отправляю...';
+    btn.disabled = true;
+    var msg = 'Новый лид — Пакет маркетолога 2026%0A%0AИмя: ' + encodeURIComponent(name) + '%0ATelegram: ' + encodeURIComponent(tg);
+    var url = 'https://t.me/deniszy?text=' + msg;
+    window.open(url, '_blank');
+    btn.textContent = 'Отправлено ✓';
+    btn.style.background = '#4ADE80';
+    btn.style.color = '#1a1a1a';
+    document.getElementById('lead-name').value = '';
+    document.getElementById('lead-tg').value = '';
+}
+</script>
 </body>
 </html>
