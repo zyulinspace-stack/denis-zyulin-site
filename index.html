@@ -433,6 +433,13 @@
             <a href="#" class="case-link">Подробнее →</a>
         </div>
     </div>
+
+    <!-- WEBINARS GALLERY (shown only on webinar tab) -->
+    <div id="webinars-gallery" style="display:none;margin-top:40px">
+        <div class="section-label" style="margin-bottom:12px">Вебинарное направление</div>
+        <h3 style="font-family:Unbounded,sans-serif;font-weight:900;font-size:clamp(20px,2.5vw,32px);margin-bottom:24px">Вебинарные <span style="color:#3347FF">проекты</span></h3>
+        <div class="webinars-grid" id="webinars-grid-inner"></div>
+    </div>
 </section>
 
 <!-- FULL STACK -->
@@ -850,7 +857,19 @@
 (function(){
     var btns = document.querySelectorAll('.filter-btn');
     var cards = document.querySelectorAll('#cases-grid .case-card');
-    var webinarsSection = document.getElementById('webinars');
+    var webinarsGallery = document.getElementById('webinars-gallery');
+    // move webinar cards into inline gallery
+    var webinarsSource = document.getElementById('webinars');
+    var webinarsGridInner = document.getElementById('webinars-grid-inner');
+    if (webinarsSource && webinarsGridInner) {
+        var sourceGrid = webinarsSource.querySelector('.webinars-grid');
+        if (sourceGrid) {
+            while (sourceGrid.firstChild) {
+                webinarsGridInner.appendChild(sourceGrid.firstChild);
+            }
+        }
+        webinarsSource.remove();
+    }
     btns.forEach(function(btn){
         btn.addEventListener('click', function(){
             var filter = btn.getAttribute('data-filter');
@@ -864,8 +883,8 @@
                 }
             });
             // show webinars gallery only on webinar tab
-            if (webinarsSection) {
-                webinarsSection.style.display = (filter === 'webinar') ? 'block' : 'none';
+            if (webinarsGallery) {
+                webinarsGallery.style.display = (filter === 'webinar') ? 'block' : 'none';
             }
             // fix dark card span on filter
             var darkCard = document.querySelector('.case-card.dark');
