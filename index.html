@@ -809,52 +809,47 @@
     </div>
 </section>
 
-<!-- LEAD MAGNET FULL WIDTH -->
-<section id="lead-magnet" style="background:#111;padding:0;margin:0">
-    <div style="max-width:1200px;margin:0 auto;padding:72px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
-        <div>
-            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:7px 16px;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);margin-bottom:28px;letter-spacing:.02em">🎁 Бесплатно · Пакет материалов</div>
-            <h2 style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,60px);color:#fff;line-height:1.0;letter-spacing:-.03em;margin-bottom:24px">Пакет крутого<br>маркетолога<br><span style="color:#4ADE80">2026</span></h2>
-            <p style="font-size:15px;color:rgba(255,255,255,.5);line-height:1.75;max-width:420px">Собрал всё что реально работает: шаблоны воронок, чеклисты запусков, фреймворки для гипотез и разборы кейсов. Отправлю в Telegram — бесплатно.</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-            <input type="text" id="lead-name" placeholder="Ваше имя" autocomplete="off" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 22px;font-size:16px;color:#fff;outline:none;font-family:'Inter',sans-serif;width:100%;box-sizing:border-box;transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.3)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
-            <input type="text" id="lead-tg" placeholder="Telegram (@username)" autocomplete="off" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 22px;font-size:16px;color:#fff;outline:none;font-family:'Inter',sans-serif;width:100%;box-sizing:border-box;transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.3)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
-            <button onclick="sendLeadToTelegram()" style="background:#3347FF;color:#fff;border:none;border-radius:14px;padding:19px 28px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Unbounded',sans-serif;letter-spacing:.01em;width:100%;margin-top:2px;transition:background .2s" onmouseover="this.style.background='#2236ee'" onmouseout="this.style.background='#3347FF'">Получить пакет →</button>
-            <div style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-top:4px">Отправлю лично в Telegram в течение дня</div>
-        </div>
-    </div>
+<!-- ZIP-PAK -->
+<section id="lead-magnet" style="background:#F7F7F5;padding:0;margin:0">
+    <div style="max-width:1200px;margin:0 auto;padding:80px 40px 0">
 
-    <!-- ЧТО В НАБОРЕ -->
-    <div style="max-width:1200px;margin:0 auto;padding:0 40px 72px">
-        <h3 style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(20px,2.5vw,32px);color:#fff;margin-bottom:32px">Что в наборе</h3>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
-            <div style="background:#1a1a1a;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07)">
-                <div style="background:linear-gradient(135deg,#1e2a6e,#3347FF);height:180px;display:flex;align-items:center;justify-content:center;font-size:48px">🗂️</div>
-                <div style="padding:24px">
-                    <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:10px">Шаблон воронки</div>
-                    <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:20px">Готовая структура вебинарной воронки: от трафика до продажи. Адаптируй под любой продукт.</p>
-                    <div style="font-size:11px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:.08em">Включён в пакет ✓</div>
-                </div>
+        <!-- HEADER ROW -->
+        <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:56px;flex-wrap:wrap">
+            <h2 style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,4vw,52px);color:#1a1a1a;line-height:1.0;letter-spacing:-.03em;margin:0">ZIP-пак<br>маркетолога</h2>
+            <div style="display:inline-flex;align-items:center;gap:6px;background:#1a1a1a;border-radius:100px;padding:8px 18px;font-size:11px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">📦 Бесплатно</div>
+        </div>
+
+        <!-- ITEMS GRID -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px">
+            <div class="zip-item" style="background:#fff;border-radius:20px 0 0 0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s,transform .2s" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">01 / funnel_template.xlsx</div>
+                <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Шаблон воронки</div>
+                <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Готовая структура вебинарной воронки от трафика до продажи</p>
             </div>
-            <div style="background:#1a1a1a;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07)">
-                <div style="background:linear-gradient(135deg,#1b3a1b,#4ADE80);height:180px;display:flex;align-items:center;justify-content:center;font-size:48px">✅</div>
-                <div style="padding:24px">
-                    <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:10px">Чеклист запуска</div>
-                    <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:20px">100+ пунктов для подготовки запуска: от аудита воронки до постзапускового анализа.</p>
-                    <div style="font-size:11px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:.08em">Включён в пакет ✓</div>
-                </div>
+            <div class="zip-item" style="background:#fff;border-radius:0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">02 / launch_checklist.pdf</div>
+                <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Чеклист запуска</div>
+                <p style="font-size:13px;color:#888;line-height:1.65;margin:0">100+ пунктов от аудита воронки до постзапускового анализа</p>
             </div>
-            <div style="background:#1a1a1a;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.07)">
-                <div style="background:linear-gradient(135deg,#3a1a00,#FF4D4D);height:180px;display:flex;align-items:center;justify-content:center;font-size:48px">💡</div>
-                <div style="padding:24px">
-                    <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;color:#fff;margin-bottom:10px">Фреймворк гипотез</div>
-                    <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:20px">Система для быстрой генерации и приоритизации гипотез роста. Работает в любой нише.</p>
-                    <div style="font-size:11px;font-weight:700;color:#4ADE80;text-transform:uppercase;letter-spacing:.08em">Включён в пакет ✓</div>
-                </div>
+            <div class="zip-item" style="background:#fff;border-radius:0 20px 0 0;padding:32px;border:1px solid rgba(0,0,0,.06);transition:border-color .2s" onmouseover="this.style.borderColor='#3347FF'" onmouseout="this.style.borderColor='rgba(0,0,0,.06)'">
+                <div style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px">03 / hypothesis_framework.notion</div>
+                <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:17px;color:#1a1a1a;margin-bottom:10px;line-height:1.2">Фреймворк гипотез</div>
+                <p style="font-size:13px;color:#888;line-height:1.65;margin:0">Быстрая генерация и приоритизация гипотез роста</p>
             </div>
         </div>
+
+        <!-- FORM ROW -->
+        <div style="background:#1a1a1a;border-radius:0 0 24px 24px;padding:40px;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:center">
+            <input type="text" id="lead-name" placeholder="Ваше имя" autocomplete="off" style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:15px 18px;font-size:14px;color:#fff;outline:none;font-family:'Inter',sans-serif;width:100%;box-sizing:border-box;transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.35)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            <input type="text" id="lead-tg" placeholder="Telegram (@username)" autocomplete="off" style="background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:15px 18px;font-size:14px;color:#fff;outline:none;font-family:'Inter',sans-serif;width:100%;box-sizing:border-box;transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.35)'" onblur="this.style.borderColor='rgba(255,255,255,.1)'">
+            <div style="font-size:12px;color:rgba(255,255,255,.3);line-height:1.5">Отправлю лично<br>в Telegram в течение дня</div>
+            <button id="zip-btn" onclick="zipSendLead()" style="background:#3347FF;color:#fff;border:none;border-radius:12px;padding:15px 32px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Unbounded',sans-serif;letter-spacing:.02em;white-space:nowrap;position:relative;overflow:hidden;transition:background .2s">
+                <span id="zip-btn-text">Распаковать →</span>
+                <span id="zip-btn-bar" style="display:none;position:absolute;left:0;top:0;height:100%;width:0;background:rgba(255,255,255,.15);transition:width 1.2s linear"></span>
+            </button>
+        </div>
     </div>
+    <div style="height:80px"></div>
 </section>
 
 <!-- CTA -->
@@ -1010,24 +1005,33 @@
     items.forEach(function(item){ observer.observe(item); });
 })();
 
-function sendLeadToTelegram() {
+function sendLeadToTelegram() { zipSendLead(); }
+function zipSendLead() {
     var name = document.getElementById('lead-name').value.trim();
     var tg = document.getElementById('lead-tg').value.trim();
     if (!name || !tg) {
         alert('Пожалуйста, заполните имя и Telegram');
         return;
     }
-    var btn = document.querySelector('.stack-lead-form button');
-    btn.textContent = 'Отправляю...';
+    var btn = document.getElementById('zip-btn');
+    var btnText = document.getElementById('zip-btn-text');
+    var btnBar = document.getElementById('zip-btn-bar');
+    if (!btn) return;
     btn.disabled = true;
-    var msg = 'Новый лид — Пакет маркетолога 2026%0A%0AИмя: ' + encodeURIComponent(name) + '%0ATelegram: ' + encodeURIComponent(tg);
+    btnText.textContent = 'Упаковываю...';
+    btnBar.style.display = 'block';
+    setTimeout(function(){ btnBar.style.width = '100%'; }, 50);
+    var msg = 'Новый лид — ZIP-пак маркетолога%0A%0AИмя: ' + encodeURIComponent(name) + '%0ATelegram: ' + encodeURIComponent(tg);
     var url = 'https://t.me/deniszy?text=' + msg;
-    window.open(url, '_blank');
-    btn.textContent = 'Отправлено ✓';
-    btn.style.background = '#4ADE80';
-    btn.style.color = '#1a1a1a';
-    document.getElementById('lead-name').value = '';
-    document.getElementById('lead-tg').value = '';
+    setTimeout(function(){
+        window.open(url, '_blank');
+        btnText.textContent = 'Отправлено ✓';
+        btn.style.background = '#4ADE80';
+        btn.style.color = '#1a1a1a';
+        btnBar.style.display = 'none';
+        document.getElementById('lead-name').value = '';
+        document.getElementById('lead-tg').value = '';
+    }, 1300);
 }
 </script>
 </body>
