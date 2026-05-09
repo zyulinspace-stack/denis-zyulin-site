@@ -3,149 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архив практик — Денис Зюлин</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>База практик — Архив приёмов активации</title>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:"Inter",sans-serif;background:#F5F0EB;color:#1a1a1a;overflow-x:hidden}
+        *{box-sizing:border-box;margin:0;padding:0}
+        :root{
+            --blue:#3347FF;
+            --bg:#F5F0EB;
+            --dark:#1a1a1a;
+            --mid:#555;
+            --light:#888;
+            --border:#e0dbd4;
+            --card:#fff;
+            --radius:12px;
+        }
+        body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden;min-height:100vh}
 
         /* NAV */
-        .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,240,235,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.04)}
-        .nav-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:13px;text-decoration:none;color:#1a1a1a}
-        .nav-links{display:flex;gap:24px;align-items:center}
-        .nav-links a{text-decoration:none;color:#888;font-size:12px;font-weight:500;transition:color .2s}
-        .nav-links a:hover{color:#1a1a1a}
-        .nav-btn{background:#1a1a1a!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-size:12px;font-weight:600;text-decoration:none}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,240,235,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06)}
+        .nav-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:13px;text-decoration:none;color:var(--dark)}
+        .nav-logo span{color:var(--blue)}
+        .nav-right{display:flex;align-items:center;gap:20px}
+        .nav-link{text-decoration:none;color:var(--light);font-size:12px;font-weight:500;transition:color .2s}
+        .nav-link:hover{color:var(--dark)}
+        .nav-btn{background:var(--dark);color:#fff;padding:8px 18px;border-radius:100px;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s;border:none;cursor:pointer;font-family:"Inter",sans-serif}
+        .nav-btn:hover{background:var(--blue)}
 
-        /* HERO */
-        .baza-hero{padding:140px 40px 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-        .baza-hero-badge{display:inline-flex;align-items:center;gap:8px;background:#3347FF;color:#fff;font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;padding:7px 16px;border-radius:100px;margin-bottom:24px}
-        .baza-hero h1{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,58px);line-height:.95;letter-spacing:-.03em;margin-bottom:24px}
-        .baza-hero h1 span{color:#3347FF}
-        .baza-hero-desc{font-size:15px;line-height:1.7;color:#555;margin-bottom:32px}
-        .baza-hero-checks{list-style:none;margin-bottom:36px;display:flex;flex-direction:column;gap:10px}
-        .baza-hero-checks li{font-size:14px;color:#444;display:flex;align-items:center;gap:10px}
-        .baza-hero-checks li::before{content:"✓";color:#3347FF;font-weight:700;font-size:14px}
-        .baza-hero-note{font-size:12px;color:#aaa;font-style:italic;margin-bottom:36px}
-        .baza-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-        .btn-primary{background:#3347FF;color:#fff;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;font-family:"Unbounded",sans-serif;transition:opacity .2s}
-        .btn-primary:hover{opacity:.85}
-        .btn-secondary{background:transparent;color:#1a1a1a;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid rgba(0,0,0,.2);transition:border-color .2s}
-        .btn-secondary:hover{border-color:#3347FF;color:#3347FF}
+        /* APP LAYOUT */
+        .app{display:flex;min-height:100vh;padding-top:60px}
 
-        /* HERO VISUAL */
-        .baza-hero-visual{background:#fff;border-radius:24px;padding:32px;box-shadow:0 8px 40px rgba(0,0,0,.06);position:relative;overflow:hidden}
-        .baza-hero-visual::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(51,71,255,.06);border-radius:50%}
-        .baza-visual-tag{font-family:"Unbounded",sans-serif;font-size:9px;font-weight:700;color:#3347FF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
-        .baza-visual-items{display:flex;flex-direction:column;gap:10px}
-        .baza-visual-item{background:#F5F0EB;border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:500}
-        .baza-visual-item .badge{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:#fff;background:#3347FF;padding:3px 8px;border-radius:100px}
-        .baza-visual-item .badge.green{background:#22c55e}
-        .baza-visual-item .badge.orange{background:#f97316}
-        .baza-visual-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-        .baza-visual-metric{background:#F5F0EB;border-radius:12px;padding:12px;text-align:center}
-        .baza-visual-metric-val{font-family:"Unbounded",sans-serif;font-weight:900;font-size:18px;color:#3347FF;display:block}
-        .baza-visual-metric-lbl{font-size:10px;color:#aaa;margin-top:2px}
+        /* SIDEBAR */
+        .sidebar{width:220px;flex-shrink:0;background:var(--bg);border-right:1px solid var(--border);padding:24px 0;position:fixed;top:60px;left:0;bottom:0;overflow-y:auto;z-index:100}
+        .sidebar-section{margin-bottom:8px}
+        .sidebar-label{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--light);padding:0 20px 8px;text-transform:uppercase}
+        .sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--mid);cursor:pointer;transition:all .15s;text-decoration:none;border-left:3px solid transparent;border:none;background:none;width:100%;text-align:left;font-family:"Inter",sans-serif}
+        .sidebar-item:hover{color:var(--dark);background:rgba(0,0,0,.04)}
+        .sidebar-item.active{color:var(--blue);background:rgba(51,71,255,.06);border-left:3px solid var(--blue);font-weight:600}
+        .sidebar-item svg{width:16px;height:16px;flex-shrink:0}
+        .sidebar-badge{margin-left:auto;background:var(--blue);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px}
+
+        /* MAIN CONTENT */
+        .main{flex:1;margin-left:220px;padding:32px;min-width:0}
+
+        /* PAGE HEADER */
+        .page-header{margin-bottom:28px}
+        .page-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:24px;letter-spacing:-.02em;color:var(--dark);margin-bottom:6px}
+        .page-subtitle{font-size:13px;color:var(--light)}
+
+        /* VIEWS */
+        .view{display:none}
+        .view.active{display:block}
+
+        /* CATALOG TOOLBAR */
+        .toolbar{display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+        .search-wrap{position:relative;flex:1;min-width:200px}
+        .search-input{width:100%;padding:10px 16px 10px 40px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:var(--card);color:var(--dark);font-family:"Inter",sans-serif;transition:border-color .2s;outline:none}
+        .search-input:focus{border-color:var(--blue)}
+        .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--light)}
+        .filter-btn{padding:9px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;background:var(--card);color:var(--mid);cursor:pointer;transition:all .15s;font-family:"Inter",sans-serif;white-space:nowrap}
+        .filter-btn:hover{border-color:var(--blue);color:var(--blue)}
+        .filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+        .show-hidden-btn{padding:8px 16px;border:1.5px dashed var(--border);border-radius:8px;font-size:12px;font-weight:600;background:transparent;color:var(--light);cursor:pointer;transition:all .15s;font-family:"Inter",sans-serif}
+        .show-hidden-btn:hover{border-color:var(--blue);color:var(--blue)}
+        .show-hidden-btn.active{border-color:var(--blue);color:var(--blue);background:rgba(51,71,255,.05)}
+
+        /* FILTER PANEL */
+        .filter-panel{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;display:none}
+        .filter-panel.open{display:block}
+        .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+        .filter-row-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--light);text-transform:uppercase;margin-bottom:8px;margin-top:12px}
+        .filter-chip{padding:6px 14px;border:1.5px solid var(--border);border-radius:100px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;background:var(--bg);color:var(--mid)}
+        .filter-chip:hover{border-color:var(--blue);color:var(--blue)}
+        .filter-chip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+        /* CATALOG GRID */
+        .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+
+        /* TECHNIQUE CARD */
+        .tech-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s;position:relative}
+        .tech-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 4px 20px rgba(51,71,255,.1)}
+        .tech-card.viewed{opacity:.7}
+        .tech-card.selected{border-color:var(--blue);background:rgba(51,71,255,.03)}
+        .tech-card-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+        .tech-num{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:var(--blue);min-width:32px}
+        .tech-title{font-size:14px;font-weight:600;color:var(--dark);line-height:1.4;flex:1}
+        .tech-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+        .tech-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;letter-spacing:.04em}
+        .badge-section{background:#f0f0f0;color:var(--mid)}
+        .badge-impact-hp{background:#d4f5d4;color:#1a7a1a}
+        .badge-impact-mp{background:#d4eaf5;color:#1a4a7a}
+        .badge-impact-lp{background:#e8f0ff;color:var(--blue)}
+        .badge-impact-n{background:#f5f5f5;color:var(--light)}
+        .badge-impact-ln{background:#fff3d4;color:#7a5a1a}
+        .badge-impact-mn{background:#fde8d4;color:#7a3a1a}
+        .badge-impact-hn{background:#fdd4d4;color:#7a1a1a}
+        .tech-desc{font-size:12px;color:var(--light);line-height:1.5;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+        .tech-footer{display:flex;align-items:center;justify-content:space-between}
+        .tech-status{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px}
+        .status-idea{background:#f0f0ff;color:var(--blue)}
+        .status-wip{background:#fff3d4;color:#7a5a1a}
+        .status-works{background:#d4f5d4;color:#1a7a1a}
+        .status-nope{background:#fdd4d4;color:#7a1a1a}
+        .status-none{background:#f5f5f5;color:var(--light)}
+        .tech-actions{display:flex;gap:6px}
+        .tech-action-btn{width:28px;height:28px;border:none;background:transparent;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--light);transition:all .15s;font-size:14px}
+        .tech-action-btn:hover{background:rgba(0,0,0,.06);color:var(--dark)}
+        .viewed-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;position:absolute;top:12px;right:12px;opacity:0;transition:opacity .3s}
+        .tech-card.viewed .viewed-dot{opacity:1}
+
+        /* SPLIT VIEW */
+        .split-container{display:flex;gap:20px}
+        .split-list{flex:1;min-width:0}
+        .split-detail{width:380px;flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto;display:none}
+        .split-detail.open{display:block;animation:slideIn .2s ease}
+        @keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+        .detail-close{float:right;background:none;border:none;cursor:pointer;font-size:20px;color:var(--light);line-height:1;padding:0}
+        .detail-num{font-family:"Unbounded",sans-serif;font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px}
+        .detail-title{font-family:"Unbounded",sans-serif;font-size:18px;font-weight:900;line-height:1.2;letter-spacing:-.02em;margin-bottom:16px}
+        .detail-section{margin-bottom:20px}
+        .detail-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:8px}
+        .detail-desc{font-size:13px;line-height:1.7;color:var(--mid)}
+        .detail-metrics{display:flex;flex-wrap:wrap;gap:8px}
+        .detail-metric{padding:5px 12px;background:#f0f0ff;color:var(--blue);border-radius:100px;font-size:11px;font-weight:600}
+        .detail-status-select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:"Inter",sans-serif;background:var(--bg);color:var(--dark);cursor:pointer;outline:none;transition:border-color .2s}
+        .detail-status-select:focus{border-color:var(--blue)}
+        .detail-notes{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:"Inter",sans-serif;background:var(--bg);color:var(--dark);resize:vertical;min-height:80px;outline:none;transition:border-color .2s}
+        .detail-notes:focus{border-color:var(--blue)}
+        .detail-save-btn{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:"Unbounded",sans-serif;cursor:pointer;transition:opacity .2s;margin-top:8px}
+        .detail-save-btn:hover{opacity:.85}
+        .complexity-row{display:flex;gap:5px;align-items:center}
+        .complexity-dot{width:10px;height:10px;border-radius:50%;background:var(--border)}
+        .complexity-dot.filled{background:var(--blue)}
+
+        /* METRICS VIEW */
+        .metrics-tabs{display:flex;gap:0;margin-bottom:24px;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content}
+        .metrics-tab{padding:10px 24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;background:var(--card);color:var(--mid);font-family:"Inter",sans-serif}
+        .metrics-tab.active{background:var(--blue);color:#fff}
+        .metrics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+        .metric-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px}
+        .metric-card-num{font-family:"Unbounded",sans-serif;font-size:28px;font-weight:900;color:var(--blue);margin-bottom:4px}
+        .metric-card-label{font-size:13px;color:var(--mid);margin-bottom:8px;font-weight:600}
+        .metric-card-desc{font-size:12px;color:var(--light);line-height:1.5;margin-bottom:12px}
+        .metric-input{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-weight:600;font-family:"Unbounded",sans-serif;color:var(--dark);background:var(--bg);outline:none;transition:border-color .2s}
+        .metric-input:focus{border-color:var(--blue)}
+
+        /* DIAGNOSTICS */
+        .diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+        @media(max-width:768px){.diag-grid{grid-template-columns:1fr}}
+        .diag-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px}
+        .diag-card-title{font-family:"Unbounded",sans-serif;font-size:14px;font-weight:700;margin-bottom:16px;color:var(--dark)}
+        .diag-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+        .diag-label{font-size:13px;color:var(--mid)}
+        .diag-input{width:110px;padding:7px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;font-family:"Inter",sans-serif;text-align:right;outline:none;transition:border-color .2s}
+        .diag-input:focus{border-color:var(--blue)}
+        .diag-result{background:rgba(51,71,255,.06);border:1.5px solid rgba(51,71,255,.2);border-radius:var(--radius);padding:20px;margin-top:0}
+        .diag-result-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+        .diag-result-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+        .diag-result-label{color:var(--mid)}
+        .diag-result-val{font-weight:700;color:var(--dark)}
+
+        /* CHECKLIST */
+        .checklist-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+        .checklist-tab{padding:8px 18px;border:1.5px solid var(--border);border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;background:var(--card);color:var(--mid);transition:all .15s;border:1.5px solid var(--border)}
+        .checklist-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+        .checklist-list{display:flex;flex-direction:column;gap:12px}
+        .checklist-item{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:all .15s}
+        .checklist-item:hover{border-color:var(--blue)}
+        .checklist-item.checked{background:rgba(51,71,255,.04);border-color:rgba(51,71,255,.3)}
+        .checklist-checkbox{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+        .checklist-item.checked .checklist-checkbox{background:var(--blue);border-color:var(--blue)}
+        .check-icon{color:#fff;font-size:12px;display:none}
+        .checklist-item.checked .check-icon{display:block}
+        .checklist-text{font-size:13px;color:var(--dark);line-height:1.5}
+        .checklist-item.checked .checklist-text{color:var(--light);text-decoration:line-through}
+        .progress-wrap{margin-bottom:20px}
+        .progress-label{font-size:12px;color:var(--light);margin-bottom:6px}
+        .progress-bar-bg{background:var(--border);border-radius:100px;height:6px;overflow:hidden}
+        .progress-bar-fill{height:100%;background:var(--blue);border-radius:100px;transition:width .3s ease}
+
+        /* STATUS MATRIX */
+        .status-matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+        @media(max-width:900px){.status-matrix{grid-template-columns:repeat(2,1fr)}}
+        .status-col{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px}
+        .status-col-header{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;padding-bottom:10px;border-bottom:1.5px solid var(--border)}
+        .status-col-header.idea{color:var(--blue)}
+        .status-col-header.wip{color:#7a5a1a}
+        .status-col-header.works{color:#1a7a1a}
+        .status-col-header.nope{color:#7a1a1a}
+        .status-mini-card{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:12px;font-weight:500;color:var(--dark);cursor:pointer;transition:all .15s;border:1.5px solid transparent}
+        .status-mini-card:hover{border-color:var(--blue)}
+        .status-empty{font-size:12px;color:var(--light);text-align:center;padding:12px 0}
+
+        /* HISTORY */
+        .history-list{display:flex;flex-direction:column;gap:10px}
+        .history-item{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .15s}
+        .history-item:hover{border-color:var(--blue)}
+        .history-time{font-size:11px;color:var(--light);min-width:90px}
+        .history-title{font-size:13px;font-weight:500;color:var(--dark);flex:1}
+        .history-section{font-size:11px;color:var(--light)}
+
+        /* EMPTY STATE */
+        .empty-state{text-align:center;padding:60px 20px;color:var(--light)}
+        .empty-icon{font-size:40px;margin-bottom:12px;opacity:.4}
+        .empty-title{font-family:"Unbounded",sans-serif;font-size:15px;font-weight:700;color:var(--mid);margin-bottom:8px}
+        .empty-text{font-size:13px;line-height:1.6}
+
+        /* TOAST */
+        .toast{position:fixed;bottom:24px;right:24px;background:var(--dark);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:500;z-index:1000;transform:translateY(100px);opacity:0;transition:all .3s ease;pointer-events:none}
+        .toast.show{transform:translateY(0);opacity:1}
 
         /* STATS BAR */
-        .baza-stats{background:#1a1a1a;padding:40px}
-        .baza-stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-        .baza-stat{text-align:center}
-        .baza-stat-val{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,3.5vw,44px);color:#3347FF;display:block;line-height:1}
-        .baza-stat-lbl{font-size:11px;color:#888;margin-top:6px;display:block;line-height:1.4}
+        .stats-bar{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+        .stat-chip{background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:8px}
+        .stat-chip-val{font-family:"Unbounded",sans-serif;font-size:16px;font-weight:900;color:var(--blue)}
+        .stat-chip-label{font-size:12px;color:var(--light)}
 
-        /* SECTIONS */
-        .section{max-width:1200px;margin:0 auto;padding:80px 40px}
-        .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#aaa;margin-bottom:12px}
-        .section-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);line-height:.95;letter-spacing:-.03em;margin-bottom:16px}
-        .section-title span{color:#3347FF}
-        .section-subtitle{font-size:15px;color:#666;line-height:1.6;margin-bottom:48px;max-width:600px}
+        /* SECTION BADGE */
+        .section-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(51,71,255,.1);color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.1em;padding:5px 12px;border-radius:100px;text-transform:uppercase;margin-bottom:8px}
 
-        /* STRUCTURE GRID */
-        .structure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-        .structure-card{background:#fff;border-radius:20px;padding:32px;border:1px solid transparent;transition:border-color .2s,transform .2s}
-        .structure-card:hover{border-color:#3347FF;transform:translateY(-3px)}
-        .structure-num{font-family:"Unbounded",sans-serif;font-size:11px;font-weight:700;color:#3347FF;margin-bottom:14px;letter-spacing:.1em}
-        .structure-card h3{font-size:17px;font-weight:700;margin-bottom:10px}
-        .structure-card p{font-size:13px;color:#777;line-height:1.6}
-        .structure-card.wide{grid-column:span 2}
-
-        /* BENEFITS GRID */
-        .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-        .benefit-card{background:#fff;border-radius:20px;padding:28px}
-        .benefit-icon{width:40px;height:40px;background:rgba(51,71,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-        .benefit-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
-        .benefit-card p{font-size:13px;color:#777;line-height:1.6}
-
-        /* FEATURES */
-        .features-list{display:flex;flex-direction:column;gap:0}
-        .feature-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 0;border-bottom:1px solid rgba(0,0,0,.06)}
-        .feature-row:last-child{border-bottom:none}
-        .feature-row.reverse{direction:rtl}
-        .feature-row.reverse > *{direction:ltr}
-        .feature-num{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.12em;margin-bottom:12px}
-        .feature-row h3{font-size:22px;font-weight:700;margin-bottom:12px;line-height:1.2}
-        .feature-row p{font-size:14px;color:#666;line-height:1.7;margin-bottom:16px}
-        .feature-row ul{list-style:none;display:flex;flex-direction:column;gap:8px}
-        .feature-row ul li{font-size:13px;color:#555;display:flex;align-items:flex-start;gap:8px}
-        .feature-row ul li::before{content:"•";color:#3347FF;font-weight:700;flex-shrink:0;margin-top:1px}
-        .feature-visual{background:#fff;border-radius:20px;padding:28px;box-shadow:0 4px 24px rgba(0,0,0,.05)}
-
-        /* FEATURE VISUAL MOCKUPS */
-        .mockup-list{display:flex;flex-direction:column;gap:8px}
-        .mockup-item{background:#F5F0EB;border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
-        .mockup-item .pct{font-family:"Unbounded",sans-serif;font-weight:700;font-size:13px;color:#3347FF}
-        .mockup-item .pct.green{color:#22c55e}
-        .mockup-item .pct.orange{color:#f97316}
-        .mockup-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-        .mockup-tag{font-size:11px;padding:4px 10px;border-radius:100px;background:#F5F0EB;color:#555}
-        .mockup-tag.active{background:#3347FF;color:#fff}
-        .mockup-statuses{display:flex;flex-direction:column;gap:8px}
-        .mockup-status{background:#F5F0EB;border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
-        .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-        .status-dot.blue{background:#3347FF}
-        .status-dot.green{background:#22c55e}
-        .status-dot.orange{background:#f97316}
-        .status-dot.gray{background:#ccc}
-        .mockup-search{background:#F5F0EB;border-radius:10px;padding:10px 14px;font-size:13px;color:#aaa;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-        .mockup-split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-        .mockup-split-left{display:flex;flex-direction:column;gap:6px}
-        .mockup-split-right{background:#F5F0EB;border-radius:10px;padding:12px;font-size:12px;color:#666;line-height:1.5}
-
-        /* CTA */
-        .baza-cta{background:#1a1a1a;padding:80px 40px;text-align:center}
-        .baza-cta-inner{max-width:600px;margin:0 auto}
-        .baza-cta h2{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);color:#fff;line-height:1.05;margin-bottom:16px;letter-spacing:-.02em}
-        .baza-cta h2 span{color:#3347FF}
-        .baza-cta p{font-size:15px;color:#888;margin-bottom:36px;line-height:1.6}
-        .baza-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-        .btn-primary-dark{background:#3347FF;color:#fff;padding:16px 36px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;font-family:"Unbounded",sans-serif;transition:opacity .2s}
-        .btn-primary-dark:hover{opacity:.85}
-
-        /* FOOTER */
-        .footer{max-width:1200px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(0,0,0,.08)}
-        .footer-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:13px}
-        .footer-links{display:flex;gap:24px}
-        .footer-links a{font-size:12px;color:#888;text-decoration:none;transition:color .2s}
-        .footer-links a:hover{color:#1a1a1a}
+        /* ADD MODAL */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+        .modal-overlay.open{display:flex}
+        .modal{background:var(--card);border-radius:16px;padding:32px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;animation:modalIn .2s ease}
+        @keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+        .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+        .modal-title{font-family:"Unbounded",sans-serif;font-size:18px;font-weight:900;letter-spacing:-.02em}
+        .modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--light);line-height:1}
+        .form-group{margin-bottom:16px}
+        .form-label{font-size:12px;font-weight:600;color:var(--mid);margin-bottom:6px;display:block;letter-spacing:.04em;text-transform:uppercase}
+        .form-input,.form-select,.form-textarea{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:"Inter",sans-serif;color:var(--dark);background:var(--bg);outline:none;transition:border-color .2s}
+        .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue)}
+        .form-textarea{resize:vertical;min-height:80px}
+        .form-submit{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;font-family:"Unbounded",sans-serif;cursor:pointer;transition:opacity .2s;margin-top:8px;letter-spacing:.02em}
+        .form-submit:hover{opacity:.85}
 
         /* RESPONSIVE */
         @media(max-width:900px){
-            .baza-hero{grid-template-columns:1fr;gap:40px;padding:120px 24px 60px}
-            .structure-grid{grid-template-columns:1fr}
-            .structure-card.wide{grid-column:span 1}
-            .benefits-grid{grid-template-columns:1fr 1fr}
-            .feature-row{grid-template-columns:1fr;gap:32px}
-            .feature-row.reverse{direction:ltr}
-            .baza-stats-inner{grid-template-columns:repeat(2,1fr)}
-            .section{padding:60px 24px}
-            .nav{padding:16px 24px}
+            .sidebar{width:56px;padding:12px 0}
+            .sidebar-label,.sidebar-item span,.sidebar-badge{display:none}
+            .sidebar-item{padding:12px;justify-content:center}
+            .main{margin-left:56px;padding:20px}
+            .split-detail{width:300px}
         }
-        @media(max-width:600px){
-            .benefits-grid{grid-template-columns:1fr}
-            .baza-stats-inner{grid-template-columns:repeat(2,1fr)}
-            .baza-cta-btns{flex-direction:column;align-items:center}
+        @media(max-width:640px){
+            .sidebar{display:none}
+            .main{margin-left:0;padding:16px}
+            .catalog-grid{grid-template-columns:1fr}
+            .split-container{flex-direction:column}
+            .split-detail{width:100%;position:static}
         }
     </style>
 </head>
@@ -153,434 +258,863 @@
 
 <!-- NAV -->
 <nav class="nav">
-    <a href="/" class="nav-logo">Денис Зюлин</a>
-    <div class="nav-links">
-        <a href="/#cases">Кейсы</a>
-        <a href="/#path">Мой путь</a>
-        <a href="/#formats">Форматы</a>
-        <a href="/#contacts" class="nav-btn">Обсудить задачу</a>
+    <a href="/" class="nav-logo">Денис Зюлин <span>/ База</span></a>
+    <div class="nav-right">
+        <a href="/" class="nav-link">← На главную</a>
+        <button class="nav-btn" onclick="openAddModal()">+ Добавить приём</button>
     </div>
 </nav>
 
-<!-- HERO -->
-<div class="baza-hero">
-    <div>
-        <div class="baza-hero-badge">База знаний для практиков</div>
-        <h1>Архив практик<br>для активации<br>и монетизации<br><span>базы подписчиков</span></h1>
-        <p class="baza-hero-desc">Более 200 проверенных приёмов, чек-листов и системных решений, которые помогают стабильно набирать людей на вебинары, марафоны, акции и конференции — и превращать базу в деньги.</p>
-        <ul class="baza-hero-checks">
-            <li>Систематизируйте свои практики запусков</li>
-            <li>Мгновенно находите нужное решение</li>
-            <li>Проводите ревизии проекта за 1–2 минуты</li>
-        </ul>
-        <p class="baza-hero-note">«Арсенал постоянно пополняется новыми рабочими механиками»</p>
-        <div class="baza-hero-btns">
-            <a href="https://arppu.ru" target="_blank" class="btn-primary">Открыть архив →</a>
-            <a href="#structure" class="btn-secondary">Узнать больше</a>
+<!-- APP -->
+<div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Каталог</div>
+            <button class="sidebar-item active" id="nav-catalog" onclick="switchView('catalog',this)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+                <span>Все приёмы</span>
+                <span class="sidebar-badge" id="badge-total">100</span>
+            </button>
+            <button class="sidebar-item" id="nav-statuses" onclick="switchView('statuses',this)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                <span>Статусы</span>
+            </button>
+            <button class="sidebar-item" id="nav-history" onclick="switchView('history',this)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8z"/><path d="M8 5v3l2 1.5"/></svg>
+                <span>История</span>
+            </button>
         </div>
-    </div>
-    <div class="baza-hero-visual">
-        <div class="baza-visual-tag">Каталог приёмов активации</div>
-        <div class="baza-visual-items">
-            <div class="baza-visual-item">
-                <span>Email-цепочка "До/После"</span>
-                <span class="badge green">+25%</span>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Анализ</div>
+            <button class="sidebar-item" id="nav-metrics" onclick="switchView('metrics',this)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,12 5,8 8,10 11,5 14,7"/></svg>
+                <span>Метрики</span>
+            </button>
+            <button class="sidebar-item" id="nav-diagnostics" onclick="switchView('diagnostics',this)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h2l1-2 2 4 1-2h2"/></svg>
+                <span>Диагностика</span>
+            </button>
+            <button class="sidebar-item" id="nav-checklists" onclick="switchView('checklists',this)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+                <span>Чеклисты</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- CATALOG VIEW -->
+        <div class="view active" id="view-catalog">
+            <div class="page-header">
+                <div class="section-badge">200+ приёмов</div>
+                <div class="page-title">Каталог приёмов активации</div>
+                <div class="page-subtitle">Библиотека проверенных методов для активации базы подписчиков</div>
             </div>
-            <div class="baza-visual-item">
-                <span>5-дневный челлендж</span>
-                <span class="badge">+35%</span>
+            <div class="stats-bar" id="stats-bar"></div>
+            <div class="toolbar">
+                <div class="search-wrap">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5"/><path d="M11 11l3 3"/></svg>
+                    <input class="search-input" type="text" placeholder="Поиск по приёмам..." id="searchInput" oninput="filterCatalog()">
+                </div>
+                <button class="filter-btn" id="filterToggleBtn" onclick="toggleFilterPanel()">Фильтры ▾</button>
+                <button class="filter-btn" id="splitToggleBtn" onclick="toggleSplit()">Split-view</button>
+                <button class="show-hidden-btn" id="showHiddenBtn" onclick="toggleShowHidden()">Показать скрытые</button>
             </div>
-            <div class="baza-visual-item">
-                <span>Мини-урок за email</span>
-                <span class="badge orange">+18%</span>
+            <div class="filter-panel" id="filterPanel">
+                <div class="filter-row-label">Раздел</div>
+                <div class="filter-row" id="sectionFilters"></div>
+                <div class="filter-row-label">Влияние</div>
+                <div class="filter-row" id="impactFilters"></div>
+                <div class="filter-row-label">Статус</div>
+                <div class="filter-row" id="statusFilters"></div>
+                <div style="margin-top:16px">
+                    <button class="filter-btn" onclick="clearFilters()">Сбросить все фильтры</button>
+                </div>
             </div>
-            <div class="baza-visual-item">
-                <span>Вебинар-знакомство</span>
-                <span class="badge green">+22%</span>
+            <div class="split-container" id="splitContainer">
+                <div class="split-list" id="splitList">
+                    <div class="catalog-grid" id="catalogGrid"></div>
+                </div>
+                <div class="split-detail" id="splitDetail"></div>
             </div>
         </div>
-        <div class="baza-visual-metrics">
-            <div class="baza-visual-metric">
-                <span class="baza-visual-metric-val">1 247</span>
-                <span class="baza-visual-metric-lbl">Новых подписчиков</span>
+
+        <!-- STATUSES VIEW -->
+        <div class="view" id="view-statuses">
+            <div class="page-header">
+                <div class="section-badge">Внедрение</div>
+                <div class="page-title">Матрица статусов</div>
+                <div class="page-subtitle">Контролируйте прогресс внедрения приёмов</div>
             </div>
-            <div class="baza-visual-metric">
-                <span class="baza-visual-metric-val">42%</span>
-                <span class="baza-visual-metric-lbl">Открываемость</span>
-            </div>
-            <div class="baza-visual-metric">
-                <span class="baza-visual-metric-val">89</span>
-                <span class="baza-visual-metric-lbl">Клиентов</span>
-            </div>
+            <div class="status-matrix" id="statusMatrix"></div>
         </div>
+
+        <!-- HISTORY VIEW -->
+        <div class="view" id="view-history">
+            <div class="page-header">
+                <div class="section-badge">Просмотры</div>
+                <div class="page-title">История просмотров</div>
+                <div class="page-subtitle">Приёмы, которые вы уже изучили</div>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+
+        <!-- METRICS VIEW -->
+        <div class="view" id="view-metrics">
+            <div class="page-header">
+                <div class="section-badge">KPI</div>
+                <div class="page-title">Метрики базы</div>
+                <div class="page-subtitle">Отслеживайте ключевые показатели вашей базы подписчиков</div>
+            </div>
+            <div class="metrics-tabs">
+                <button class="metrics-tab active" id="tab-quant" onclick="switchMetricsTab('quant',this)">Количественные</button>
+                <button class="metrics-tab" id="tab-qual" onclick="switchMetricsTab('qual',this)">Качественные</button>
+            </div>
+            <div class="metrics-grid" id="metricsGrid"></div>
+        </div>
+
+        <!-- DIAGNOSTICS VIEW -->
+        <div class="view" id="view-diagnostics">
+            <div class="page-header">
+                <div class="section-badge">Калькулятор</div>
+                <div class="page-title">Диагностика базы</div>
+                <div class="page-subtitle">Введите текущие показатели — получите прогноз роста</div>
+            </div>
+            <div class="diag-grid" id="diagGrid"></div>
+        </div>
+
+        <!-- CHECKLISTS VIEW -->
+        <div class="view" id="view-checklists">
+            <div class="page-header">
+                <div class="section-badge">Чеклисты</div>
+                <div class="page-title">Чеклисты запуска</div>
+                <div class="page-subtitle">Точки кристаллизации внимания и критерии работы с базой</div>
+            </div>
+            <div class="checklist-tabs" id="checklistTabs"></div>
+            <div id="checklistProgress"></div>
+            <div class="checklist-list" id="checklistItems"></div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Добавить приём</div>
+            <button class="modal-close" onclick="closeAddModal()">×</button>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Название</label>
+            <input class="form-input" type="text" id="newName" placeholder="Например: Сторис с отзывами">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Раздел</label>
+            <select class="form-select" id="newSection">
+                <option>Email-маркетинг</option>
+                <option>Telegram</option>
+                <option>Прокачка запуска</option>
+                <option>Продающие события</option>
+                <option>Контент</option>
+                <option>Геймификация</option>
+                <option>Мой приём</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea class="form-textarea" id="newDesc" placeholder="Опишите приём..."></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Влияние на метрики</label>
+            <select class="form-select" id="newImpact">
+                <option value="hp">Высокое положительное</option>
+                <option value="mp">Среднее положительное</option>
+                <option value="lp">Низкое положительное</option>
+                <option value="n">Нейтральное</option>
+                <option value="ln">Низкое отрицательное</option>
+                <option value="mn">Среднее отрицательное</option>
+                <option value="hn">Высокое отрицательное</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Сложность</label>
+            <select class="form-select" id="newComplexity">
+                <option value="low">Низкая</option>
+                <option value="mid">Средняя</option>
+                <option value="high">Высокая</option>
+            </select>
+        </div>
+        <button class="form-submit" onclick="saveNewTech()">Сохранить приём</button>
     </div>
 </div>
 
-<!-- STATS BAR -->
-<div class="baza-stats">
-    <div class="baza-stats-inner">
-        <div class="baza-stat">
-            <span class="baza-stat-val">12+</span>
-            <span class="baza-stat-lbl">Онлайн-школ уже используют</span>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const BASE_TECHNIQUES = [
+  {id:1,num:"01",title:"Email-цепочка «До/После»",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Серия писем, показывающая трансформацию клиентов. Высокая конверсия за счёт социального доказательства.",metrics:["open_rate","conversions","revenue"],time:"3-5 дней"},
+  {id:2,num:"02",title:"Email-цепочка приветствия",section:"Email-маркетинг",impact:"hp",complexity:"low",desc:"Автоматическая серия из 5-7 писем для новых подписчиков. Формирует привычку читать рассылку.",metrics:["open_rate","new_subs","active_subs"],time:"1-2 дня"},
+  {id:3,num:"03",title:"Мини-урок за email",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Лид-магнит: полезный контент в обмен на подписку. Быстро наращивает базу.",metrics:["new_subs","open_rate"],time:"1 день"},
+  {id:4,num:"04",title:"Email с кейсом клиента",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Письмо с историей успеха реального клиента. Повышает доверие и конверсию.",metrics:["open_rate","conversions"],time:"1 день"},
+  {id:5,num:"05",title:"Реактивационная цепочка",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Серия писем для «спящих» подписчиков. Возвращает до 15-20% неактивных.",metrics:["active_subs","open_rate","revenue"],time:"2-3 дня"},
+  {id:6,num:"06",title:"Письмо-опрос",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Короткий опрос для сегментации базы. Повышает вовлечённость.",metrics:["open_rate","click_rate","active_subs"],time:"1 день"},
+  {id:7,num:"07",title:"Дайджест лучшего контента",section:"Email-маркетинг",impact:"lp",complexity:"low",desc:"Еженедельная подборка лучших материалов. Поддерживает регулярный контакт с базой.",metrics:["open_rate","click_rate"],time:"2-3 часа"},
+  {id:8,num:"08",title:"Письмо «Только для вас»",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Персонализированное предложение с ощущением эксклюзивности. Повышает конверсию.",metrics:["conversions","revenue"],time:"1 день"},
+  {id:9,num:"09",title:"Серия «7 дней до запуска»",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Прогревающая цепочка перед запуском. Создаёт ажиотаж и повышает регистрации.",metrics:["registrations","conversions","revenue"],time:"1 неделя"},
+  {id:10,num:"10",title:"Email-марафон",section:"Email-маркетинг",impact:"hp",complexity:"high",desc:"5-7 дневный марафон с ежедневными письмами. Максимальная вовлечённость базы.",metrics:["open_rate","active_subs","conversions"],time:"1-2 недели"},
+  {id:11,num:"11",title:"Telegram-бот с уроками",section:"Telegram",impact:"hp",complexity:"high",desc:"Автоматическая доставка контента через бота. Open Rate 80-90% против 20-30% у email.",metrics:["open_rate","active_subs","conversions"],time:"1-2 недели"},
+  {id:12,num:"12",title:"Закрытый Telegram-канал",section:"Telegram",impact:"mp",complexity:"low",desc:"Эксклюзивный канал для подписчиков или клиентов. Создаёт ощущение принадлежности.",metrics:["active_subs","retention"],time:"1 день"},
+  {id:13,num:"13",title:"Telegram-квиз",section:"Telegram",impact:"mp",complexity:"mid",desc:"Интерактивный квиз в боте для сегментации и вовлечения.",metrics:["active_subs","click_rate"],time:"3-5 дней"},
+  {id:14,num:"14",title:"Telegram Stories",section:"Telegram",impact:"lp",complexity:"low",desc:"Регулярные истории в Telegram-канале. Поддерживает активность и охват.",metrics:["open_rate","active_subs"],time:"1-2 часа"},
+  {id:15,num:"15",title:"Розыгрыш в Telegram",section:"Telegram",impact:"mp",complexity:"low",desc:"Конкурс с призами для подписчиков. Быстро наращивает базу и активность.",metrics:["new_subs","active_subs"],time:"2-3 дня"},
+  {id:16,num:"16",title:"5-дневный челлендж",section:"Прокачка запуска",impact:"hp",complexity:"high",desc:"Интенсивный 5-дневный марафон с заданиями. Максимальное вовлечение перед запуском.",metrics:["registrations","active_subs","conversions"],time:"1-2 недели"},
+  {id:17,num:"17",title:"Бесплатный мини-курс",section:"Прокачка запуска",impact:"hp",complexity:"high",desc:"3-5 уроков бесплатно перед платным курсом. Прогревает аудиторию и снимает возражения.",metrics:["registrations","conversions","revenue"],time:"2-3 недели"},
+  {id:18,num:"18",title:"PDF-гайд как лид-магнит",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Полезный PDF в обмен на подписку. Быстрый способ пополнить базу.",metrics:["new_subs"],time:"1-2 дня"},
+  {id:19,num:"19",title:"Вебинар-знакомство",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"Бесплатный вводный вебинар для новой аудитории. Конвертирует холодных в тёплых.",metrics:["registrations","conversions","revenue"],time:"1 неделя"},
+  {id:20,num:"20",title:"Серия прямых эфиров",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"3-5 прямых эфиров перед запуском. Создаёт доверие и ажиотаж.",metrics:["active_subs","registrations","conversions"],time:"1-2 недели"},
+  {id:21,num:"21",title:"Закрытый клуб ранних птиц",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Специальные условия для тех, кто записался первым. Стимулирует быстрые решения.",metrics:["conversions","revenue"],time:"1 день"},
+  {id:22,num:"22",title:"Счётчик обратного отсчёта",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Таймер до окончания акции или набора. Создаёт срочность.",metrics:["conversions","revenue"],time:"1-2 часа"},
+  {id:23,num:"23",title:"Список ожидания",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Предварительная запись до открытия продаж. Создаёт ажиотаж и собирает тёплую базу.",metrics:["new_subs","registrations","conversions"],time:"1 день"},
+  {id:24,num:"24",title:"Реферальная программа",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"Система вознаграждений за приглашение друзей. Органический рост базы.",metrics:["new_subs","revenue"],time:"1-2 недели"},
+  {id:25,num:"25",title:"Кейс-стади в контенте",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Подробный разбор успешного кейса клиента. Снимает возражения и повышает доверие.",metrics:["conversions","open_rate"],time:"1-2 дня"},
+  {id:26,num:"26",title:"Продающий вебинар",section:"Продающие события",impact:"hp",complexity:"high",desc:"Классический формат: польза + продажа. Конверсия 5-15% при правильной структуре.",metrics:["registrations","conversions","revenue"],time:"1-2 недели"},
+  {id:27,num:"27",title:"Автовебинар",section:"Продающие события",impact:"hp",complexity:"high",desc:"Записанный вебинар с имитацией живого. Работает 24/7 без участия эксперта.",metrics:["registrations","conversions","revenue"],time:"2-4 недели"},
+  {id:28,num:"28",title:"Марафон с продажей",section:"Продающие события",impact:"hp",complexity:"high",desc:"3-7 дневный марафон с продажей в конце. Высокая вовлечённость и конверсия.",metrics:["registrations","active_subs","conversions","revenue"],time:"2-3 недели"},
+  {id:29,num:"29",title:"Акция «Чёрная пятница»",section:"Продающие события",impact:"hp",complexity:"low",desc:"Сезонная акция с ограниченным предложением. Быстрый всплеск продаж.",metrics:["conversions","revenue"],time:"3-5 дней"},
+  {id:30,num:"30",title:"Флэш-распродажа 24 часа",section:"Продающие события",impact:"mp",complexity:"low",desc:"Скидка на 24 часа. Создаёт срочность и активирует спящих клиентов.",metrics:["conversions","revenue","repeat_clients"],time:"1 день"},
+  {id:31,num:"31",title:"Мастер-класс с продажей",section:"Продающие события",impact:"hp",complexity:"mid",desc:"Интенсивный 2-3 часовой МК с предложением в конце.",metrics:["registrations","conversions","revenue"],time:"1 неделя"},
+  {id:32,num:"32",title:"Конференция онлайн",section:"Продающие события",impact:"hp",complexity:"high",desc:"Многодневная конференция с несколькими спикерами. Максимальный охват и авторитет.",metrics:["new_subs","registrations","conversions"],time:"1-2 месяца"},
+  {id:33,num:"33",title:"Интенсив за символическую цену",section:"Продающие события",impact:"hp",complexity:"mid",desc:"Платный интенсив по низкой цене. Отсеивает незаинтересованных, повышает доходимость.",metrics:["registrations","conversions","revenue"],time:"1 неделя"},
+  {id:34,num:"34",title:"Серия обучающих постов",section:"Контент",impact:"mp",complexity:"low",desc:"Регулярные обучающие посты в соцсетях. Строит экспертность и вовлечённость.",metrics:["active_subs","open_rate","click_rate"],time:"Постоянно"},
+  {id:35,num:"35",title:"Подкаст-серия",section:"Контент",impact:"mp",complexity:"mid",desc:"Серия аудио-эпизодов по теме. Формирует лояльную аудиторию.",metrics:["active_subs","new_subs"],time:"Постоянно"},
+  {id:36,num:"36",title:"YouTube-воронка",section:"Контент",impact:"hp",complexity:"high",desc:"Серия видео с призывом подписаться на рассылку. Органический трафик в базу.",metrics:["new_subs","open_rate"],time:"1-2 месяца"},
+  {id:37,num:"37",title:"Квиз для сегментации",section:"Контент",impact:"mp",complexity:"mid",desc:"Интерактивный тест для определения типа/уровня подписчика. Персонализирует коммуникацию.",metrics:["active_subs","conversions"],time:"3-5 дней"},
+  {id:38,num:"38",title:"Экспертный разбор кейса",section:"Контент",impact:"mp",complexity:"low",desc:"Детальный публичный разбор кейса. Демонстрирует экспертизу.",metrics:["new_subs","conversions"],time:"1-2 дня"},
+  {id:39,num:"39",title:"Сторис с отзывами",section:"Контент",impact:"mp",complexity:"low",desc:"Регулярные истории с отзывами клиентов. Социальное доказательство.",metrics:["conversions","active_subs"],time:"1-2 часа"},
+  {id:40,num:"40",title:"Закулисье проекта",section:"Контент",impact:"lp",complexity:"low",desc:"Контент о процессе работы. Формирует доверие и человечность бренда.",metrics:["active_subs","open_rate"],time:"1-2 часа"},
+  {id:41,num:"41",title:"Геймификация челленджа",section:"Геймификация",impact:"hp",complexity:"high",desc:"Система баллов, уровней и наград в рамках челленджа. Резко повышает доходимость.",metrics:["active_subs","registrations","conversions"],time:"2-3 недели"},
+  {id:42,num:"42",title:"Таблица лидеров",section:"Геймификация",impact:"mp",complexity:"mid",desc:"Рейтинг участников по активности. Стимулирует соревновательность.",metrics:["active_subs","retention"],time:"1 неделя"},
+  {id:43,num:"43",title:"Бейджи за достижения",section:"Геймификация",impact:"mp",complexity:"mid",desc:"Система наград за выполнение заданий. Повышает вовлечённость.",metrics:["active_subs","retention"],time:"1-2 недели"},
+  {id:44,num:"44",title:"Прогресс-бар обучения",section:"Геймификация",impact:"lp",complexity:"low",desc:"Визуальный прогресс прохождения курса. Снижает отток.",metrics:["retention","active_subs"],time:"1-2 дня"},
+  {id:45,num:"45",title:"Ежедневные задания",section:"Геймификация",impact:"mp",complexity:"mid",desc:"Небольшие ежедневные задания с наградой. Формирует привычку.",metrics:["active_subs","retention","open_rate"],time:"1 неделя"},
+  {id:46,num:"46",title:"Виртуальная валюта",section:"Геймификация",impact:"mp",complexity:"high",desc:"Внутренняя валюта за активность, которую можно тратить на бонусы.",metrics:["active_subs","retention","revenue"],time:"2-4 недели"},
+  {id:47,num:"47",title:"Командные соревнования",section:"Геймификация",impact:"hp",complexity:"high",desc:"Разделение на команды с соревнованием. Максимальная вовлечённость.",metrics:["active_subs","retention","conversions"],time:"2-3 недели"},
+  {id:48,num:"48",title:"Колесо фортуны",section:"Геймификация",impact:"mp",complexity:"mid",desc:"Интерактивная механика с призами. Повышает вовлечённость и конверсию.",metrics:["active_subs","conversions"],time:"3-5 дней"},
+  {id:49,num:"49",title:"Персональное письмо от эксперта",section:"Email-маркетинг",impact:"hp",complexity:"low",desc:"Личное письмо от имени эксперта без маркетинговых шаблонов. Высокий Open Rate.",metrics:["open_rate","conversions"],time:"1-2 часа"},
+  {id:50,num:"50",title:"Сегментация по интересам",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Разделение базы на сегменты и персонализированные рассылки.",metrics:["open_rate","click_rate","conversions"],time:"1 неделя"},
+  {id:51,num:"51",title:"A/B тест темы письма",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Тестирование разных тем для повышения открываемости.",metrics:["open_rate"],time:"1-2 дня"},
+  {id:52,num:"52",title:"Письмо с дедлайном",section:"Email-маркетинг",impact:"hp",complexity:"low",desc:"Напоминание о заканчивающемся предложении. Конвертирует сомневающихся.",metrics:["conversions","revenue"],time:"1-2 часа"},
+  {id:53,num:"53",title:"Welcome-серия для сегментов",section:"Email-маркетинг",impact:"hp",complexity:"high",desc:"Разные приветственные цепочки для разных сегментов базы.",metrics:["open_rate","conversions","active_subs"],time:"2-3 недели"},
+  {id:54,num:"54",title:"Письмо с видео-отзывом",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Встроенное видео с отзывом клиента. Повышает доверие.",metrics:["open_rate","conversions"],time:"1 день"},
+  {id:55,num:"55",title:"Telegram-рассылка по базе",section:"Telegram",impact:"hp",complexity:"low",desc:"Массовая рассылка через Telegram-бот. Open Rate 70-90%.",metrics:["open_rate","active_subs","conversions"],time:"1-2 часа"},
+  {id:56,num:"56",title:"Telegram-группа поддержки",section:"Telegram",impact:"mp",complexity:"low",desc:"Закрытая группа для участников курса. Повышает доходимость и лояльность.",metrics:["retention","active_subs"],time:"1 день"},
+  {id:57,num:"57",title:"Голосование в Telegram",section:"Telegram",impact:"lp",complexity:"low",desc:"Опрос в канале для вовлечения аудитории.",metrics:["active_subs","click_rate"],time:"1-2 часа"},
+  {id:58,num:"58",title:"Интерактивный тест в боте",section:"Telegram",impact:"mp",complexity:"mid",desc:"Тест в Telegram-боте с персонализированным результатом.",metrics:["active_subs","conversions"],time:"3-5 дней"},
+  {id:59,num:"59",title:"Прямой эфир в Telegram",section:"Telegram",impact:"mp",complexity:"low",desc:"Видео-трансляция в Telegram-канале. Высокий охват и вовлечённость.",metrics:["active_subs","open_rate"],time:"1-2 часа"},
+  {id:60,num:"60",title:"Кросс-промо с партнёрами",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"Взаимный обмен аудиторией с нишевыми партнёрами.",metrics:["new_subs","registrations"],time:"1-2 недели"},
+  {id:61,num:"61",title:"Партнёрская программа",section:"Прокачка запуска",impact:"hp",complexity:"high",desc:"Система комиссий для партнёров, привлекающих клиентов.",metrics:["new_subs","conversions","revenue"],time:"2-4 недели"},
+  {id:62,num:"62",title:"Бонус за отзыв",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Подарок за публичный отзыв. Собирает социальные доказательства.",metrics:["conversions","active_subs"],time:"1 день"},
+  {id:63,num:"63",title:"Upsell после покупки",section:"Продающие события",impact:"hp",complexity:"mid",desc:"Предложение дополнительного продукта сразу после покупки.",metrics:["revenue","repeat_clients"],time:"1-2 дня"},
+  {id:64,num:"64",title:"Downsell для отказавшихся",section:"Продающие события",impact:"mp",complexity:"mid",desc:"Более дешёвое предложение для тех, кто не купил основной продукт.",metrics:["conversions","revenue"],time:"1-2 дня"},
+  {id:65,num:"65",title:"Tripwire-продукт",section:"Продающие события",impact:"hp",complexity:"mid",desc:"Дешёвый продукт-входная точка для конвертации подписчиков в клиентов.",metrics:["conversions","revenue","repeat_clients"],time:"1-2 недели"},
+  {id:66,num:"66",title:"VIP-день с экспертом",section:"Продающие события",impact:"hp",complexity:"low",desc:"Интенсивный день работы с экспертом. Высокий чек, низкие затраты на производство.",metrics:["revenue","repeat_clients"],time:"1-2 дня"},
+  {id:67,num:"67",title:"Закрытый клуб подписки",section:"Продающие события",impact:"hp",complexity:"high",desc:"Ежемесячная подписка с эксклюзивным контентом. Предсказуемый регулярный доход.",metrics:["revenue","repeat_clients","retention"],time:"1-2 месяца"},
+  {id:68,num:"68",title:"Инфографика с результатами",section:"Контент",impact:"lp",complexity:"low",desc:"Визуальное представление статистики и результатов. Вирусный потенциал.",metrics:["new_subs","active_subs"],time:"1 день"},
+  {id:69,num:"69",title:"Публичный разбор ошибок",section:"Контент",impact:"mp",complexity:"low",desc:"Честный разбор ошибок в своём проекте. Строит доверие и экспертность.",metrics:["active_subs","new_subs"],time:"1-2 дня"},
+  {id:70,num:"70",title:"Коллаборация с экспертом",section:"Контент",impact:"hp",complexity:"mid",desc:"Совместный контент или продукт с другим экспертом. Обмен аудиторией.",metrics:["new_subs","conversions"],time:"1-2 недели"},
+  {id:71,num:"71",title:"Серия «Мифы и правда»",section:"Контент",impact:"mp",complexity:"low",desc:"Разоблачение популярных мифов в нише. Высокое вовлечение и расшаривание.",metrics:["active_subs","new_subs"],time:"1-2 дня"},
+  {id:72,num:"72",title:"Живой Q&A эфир",section:"Продающие события",impact:"mp",complexity:"low",desc:"Сессия вопросов и ответов в прямом эфире. Снимает возражения перед покупкой.",metrics:["active_subs","conversions"],time:"1-2 часа"},
+  {id:73,num:"73",title:"Email-сериал (история)",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Сторителлинг в формате email-сериала. Максимальная открываемость и ожидание.",metrics:["open_rate","active_subs","conversions"],time:"1-2 недели"},
+  {id:74,num:"74",title:"Чек-лист как лид-магнит",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Практический чек-лист в обмен на подписку. Быстрое пополнение базы.",metrics:["new_subs"],time:"1 день"},
+  {id:75,num:"75",title:"Мастермайнд-группа",section:"Продающие события",impact:"hp",complexity:"mid",desc:"Закрытая группа для совместной работы. Высокий чек и лояльность.",metrics:["revenue","repeat_clients","retention"],time:"1-2 недели"},
+  {id:76,num:"76",title:"Шаблоны и инструменты",section:"Контент",impact:"mp",complexity:"mid",desc:"Готовые шаблоны и инструменты для скачивания. Привлекают практиков.",metrics:["new_subs","active_subs"],time:"2-3 дня"},
+  {id:77,num:"77",title:"Рассылка с дайджестом новостей",section:"Email-маркетинг",impact:"lp",complexity:"low",desc:"Еженедельный дайджест новостей ниши. Поддерживает регулярный контакт.",metrics:["open_rate","active_subs"],time:"2-3 часа"},
+  {id:78,num:"78",title:"Персонализация по имени",section:"Email-маркетинг",impact:"lp",complexity:"low",desc:"Обращение по имени в теме и тексте письма. Повышает открываемость на 10-20%.",metrics:["open_rate"],time:"1-2 часа"},
+  {id:79,num:"79",title:"Интеграция с CRM",section:"Прокачка запуска",impact:"hp",complexity:"high",desc:"Автоматизация коммуникаций через CRM. Масштабирует персонализацию.",metrics:["open_rate","conversions","revenue"],time:"1-2 месяца"},
+  {id:80,num:"80",title:"Ретаргетинг по базе",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"Таргетированная реклама на подписчиков базы. Повышает конверсию.",metrics:["conversions","revenue"],time:"3-5 дней"},
+  {id:81,num:"81",title:"Опрос NPS",section:"Контент",impact:"lp",complexity:"low",desc:"Измерение индекса лояльности клиентов. Выявляет промоутеров и критиков.",metrics:["retention","repeat_clients"],time:"1 день"},
+  {id:82,num:"82",title:"Программа лояльности",section:"Геймификация",impact:"hp",complexity:"high",desc:"Накопительная система бонусов для постоянных клиентов.",metrics:["repeat_clients","revenue","retention"],time:"1-2 месяца"},
+  {id:83,num:"83",title:"Онбординг-цепочка",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Серия писем для новых клиентов. Снижает отток и повышает удовлетворённость.",metrics:["retention","active_subs","repeat_clients"],time:"1-2 недели"},
+  {id:84,num:"84",title:"Письмо «Вы не одни»",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Письмо о сообществе и поддержке. Снижает отток на ранних этапах.",metrics:["retention","active_subs"],time:"1 день"},
+  {id:85,num:"85",title:"Видео-письмо от эксперта",section:"Email-маркетинг",impact:"hp",complexity:"mid",desc:"Персональное видео-обращение в письме. Резко повышает доверие и конверсию.",metrics:["open_rate","conversions","revenue"],time:"1-2 дня"},
+  {id:86,num:"86",title:"Конкурс в соцсетях",section:"Контент",impact:"mp",complexity:"low",desc:"Конкурс с призами в социальных сетях. Вирусный охват и новые подписчики.",metrics:["new_subs","active_subs"],time:"3-5 дней"},
+  {id:87,num:"87",title:"Закрытый клуб в Discord",section:"Геймификация",impact:"mp",complexity:"mid",desc:"Сообщество в Discord с каналами и ролями. Высокая вовлечённость.",metrics:["active_subs","retention"],time:"1-2 недели"},
+  {id:88,num:"88",title:"Еженедельный дайджест кейсов",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Подборка кейсов и результатов участников. Мотивирует и удерживает.",metrics:["open_rate","retention","active_subs"],time:"2-3 часа"},
+  {id:89,num:"89",title:"Тест «Какой ты тип»",section:"Контент",impact:"mp",complexity:"mid",desc:"Вирусный тест с персонализированным результатом. Высокое расшаривание.",metrics:["new_subs","active_subs"],time:"3-5 дней"},
+  {id:90,num:"90",title:"Письмо с прогнозом результатов",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Персонализированный прогноз результатов на основе данных подписчика.",metrics:["conversions","open_rate"],time:"1-2 дня"},
+  {id:91,num:"91",title:"Акция «Приведи друга»",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"Скидка за приглашение друга. Органический рост базы.",metrics:["new_subs","conversions","revenue"],time:"1 неделя"},
+  {id:92,num:"92",title:"Ранний доступ к продукту",section:"Прокачка запуска",impact:"mp",complexity:"low",desc:"Бета-доступ для лояльных подписчиков. Создаёт ажиотаж.",metrics:["conversions","active_subs"],time:"1-2 дня"},
+  {id:93,num:"93",title:"Интерактивный вебинар с голосованием",section:"Продающие события",impact:"hp",complexity:"mid",desc:"Вебинар с активными опросами и голосованиями. Повышает доходимость.",metrics:["registrations","active_subs","conversions"],time:"1 неделя"},
+  {id:94,num:"94",title:"Серия «До/Во время/После»",section:"Контент",impact:"mp",complexity:"low",desc:"Контент, показывающий трансформацию клиента на всех этапах.",metrics:["conversions","active_subs"],time:"1-2 дня"},
+  {id:95,num:"95",title:"Письмо «Что будет если не действовать»",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Письмо о последствиях бездействия. Активирует через страх потери.",metrics:["conversions","open_rate"],time:"1 день"},
+  {id:96,num:"96",title:"Мини-аудит бесплатно",section:"Прокачка запуска",impact:"hp",complexity:"mid",desc:"Бесплатный экспресс-аудит проекта. Конвертирует в платных клиентов.",metrics:["conversions","revenue","new_subs"],time:"1-2 недели"},
+  {id:97,num:"97",title:"Кейс в формате «было/стало»",section:"Контент",impact:"mp",complexity:"low",desc:"Визуальное сравнение результатов до и после. Сильное социальное доказательство.",metrics:["conversions","new_subs"],time:"1-2 дня"},
+  {id:98,num:"98",title:"Telegram-канал с ежедневными советами",section:"Telegram",impact:"mp",complexity:"low",desc:"Ежедневные практические советы в Telegram. Формирует привычку читать.",metrics:["active_subs","open_rate"],time:"Постоянно"},
+  {id:99,num:"99",title:"Письмо-напоминание о незавершённом",section:"Email-маркетинг",impact:"mp",complexity:"low",desc:"Напоминание о незавершённом курсе или задании. Снижает отток.",metrics:["retention","active_subs"],time:"1-2 часа"},
+  {id:100,num:"100",title:"Групповой коучинг-звонок",section:"Продающие события",impact:"hp",complexity:"low",desc:"Еженедельный групповой звонок с разбором вопросов. Повышает удержание.",metrics:["retention","repeat_clients","revenue"],time:"1-2 часа в неделю"},
+];
+
+const QUANT_METRICS = [
+  {key:"new_subs",label:"Новые подписчики",desc:"Количество новых подписчиков за период",unit:"чел."},
+  {key:"sleeping_subs",label:"Спящие подписчики",desc:"Подписчики без активности более 30 дней",unit:"чел."},
+  {key:"active_subs",label:"Активные подписчики",desc:"Открывали письма или кликали за 30 дней",unit:"чел."},
+  {key:"seen_offer",label:"Видели оффер",desc:"Подписчики, которым показывался продающий оффер",unit:"чел."},
+  {key:"repeat_clients",label:"Повторные клиенты",desc:"Купили более одного продукта",unit:"чел."},
+  {key:"revenue",label:"Доход",desc:"Общая выручка от базы за период",unit:"₽"},
+  {key:"base_size",label:"Объём базы",desc:"Общее количество подписчиков",unit:"чел."},
+  {key:"registrations",label:"Регистрации на события",desc:"Записались на вебинары, марафоны, акции",unit:"чел."},
+];
+const QUAL_METRICS = [
+  {key:"open_rate",label:"Открываемость (Open Rate)",desc:"Процент открытых писем от доставленных",unit:"%"},
+  {key:"click_rate",label:"Кликабельность (CTR)",desc:"Процент кликов от открытых писем",unit:"%"},
+  {key:"conversions",label:"Конверсия в покупку",desc:"Процент подписчиков, совершивших покупку",unit:"%"},
+  {key:"retention",label:"Удержание (Retention)",desc:"Процент подписчиков, остающихся активными",unit:"%"},
+  {key:"unsubscribe_rate",label:"Отписки",desc:"Процент отписавшихся за период",unit:"%"},
+  {key:"deliverability",label:"Доставляемость",desc:"Процент писем, дошедших до входящих",unit:"%"},
+];
+
+const CHECKLISTS = {
+  prelaunch:{label:"Перед запуском",items:[
+    {id:"pl1",text:"Определена целевая аудитория и сегменты базы"},
+    {id:"pl2",text:"Составлен контент-план прогрева"},
+    {id:"pl3",text:"Настроена аналитика и UTM-метки"},
+    {id:"pl4",text:"Подготовлены лид-магниты для привлечения"},
+    {id:"pl5",text:"Настроена автоматическая welcome-цепочка"},
+    {id:"pl6",text:"Проверена доставляемость писем (SPF, DKIM, DMARC)"},
+    {id:"pl7",text:"Сегментирована база по активности"},
+    {id:"pl8",text:"Подготовлены шаблоны писем в фирменном стиле"},
+    {id:"pl9",text:"Настроены триггерные письма"},
+    {id:"pl10",text:"Проведён A/B тест темы письма"},
+  ]},
+  launch:{label:"Во время запуска",items:[
+    {id:"l1",text:"Отправлено анонсирующее письмо за 7 дней"},
+    {id:"l2",text:"Запущена прогревающая цепочка писем"},
+    {id:"l3",text:"Активирован Telegram-канал с анонсами"},
+    {id:"l4",text:"Настроен ретаргетинг по базе"},
+    {id:"l5",text:"Запущены напоминания о событии"},
+    {id:"l6",text:"Мониторинг открываемости и кликов в реальном времени"},
+    {id:"l7",text:"Реакция на отписки и жалобы на спам"},
+    {id:"l8",text:"Отправлено письмо за 1 час до события"},
+    {id:"l9",text:"Сбор отзывов и обратной связи"},
+    {id:"l10",text:"Отправлено письмо с записью/итогами"},
+  ]},
+  postlaunch:{label:"После запуска",items:[
+    {id:"po1",text:"Анализ метрик: открываемость, клики, конверсия"},
+    {id:"po2",text:"Сегментация купивших и не купивших"},
+    {id:"po3",text:"Запуск онбординг-цепочки для новых клиентов"},
+    {id:"po4",text:"Реактивация не купивших через 7 дней"},
+    {id:"po5",text:"Сбор и публикация отзывов"},
+    {id:"po6",text:"Анализ причин отписок"},
+    {id:"po7",text:"Обновление сегментации базы"},
+    {id:"po8",text:"Планирование следующего запуска"},
+    {id:"po9",text:"Документирование работающих приёмов"},
+    {id:"po10",text:"Расчёт ROI и LTV"},
+  ]},
+  risks:{label:"Риски",items:[
+    {id:"r1",text:"Проверена репутация домена отправителя"},
+    {id:"r2",text:"Нет массовых жалоб на спам (< 0.1%)"},
+    {id:"r3",text:"База собрана с явным согласием (double opt-in)"},
+    {id:"r4",text:"Есть резервный канал коммуникации (Telegram)"},
+    {id:"r5",text:"Настроена обработка отписок в соответствии с законом"},
+    {id:"r6",text:"Проверена работа всех ссылок в письмах"},
+    {id:"r7",text:"Есть план действий при падении Open Rate"},
+    {id:"r8",text:"Сделан бэкап базы подписчиков"},
+  ]},
+};
+
+const IMPACT_LABELS={hp:"Высокое +",mp:"Среднее +",lp:"Низкое +",n:"Нейтральное",ln:"Низкое −",mn:"Среднее −",hn:"Высокое −"};
+const IMPACT_CLASSES={hp:"badge-impact-hp",mp:"badge-impact-mp",lp:"badge-impact-lp",n:"badge-impact-n",ln:"badge-impact-ln",mn:"badge-impact-mn",hn:"badge-impact-hn"};
+const STATUS_LABELS={idea:"Идея",wip:"В работе",works:"Работает",nope:"Не подошло"};
+const STATUS_CLASSES={idea:"status-idea",wip:"status-wip",works:"status-works",nope:"status-nope"};
+const ALL_METRIC_KEYS=[...QUANT_METRICS,...QUAL_METRICS].reduce((a,m)=>{a[m.key]=m.label;return a},{});
+
+// ============================================================
+// STATE
+// ============================================================
+const SK="baza_v3";
+let S={statuses:{},notes:{},hidden:{},viewed:{},history:[],metrics:{},checklists:{},customTechs:[]};
+
+function loadS(){try{const d=localStorage.getItem(SK);if(d)S={...S,...JSON.parse(d)};}catch(e){}}
+function saveS(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+function allTechs(){return[...BASE_TECHNIQUES,...S.customTechs];}
+
+// ============================================================
+// UI STATE
+// ============================================================
+let activeFilters={sections:[],impacts:[],statuses:[]};
+let showHidden=false;
+let splitOpen=false;
+let selectedId=null;
+let metricsTab="quant";
+let checklistTab="prelaunch";
+
+// ============================================================
+// INIT
+// ============================================================
+function init(){
+  loadS();
+  document.getElementById("badge-total").textContent=allTechs().length;
+  renderStatsBar();
+  renderFilterPanel();
+  renderCatalog();
+  renderDiagnostics();
+}
+
+// ============================================================
+// VIEW SWITCH
+// ============================================================
+function switchView(id,el){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.querySelectorAll(".sidebar-item").forEach(i=>i.classList.remove("active"));
+  document.getElementById("view-"+id).classList.add("active");
+  if(el)el.classList.add("active");
+  if(id==="statuses")renderStatusMatrix();
+  if(id==="history")renderHistory();
+  if(id==="metrics")renderMetrics();
+  if(id==="checklists")renderChecklists();
+}
+
+// ============================================================
+// STATS BAR
+// ============================================================
+function renderStatsBar(){
+  const all=allTechs();
+  const total=all.length;
+  const withS=all.filter(t=>S.statuses[t.id]).length;
+  const works=all.filter(t=>S.statuses[t.id]==="works").length;
+  const viewed=Object.keys(S.viewed).length;
+  document.getElementById("stats-bar").innerHTML=`
+    <div class="stat-chip"><span class="stat-chip-val">${total}</span><span class="stat-chip-label">приёмов</span></div>
+    <div class="stat-chip"><span class="stat-chip-val">${withS}</span><span class="stat-chip-label">в работе</span></div>
+    <div class="stat-chip"><span class="stat-chip-val">${works}</span><span class="stat-chip-label">работают</span></div>
+    <div class="stat-chip"><span class="stat-chip-val">${viewed}</span><span class="stat-chip-label">изучено</span></div>
+  `;
+}
+
+// ============================================================
+// FILTER PANEL
+// ============================================================
+function renderFilterPanel(){
+  const all=allTechs();
+  const sections=[...new Set(all.map(t=>t.section))];
+  document.getElementById("sectionFilters").innerHTML=sections.map(s=>
+    `<span class="filter-chip${activeFilters.sections.includes(s)?" active":""}" onclick="toggleFilter('sections','${s}',this)">${s}</span>`
+  ).join("");
+  document.getElementById("impactFilters").innerHTML=["hp","mp","lp","n","ln","mn","hn"].map(i=>
+    `<span class="filter-chip${activeFilters.impacts.includes(i)?" active":""}" onclick="toggleFilter('impacts','${i}',this)">${IMPACT_LABELS[i]}</span>`
+  ).join("");
+  document.getElementById("statusFilters").innerHTML=["idea","wip","works","nope"].map(s=>
+    `<span class="filter-chip${activeFilters.statuses.includes(s)?" active":""}" onclick="toggleFilter('statuses','${s}',this)">${STATUS_LABELS[s]}</span>`
+  ).join("");
+}
+
+function toggleFilter(type,val,el){
+  const arr=activeFilters[type];
+  const idx=arr.indexOf(val);
+  if(idx===-1)arr.push(val);else arr.splice(idx,1);
+  el.classList.toggle("active");
+  filterCatalog();
+}
+function clearFilters(){
+  activeFilters={sections:[],impacts:[],statuses:[]};
+  document.getElementById("searchInput").value="";
+  renderFilterPanel();
+  filterCatalog();
+}
+function toggleFilterPanel(){
+  document.getElementById("filterPanel").classList.toggle("open");
+  document.getElementById("filterToggleBtn").classList.toggle("active");
+}
+
+// ============================================================
+// CATALOG
+// ============================================================
+function filterCatalog(){
+  const q=document.getElementById("searchInput").value.toLowerCase();
+  const all=allTechs();
+  const filtered=all.filter(t=>{
+    if(!showHidden&&S.hidden[t.id])return false;
+    if(q&&!t.title.toLowerCase().includes(q)&&!t.desc.toLowerCase().includes(q))return false;
+    if(activeFilters.sections.length&&!activeFilters.sections.includes(t.section))return false;
+    if(activeFilters.impacts.length&&!activeFilters.impacts.includes(t.impact))return false;
+    if(activeFilters.statuses.length){
+      const s=S.statuses[t.id]||"none";
+      if(!activeFilters.statuses.includes(s))return false;
+    }
+    return true;
+  });
+  renderCatalogGrid(filtered);
+}
+function renderCatalog(){filterCatalog();}
+
+function renderCatalogGrid(techs){
+  const g=document.getElementById("catalogGrid");
+  if(!techs.length){
+    g.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔍</div><div class="empty-title">Ничего не найдено</div><div class="empty-text">Попробуйте изменить фильтры или поисковый запрос</div></div>`;
+    return;
+  }
+  g.innerHTML=techs.map(t=>{
+    const status=S.statuses[t.id];
+    const isViewed=!!S.viewed[t.id];
+    const isSelected=selectedId===t.id;
+    const statusHtml=status
+      ?`<span class="tech-status ${STATUS_CLASSES[status]}">${STATUS_LABELS[status]}</span>`
+      :`<span class="tech-status status-none">Без статуса</span>`;
+    return `<div class="tech-card${isViewed?" viewed":""}${isSelected?" selected":""}" onclick="openTech(${t.id})" id="card-${t.id}">
+      <div class="viewed-dot"></div>
+      <div class="tech-card-header">
+        <span class="tech-num">${t.num}</span>
+        <span class="tech-title">${t.title}</span>
+      </div>
+      <div class="tech-badges">
+        <span class="tech-badge badge-section">${t.section}</span>
+        <span class="tech-badge ${IMPACT_CLASSES[t.impact]}">${IMPACT_LABELS[t.impact]}</span>
+      </div>
+      <div class="tech-desc">${t.desc}</div>
+      <div class="tech-footer">
+        ${statusHtml}
+        <div class="tech-actions">
+          <button class="tech-action-btn" onclick="event.stopPropagation();toggleHide(${t.id})" title="${S.hidden[t.id]?"Показать":"Скрыть"}">${S.hidden[t.id]?"👁":"🙈"}</button>
         </div>
-        <div class="baza-stat">
-            <span class="baza-stat-val">200+</span>
-            <span class="baza-stat-lbl">Приёмов активации в базе</span>
-        </div>
-        <div class="baza-stat">
-            <span class="baza-stat-val">35%</span>
-            <span class="baza-stat-lbl">Средний рост Open Rate</span>
-        </div>
-        <div class="baza-stat">
-            <span class="baza-stat-val">3×</span>
-            <span class="baza-stat-lbl">Рост продаж в среднем</span>
-        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ============================================================
+// OPEN TECHNIQUE
+// ============================================================
+function openTech(id){
+  const t=allTechs().find(x=>x.id===id);
+  if(!t)return;
+  if(!S.viewed[id]){
+    S.viewed[id]=Date.now();
+    S.history.unshift({id,title:t.title,section:t.section,time:Date.now()});
+    if(S.history.length>50)S.history=S.history.slice(0,50);
+    saveS();
+    const card=document.getElementById("card-"+id);
+    if(card)card.classList.add("viewed");
+    renderStatsBar();
+  }
+  selectedId=id;
+  document.querySelectorAll(".tech-card").forEach(c=>c.classList.remove("selected"));
+  const card=document.getElementById("card-"+id);
+  if(card)card.classList.add("selected");
+  renderSplitDetail(t);
+  const detail=document.getElementById("splitDetail");
+  detail.classList.add("open");
+  splitOpen=true;
+  document.getElementById("splitToggleBtn").classList.add("active");
+}
+
+function renderSplitDetail(t){
+  const status=S.statuses[t.id]||"";
+  const notes=S.notes[t.id]||"";
+  const cx=t.complexity==="low"?1:t.complexity==="mid"?2:3;
+  const dots=[1,2,3].map(i=>`<div class="complexity-dot${i<=cx?" filled":""}"></div>`).join("");
+  const mHtml=(t.metrics||[]).map(m=>`<span class="detail-metric">${ALL_METRIC_KEYS[m]||m}</span>`).join("");
+  document.getElementById("splitDetail").innerHTML=`
+    <button class="detail-close" onclick="closeSplit()">×</button>
+    <div class="detail-num">${t.num} · ${t.section}</div>
+    <div class="detail-title">${t.title}</div>
+    <div class="detail-section">
+      <div class="detail-section-title">Описание</div>
+      <div class="detail-desc">${t.desc}</div>
     </div>
-</div>
-
-<!-- STRUCTURE -->
-<div class="section" id="structure">
-    <div class="section-label">Структура архива</div>
-    <h2 class="section-title">5 ключевых <span>разделов</span></h2>
-    <p class="section-subtitle">Архив покрывает все аспекты работы с базой — от диагностики метрик до конкретных методов набора на мероприятия.</p>
-    <div class="structure-grid">
-        <div class="structure-card">
-            <div class="structure-num">01</div>
-            <h3>Метрики</h3>
-            <p>Количественные и качественные метрики: новые пользователи, спящие, активные, видели офер, повторные клиенты, доход, объём базы. Все приёмы привязаны к конкретным метрикам.</p>
-        </div>
-        <div class="structure-card">
-            <div class="structure-num">02</div>
-            <h3>Диагностика</h3>
-            <p>Калькулятор метрик + подробные описания + прогноз результатов.</p>
-        </div>
-        <div class="structure-card wide">
-            <div class="structure-num">03</div>
-            <h3>Прокачка запуска</h3>
-            <p>Охват, доходимость, удержание, конверсия, доход, понятность, регистрации и риски каждой активности.</p>
-        </div>
-        <div class="structure-card">
-            <div class="structure-num">04</div>
-            <h3>Продающие события</h3>
-            <p>Вебинары, марафоны, акции, конференции, персональные технологии и другие события. Скоро появятся фильтры по типам мероприятий.</p>
-        </div>
-        <div class="structure-card">
-            <div class="structure-num">05</div>
-            <h3>Чеклисты</h3>
-            <p>Публичные, проектные и личные чек-листы. Точки кристаллизации внимания, критерии работы с базой, риски онлайн-школы и многое другое.</p>
-        </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Влияние на метрики</div>
+      <div class="detail-metrics">${mHtml||'<span style="font-size:12px;color:var(--light)">Не указано</span>'}</div>
     </div>
-</div>
-
-<!-- BENEFITS -->
-<div style="background:#fff;padding:1px 0">
-<div class="section">
-    <div class="section-label">Преимущества</div>
-    <h2 class="section-title">Почему онлайн-школы<br><span>выбирают</span> этот сервис</h2>
-    <p class="section-subtitle">Решаем ключевые проблемы владельцев онлайн-школ при работе с базой подписчиков.</p>
-    <div class="benefits-grid">
-        <div class="benefit-card">
-            <div class="benefit-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <h3>База перестаёт остывать</h3>
-            <p>Систематизируйте приёмы активации, чтобы подписчики не забывали о вас между запусками.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <h3>Измеримый рост метрик</h3>
-            <p>Отслеживайте, какие приёмы реально работают для вашей ниши. Принимайте решения на основе данных.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h3>Экономия времени</h3>
-            <p>Больше не нужно искать "что ещё можно сделать". Все проверенные приёмы активации — в одном месте.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h3>Единая база знаний</h3>
-            <p>Делитесь наработками с командой. Сохраняйте экспертизу, даже если менеджеры уходят.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-            </div>
-            <h3>Повторяемый результат</h3>
-            <p>Фиксируйте, что сработало в прошлых запусках. Тиражируйте успех, а не начинайте с нуля.</p>
-        </div>
-        <div class="benefit-card">
-            <div class="benefit-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <h3>Рост дохода</h3>
-            <p>Активная база покупает чаще и больше. Отслеживайте рост LTV и повторных продаж.</p>
-        </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Сложность</div>
+      <div class="complexity-row">${dots}<span style="font-size:12px;color:var(--light);margin-left:8px">${t.complexity==="low"?"Низкая":t.complexity==="mid"?"Средняя":"Высокая"}</span></div>
     </div>
-</div>
-</div>
-
-<!-- FEATURES -->
-<div class="section">
-    <div class="section-label">Функционал</div>
-    <h2 class="section-title">Полный набор <span>инструментов</span></h2>
-    <p class="section-subtitle">Для работы с подписчиками между и во время запусков.</p>
-
-    <div class="features-list">
-
-        <!-- Feature 1 -->
-        <div class="feature-row">
-            <div>
-                <div class="feature-num">01</div>
-                <h3>Каталог приёмов активации</h3>
-                <p>Библиотека проверенных приёмов для активации базы подписчиков онлайн-школ. От email-цепочек до челленджей и прямых эфиров — всё с описанием и оценкой эффективности.</p>
-                <ul>
-                    <li>200+ приёмов специально для онлайн-образования</li>
-                    <li>Оценка влияния на открываемость, клики и продажи</li>
-                    <li>Сложность внедрения и необходимые ресурсы</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Каталог</div>
-                <div class="mockup-list">
-                    <div class="mockup-item"><span>Email-цепочка "До/После"</span><span class="pct green">+25%</span></div>
-                    <div class="mockup-item"><span>5-дневный челлендж</span><span class="pct">+35%</span></div>
-                    <div class="mockup-item"><span>Мини-урок за email</span><span class="pct orange">+18%</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-row reverse">
-            <div>
-                <div class="feature-num">02</div>
-                <h3>Два набора метрик</h3>
-                <p>Переключайтесь между количественными метриками (база, продажи, доход) и качественными (открываемость, конверсия, активность).</p>
-                <ul>
-                    <li>8 количественных KPI: от новых подписчиков до повторных продаж</li>
-                    <li>6 качественных показателей вовлечённости базы</li>
-                    <li>Каждый приём связан с конкретными метриками</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Метрики</div>
-                <div class="mockup-tags">
-                    <span class="mockup-tag active">Количественные</span>
-                    <span class="mockup-tag">Качественные</span>
-                </div>
-                <div class="baza-visual-metrics" style="margin-top:16px">
-                    <div class="baza-visual-metric"><span class="baza-visual-metric-val">1 247</span><span class="baza-visual-metric-lbl">Новых подписчиков</span></div>
-                    <div class="baza-visual-metric"><span class="baza-visual-metric-val">42%</span><span class="baza-visual-metric-lbl">Открываемость</span></div>
-                    <div class="baza-visual-metric"><span class="baza-visual-metric-val">89</span><span class="baza-visual-metric-lbl">Клиентов</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-row">
-            <div>
-                <div class="feature-num">03</div>
-                <h3>Статусы внедрения</h3>
-                <p>Контролируйте, какие приёмы уже работают, а какие только в планах. Видьте прогресс по активации базы в каждом запуске.</p>
-                <ul>
-                    <li>4 статуса: Идея, В работе, Работает, Не подошло</li>
-                    <li>Визуальная матрица статусов по всем приёмам</li>
-                    <li>Заметки о результатах и доработках</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Статусы</div>
-                <div class="mockup-statuses">
-                    <div class="mockup-status"><span>Email-цепочка приветствия</span><span class="status-dot green"></span></div>
-                    <div class="mockup-status"><span>Telegram-бот с уроками</span><span class="status-dot blue"></span></div>
-                    <div class="mockup-status"><span>Геймификация челленджа</span><span class="status-dot orange"></span></div>
-                    <div class="mockup-status"><span>Подкаст-серия</span><span class="status-dot gray"></span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-row reverse">
-            <div>
-                <div class="feature-num">04</div>
-                <h3>Создание собственных приёмов</h3>
-                <p>Добавляйте свои уникальные приёмы активации базы с привязкой к метрикам. Указывайте сложность, время внедрения и ожидаемое влияние на показатели.</p>
-                <ul>
-                    <li>Привязка к нескольким метрикам одновременно</li>
-                    <li>Оценка сложности и времени на внедрение</li>
-                    <li>Контекстное описание для каждой метрики</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Свой приём</div>
-                <div class="mockup-list">
-                    <div class="mockup-item"><span>Сторис с отзывами</span><span class="pct green">+высокое</span></div>
-                    <div class="mockup-item"><span>Открываемость</span><span class="pct orange">+среднее</span></div>
-                </div>
-                <div class="mockup-tags" style="margin-top:12px">
-                    <span class="mockup-tag active">Высокое +</span>
-                    <span class="mockup-tag active">Среднее +</span>
-                    <span class="mockup-tag">Низкое +</span>
-                    <span class="mockup-tag">Нейтральное</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="feature-row">
-            <div>
-                <div class="feature-num">05</div>
-                <h3>Фильтрация по влиянию</h3>
-                <p>Показывайте только приёмы с нужным уровнем влияния на метрики. 7 уровней: от высокого положительного до высокого отрицательного.</p>
-                <ul>
-                    <li>7 уровней влияния: high_positive → high_negative</li>
-                    <li>Множественный выбор фильтров</li>
-                    <li>Мгновенное обновление результатов</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Фильтры</div>
-                <div class="mockup-tags">
-                    <span class="mockup-tag active">Высокое +</span>
-                    <span class="mockup-tag active">Среднее +</span>
-                    <span class="mockup-tag">Низкое +</span>
-                    <span class="mockup-tag">Нейтральное</span>
-                    <span class="mockup-tag">Низкое −</span>
-                </div>
-                <div class="mockup-list" style="margin-top:12px">
-                    <div class="mockup-item"><span>5-дневный челлендж</span><span class="pct green">+35%</span></div>
-                    <div class="mockup-item"><span>Email-цепочка "До/После"</span><span class="pct green">+25%</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="feature-row reverse">
-            <div>
-                <div class="feature-num">06</div>
-                <h3>Поиск по каталогу</h3>
-                <p>Мгновенно находите нужные приёмы по названию. Регистронезависимый поиск работает по всей библиотеке методик.</p>
-                <ul>
-                    <li>Мгновенная фильтрация при вводе</li>
-                    <li>Поиск по всем 200+ приёмам одновременно</li>
-                    <li>Сочетание с фильтрами по влиянию и статусам</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Поиск</div>
-                <div class="mockup-search">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    email-цепочка
-                </div>
-                <div class="mockup-list">
-                    <div class="mockup-item"><span>Email-цепочка "До/После"</span><span class="pct green">+25%</span></div>
-                    <div class="mockup-item"><span>Email-цепочка приветствия</span><span class="pct">+20%</span></div>
-                    <div class="mockup-item"><span>Email с кейсом клиента</span><span class="pct orange">+15%</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 7 -->
-        <div class="feature-row">
-            <div>
-                <div class="feature-num">07</div>
-                <h3>Отслеживание просмотров</h3>
-                <p>Система запоминает, какие приёмы вы уже изучили. Просмотренные приёмы выделяются в списке — легко найти новые.</p>
-                <ul>
-                    <li>Автоматическая пометка при открытии</li>
-                    <li>Сквозная синхронизация между всеми проектами</li>
-                    <li>Визуальное выделение новых приёмов</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">История просмотров</div>
-                <div class="mockup-list">
-                    <div class="mockup-item" style="opacity:.5"><span>История просмотров</span><span style="font-size:11px;color:#aaa">просмотрено</span></div>
-                    <div class="mockup-item" style="opacity:.5"><span>Челлендж 5 дней</span><span style="font-size:11px;color:#aaa">просмотрено</span></div>
-                    <div class="mockup-item"><span>Вебинар-знакомство</span><span class="pct" style="font-size:11px;background:#3347FF;color:#fff;padding:2px 8px;border-radius:100px">новое</span></div>
-                    <div class="mockup-item"><span>PDF-гайд</span><span class="pct" style="font-size:11px;background:#3347FF;color:#fff;padding:2px 8px;border-radius:100px">новое</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 8 -->
-        <div class="feature-row reverse">
-            <div>
-                <div class="feature-num">08</div>
-                <h3>Персональное скрытие</h3>
-                <p>Скрывайте нерелевантные приёмы из своего списка. Скрытые приёмы не исчезают полностью — их можно вернуть в любой момент.</p>
-                <ul>
-                    <li>Индивидуальное скрытие для каждого пользователя</li>
-                    <li>Режим "Показать скрытое" для просмотра</li>
-                    <li>Не влияет на общую базу приёмов</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Скрытие</div>
-                <div class="mockup-list">
-                    <div class="mockup-item"><span>Прямой эфир</span><span class="pct green">+28%</span></div>
-                    <div class="mockup-item" style="opacity:.4;text-decoration:line-through"><span>Квиз в stories</span><span style="font-size:11px;color:#aaa">скрыто</span></div>
-                    <div class="mockup-item"><span>Подкаст</span><span class="pct orange">+12%</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature 9 -->
-        <div class="feature-row">
-            <div>
-                <div class="feature-num">09</div>
-                <h3>Split-view режим</h3>
-                <p>Просматривайте детали приёма без потери контекста. Правая панель открывается рядом со списком — легко переключаться.</p>
-                <ul>
-                    <li>50/50 разделение экрана на десктопе</li>
-                    <li>Анимация открытия и закрытия</li>
-                    <li>Адаптивный оверлей на мобильных</li>
-                </ul>
-            </div>
-            <div class="feature-visual">
-                <div class="baza-visual-tag">Split-view</div>
-                <div class="mockup-split">
-                    <div class="mockup-split-left">
-                        <div class="mockup-item" style="background:#3347FF;color:#fff;border-radius:8px;padding:10px 12px;font-size:12px">Приём 1</div>
-                        <div class="mockup-item" style="border-radius:8px;font-size:12px">Приём 2</div>
-                        <div class="mockup-item" style="border-radius:8px;font-size:12px">Приём 3</div>
-                    </div>
-                    <div class="mockup-split-right">
-                        <strong style="font-size:12px;color:#1a1a1a">Детали приёма</strong><br><br>
-                        Описание, метрики и статус внедрения открываются рядом со списком.
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    ${t.time?`<div class="detail-section"><div class="detail-section-title">Время на внедрение</div><div class="detail-desc">${t.time}</div></div>`:""}
+    <div class="detail-section">
+      <div class="detail-section-title">Статус внедрения</div>
+      <select class="detail-status-select" onchange="setStatus(${t.id},this.value)">
+        <option value="">Без статуса</option>
+        <option value="idea"${status==="idea"?" selected":""}>Идея</option>
+        <option value="wip"${status==="wip"?" selected":""}>В работе</option>
+        <option value="works"${status==="works"?" selected":""}>Работает</option>
+        <option value="nope"${status==="nope"?" selected":""}>Не подошло</option>
+      </select>
     </div>
-</div>
-
-<!-- CTA -->
-<div class="baza-cta">
-    <div class="baza-cta-inner">
-        <h2>Готовы систематизировать <span>рост</span>?</h2>
-        <p>Начните бесплатно — первые результаты уже в первом запуске.</p>
-        <div class="baza-cta-btns">
-            <a href="https://arppu.ru" target="_blank" class="btn-primary-dark">Открыть архив →</a>
-            <a href="/#contacts" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,.3)">Обсудить с Денисом</a>
-        </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Заметки</div>
+      <textarea class="detail-notes" id="notesArea-${t.id}" placeholder="Добавьте заметки о результатах...">${notes}</textarea>
+      <button class="detail-save-btn" onclick="saveNotes(${t.id})">Сохранить заметки</button>
     </div>
-</div>
+  `;
+}
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-logo">Денис Зюлин</div>
-    <div class="footer-links">
-        <a href="https://t.me/deniszy">Telegram</a>
-        <a href="/">На главную</a>
+function closeSplit(){
+  document.getElementById("splitDetail").classList.remove("open");
+  splitOpen=false;
+  selectedId=null;
+  document.getElementById("splitToggleBtn").classList.remove("active");
+  document.querySelectorAll(".tech-card").forEach(c=>c.classList.remove("selected"));
+}
+function toggleSplit(){
+  if(splitOpen)closeSplit();
+  else{
+    splitOpen=true;
+    const d=document.getElementById("splitDetail");
+    d.classList.add("open");
+    d.innerHTML=`<div style="padding:40px;text-align:center;color:var(--light)"><div style="font-size:32px;margin-bottom:12px">←</div><div>Выберите приём из списка</div></div>`;
+    document.getElementById("splitToggleBtn").classList.add("active");
+  }
+}
+
+// ============================================================
+// STATUS & NOTES
+// ============================================================
+function setStatus(id,status){
+  if(status)S.statuses[id]=status;else delete S.statuses[id];
+  saveS();filterCatalog();renderStatsBar();showToast("Статус обновлён");
+}
+function saveNotes(id){
+  const a=document.getElementById("notesArea-"+id);
+  if(a){S.notes[id]=a.value;saveS();showToast("Заметки сохранены");}
+}
+function toggleHide(id){
+  if(S.hidden[id])delete S.hidden[id];else S.hidden[id]=true;
+  saveS();filterCatalog();showToast(S.hidden[id]?"Приём скрыт":"Приём показан");
+}
+function toggleShowHidden(){
+  showHidden=!showHidden;
+  document.getElementById("showHiddenBtn").classList.toggle("active",showHidden);
+  document.getElementById("showHiddenBtn").textContent=showHidden?"Скрыть скрытые":"Показать скрытые";
+  filterCatalog();
+}
+
+// ============================================================
+// STATUS MATRIX
+// ============================================================
+function renderStatusMatrix(){
+  const all=allTechs();
+  const cols={idea:[],wip:[],works:[],nope:[]};
+  all.forEach(t=>{const s=S.statuses[t.id];if(s&&cols[s])cols[s].push(t);});
+  document.getElementById("statusMatrix").innerHTML=Object.entries(cols).map(([key,techs])=>`
+    <div class="status-col">
+      <div class="status-col-header ${key}">${STATUS_LABELS[key]} (${techs.length})</div>
+      ${techs.length?techs.map(t=>`
+        <div class="status-mini-card" onclick="switchView('catalog',document.getElementById('nav-catalog'));setTimeout(()=>openTech(${t.id}),100)">
+          <div style="font-size:10px;color:var(--blue);margin-bottom:3px">${t.num}</div>
+          ${t.title}
+        </div>`).join(""):`<div class="status-empty">Нет приёмов</div>`}
     </div>
-</footer>
+  `).join("");
+}
 
+// ============================================================
+// HISTORY
+// ============================================================
+function renderHistory(){
+  const list=document.getElementById("historyList");
+  if(!S.history.length){
+    list.innerHTML=`<div class="empty-state"><div class="empty-icon">📖</div><div class="empty-title">История пуста</div><div class="empty-text">Открывайте приёмы в каталоге — они появятся здесь</div></div>`;
+    return;
+  }
+  list.innerHTML=S.history.map(h=>{
+    const d=new Date(h.time);
+    const t=d.toLocaleDateString("ru",{day:"numeric",month:"short"})+" "+d.toLocaleTimeString("ru",{hour:"2-digit",minute:"2-digit"});
+    return `<div class="history-item" onclick="switchView('catalog',document.getElementById('nav-catalog'));setTimeout(()=>openTech(${h.id}),100)">
+      <div class="history-time">${t}</div>
+      <div class="history-title">${h.title}</div>
+      <div class="history-section">${h.section}</div>
+    </div>`;
+  }).join("");
+}
+
+// ============================================================
+// METRICS
+// ============================================================
+function switchMetricsTab(tab,el){
+  metricsTab=tab;
+  document.querySelectorAll(".metrics-tab").forEach(t=>t.classList.remove("active"));
+  el.classList.add("active");
+  renderMetrics();
+}
+function renderMetrics(){
+  const metrics=metricsTab==="quant"?QUANT_METRICS:QUAL_METRICS;
+  document.getElementById("metricsGrid").innerHTML=metrics.map((m,i)=>{
+    const val=S.metrics[m.key]||"";
+    return `<div class="metric-card">
+      <div class="metric-card-num">${String(i+1).padStart(2,"0")}</div>
+      <div class="metric-card-label">${m.label}</div>
+      <div class="metric-card-desc">${m.desc}</div>
+      <input class="metric-input" type="text" placeholder="0 ${m.unit}" value="${val}" oninput="saveMetric('${m.key}',this.value)">
+    </div>`;
+  }).join("");
+}
+function saveMetric(key,val){S.metrics[key]=val;saveS();}
+
+// ============================================================
+// DIAGNOSTICS
+// ============================================================
+function renderDiagnostics(){
+  document.getElementById("diagGrid").innerHTML=`
+    <div class="diag-card">
+      <div class="diag-card-title">Текущие показатели</div>
+      <div class="diag-row"><span class="diag-label">Объём базы</span><input class="diag-input" type="number" id="d_base" placeholder="10000" oninput="calcDiag()"></div>
+      <div class="diag-row"><span class="diag-label">Open Rate (%)</span><input class="diag-input" type="number" id="d_or" placeholder="20" oninput="calcDiag()"></div>
+      <div class="diag-row"><span class="diag-label">CTR (%)</span><input class="diag-input" type="number" id="d_ctr" placeholder="3" oninput="calcDiag()"></div>
+      <div class="diag-row"><span class="diag-label">Конверсия (%)</span><input class="diag-input" type="number" id="d_conv" placeholder="2" oninput="calcDiag()"></div>
+      <div class="diag-row"><span class="diag-label">Средний чек (₽)</span><input class="diag-input" type="number" id="d_check" placeholder="15000" oninput="calcDiag()"></div>
+    </div>
+    <div class="diag-card">
+      <div class="diag-card-title">Прогноз после активации</div>
+      <div id="diagResult"><div style="font-size:13px;color:var(--light)">Заполните показатели слева для расчёта прогноза</div></div>
+    </div>
+    <div class="diag-card">
+      <div class="diag-card-title">Диагностика здоровья базы</div>
+      <div id="diagHealth" style="font-size:13px;color:var(--light);line-height:1.8">Введите показатели для диагностики</div>
+    </div>
+    <div class="diag-card">
+      <div class="diag-card-title">Рекомендации</div>
+      <div id="diagRecs" style="font-size:13px;color:var(--light);line-height:1.8">Введите показатели для получения рекомендаций</div>
+    </div>
+  `;
+}
+function calcDiag(){
+  const base=parseFloat(document.getElementById("d_base").value)||0;
+  const or=parseFloat(document.getElementById("d_or").value)||0;
+  const ctr=parseFloat(document.getElementById("d_ctr").value)||0;
+  const conv=parseFloat(document.getElementById("d_conv").value)||0;
+  const check=parseFloat(document.getElementById("d_check").value)||0;
+  if(!base||!or)return;
+  const activeNow=Math.round(base*or/100);
+  const buyersNow=Math.round(base*conv/100);
+  const revNow=buyersNow*check;
+  const orNew=Math.min(or*1.35,100);
+  const ctrNew=ctr*1.25;
+  const convNew=conv*1.20;
+  const activeNew=Math.round(base*orNew/100);
+  const buyersNew=Math.round(base*convNew/100);
+  const revNew=buyersNew*check;
+  const revGrowth=revNow>0?Math.round((revNew-revNow)/revNow*100):0;
+  document.getElementById("diagResult").innerHTML=`
+    <div class="diag-result">
+      <div class="diag-result-title">После системной активации (+35% OR, +25% CTR, +20% конв.)</div>
+      <div class="diag-result-row"><span class="diag-result-label">Open Rate</span><span class="diag-result-val">${or}% → ${orNew.toFixed(1)}%</span></div>
+      <div class="diag-result-row"><span class="diag-result-label">Активных читателей</span><span class="diag-result-val">${activeNow.toLocaleString()} → ${activeNew.toLocaleString()}</span></div>
+      <div class="diag-result-row"><span class="diag-result-label">Покупателей</span><span class="diag-result-val">${buyersNow.toLocaleString()} → ${buyersNew.toLocaleString()}</span></div>
+      ${check>0?`<div class="diag-result-row"><span class="diag-result-label">Выручка</span><span class="diag-result-val" style="color:var(--blue)">${revNow.toLocaleString()}₽ → ${revNew.toLocaleString()}₽ (+${revGrowth}%)</span></div>`:""}
+    </div>
+  `;
+  let health=[];
+  if(or<15)health.push("🔴 Open Rate ниже нормы (< 15%). Нужна реактивация базы");
+  else if(or<25)health.push("🟡 Open Rate в норме, есть потенциал роста");
+  else health.push("🟢 Хороший Open Rate. Поддерживайте регулярность");
+  if(ctr<1)health.push("🔴 CTR очень низкий. Улучшите CTA и релевантность контента");
+  else if(ctr<3)health.push("🟡 CTR ниже среднего. Тестируйте разные форматы");
+  else health.push("🟢 Хороший CTR");
+  if(conv<1)health.push("🔴 Низкая конверсия. Проверьте оффер и прогрев");
+  else if(conv<3)health.push("🟡 Конверсия в норме, можно улучшить");
+  else health.push("🟢 Высокая конверсия");
+  document.getElementById("diagHealth").innerHTML=health.join("<br>");
+  let recs=[];
+  if(or<20)recs.push("→ Запустите реактивационную цепочку для спящих подписчиков");
+  if(ctr<2)recs.push("→ Добавьте персонализацию и сегментацию рассылок");
+  if(conv<2)recs.push("→ Усильте прогрев: добавьте кейсы и отзывы перед продажей");
+  if(or>=25&&ctr>=3)recs.push("→ База здорова. Масштабируйте: запустите реферальную программу");
+  recs.push("→ Тестируйте новые форматы: вебинары, челленджи, Telegram-боты");
+  document.getElementById("diagRecs").innerHTML=recs.join("<br>");
+}
+
+// ============================================================
+// CHECKLISTS
+// ============================================================
+function renderChecklists(){
+  const tabs=Object.entries(CHECKLISTS);
+  document.getElementById("checklistTabs").innerHTML=tabs.map(([key,cl])=>{
+    const items=cl.items;
+    const checked=items.filter(i=>S.checklists[key]&&S.checklists[key][i.id]).length;
+    return `<div class="checklist-tab${checklistTab===key?" active":""}" onclick="switchChecklist('${key}',this)">${cl.label} (${checked}/${items.length})</div>`;
+  }).join("");
+  const cl=CHECKLISTS[checklistTab];
+  if(!cl)return;
+  const items=cl.items;
+  const checked=items.filter(i=>S.checklists[checklistTab]&&S.checklists[checklistTab][i.id]).length;
+  const pct=Math.round(checked/items.length*100);
+  document.getElementById("checklistProgress").innerHTML=`
+    <div class="progress-wrap">
+      <div class="progress-label">${checked} из ${items.length} выполнено (${pct}%)</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+    </div>
+  `;
+  document.getElementById("checklistItems").innerHTML=items.map(item=>{
+    const isChecked=S.checklists[checklistTab]&&S.checklists[checklistTab][item.id];
+    return `<div class="checklist-item${isChecked?" checked":""}" onclick="toggleChecklistItem('${checklistTab}','${item.id}')">
+      <div class="checklist-checkbox"><span class="check-icon">✓</span></div>
+      <div class="checklist-text">${item.text}</div>
+    </div>`;
+  }).join("");
+}
+function switchChecklist(key){checklistTab=key;renderChecklists();}
+function toggleChecklistItem(listKey,itemId){
+  if(!S.checklists[listKey])S.checklists[listKey]={};
+  if(S.checklists[listKey][itemId])delete S.checklists[listKey][itemId];
+  else S.checklists[listKey][itemId]=true;
+  saveS();renderChecklists();
+}
+
+// ============================================================
+// ADD TECHNIQUE MODAL
+// ============================================================
+function openAddModal(){document.getElementById("addModal").classList.add("open");}
+function closeAddModal(){document.getElementById("addModal").classList.remove("open");}
+function saveNewTech(){
+  const name=document.getElementById("newName").value.trim();
+  if(!name){showToast("Введите название приёма");return;}
+  const id=Date.now();
+  const num=String(allTechs().length+1).padStart(2,"0")+"*";
+  const tech={
+    id,num,
+    title:name,
+    section:document.getElementById("newSection").value,
+    desc:document.getElementById("newDesc").value.trim()||"Пользовательский приём",
+    impact:document.getElementById("newImpact").value,
+    complexity:document.getElementById("newComplexity").value,
+    metrics:[],
+    time:"",
+    custom:true
+  };
+  S.customTechs.push(tech);
+  saveS();
+  closeAddModal();
+  renderCatalog();
+  renderStatsBar();
+  renderFilterPanel();
+  document.getElementById("badge-total").textContent=allTechs().length;
+  showToast("Приём добавлен в каталог");
+  document.getElementById("newName").value="";
+  document.getElementById("newDesc").value="";
+}
+document.getElementById("addModal").addEventListener("click",function(e){if(e.target===this)closeAddModal();});
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2500);
+}
+
+// ============================================================
+// START
+// ============================================================
+init();
+</script>
 </body>
 </html>
