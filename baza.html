@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архив практик — Денис Зюлин</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:"Inter",sans-serif;background:#F5F0EB;color:#1a1a1a;overflow-x:hidden}
+
+        /* NAV */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,240,235,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.04)}
+        .nav-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:13px;text-decoration:none;color:#1a1a1a}
+        .nav-links{display:flex;gap:24px;align-items:center}
+        .nav-links a{text-decoration:none;color:#888;font-size:12px;font-weight:500;transition:color .2s}
+        .nav-links a:hover{color:#1a1a1a}
+        .nav-btn{background:#1a1a1a!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-size:12px;font-weight:600;text-decoration:none}
+
+        /* HERO */
+        .baza-hero{padding:140px 40px 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+        .baza-hero-badge{display:inline-flex;align-items:center;gap:8px;background:#3347FF;color:#fff;font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;padding:7px 16px;border-radius:100px;margin-bottom:24px}
+        .baza-hero h1{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,58px);line-height:.95;letter-spacing:-.03em;margin-bottom:24px}
+        .baza-hero h1 span{color:#3347FF}
+        .baza-hero-desc{font-size:15px;line-height:1.7;color:#555;margin-bottom:32px}
+        .baza-hero-checks{list-style:none;margin-bottom:36px;display:flex;flex-direction:column;gap:10px}
+        .baza-hero-checks li{font-size:14px;color:#444;display:flex;align-items:center;gap:10px}
+        .baza-hero-checks li::before{content:"✓";color:#3347FF;font-weight:700;font-size:14px}
+        .baza-hero-note{font-size:12px;color:#aaa;font-style:italic;margin-bottom:36px}
+        .baza-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+        .btn-primary{background:#3347FF;color:#fff;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;font-family:"Unbounded",sans-serif;transition:opacity .2s}
+        .btn-primary:hover{opacity:.85}
+        .btn-secondary{background:transparent;color:#1a1a1a;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid rgba(0,0,0,.2);transition:border-color .2s}
+        .btn-secondary:hover{border-color:#3347FF;color:#3347FF}
+
+        /* HERO VISUAL */
+        .baza-hero-visual{background:#fff;border-radius:24px;padding:32px;box-shadow:0 8px 40px rgba(0,0,0,.06);position:relative;overflow:hidden}
+        .baza-hero-visual::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(51,71,255,.06);border-radius:50%}
+        .baza-visual-tag{font-family:"Unbounded",sans-serif;font-size:9px;font-weight:700;color:#3347FF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+        .baza-visual-items{display:flex;flex-direction:column;gap:10px}
+        .baza-visual-item{background:#F5F0EB;border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:500}
+        .baza-visual-item .badge{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:#fff;background:#3347FF;padding:3px 8px;border-radius:100px}
+        .baza-visual-item .badge.green{background:#22c55e}
+        .baza-visual-item .badge.orange{background:#f97316}
+        .baza-visual-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+        .baza-visual-metric{background:#F5F0EB;border-radius:12px;padding:12px;text-align:center}
+        .baza-visual-metric-val{font-family:"Unbounded",sans-serif;font-weight:900;font-size:18px;color:#3347FF;display:block}
+        .baza-visual-metric-lbl{font-size:10px;color:#aaa;margin-top:2px}
+
+        /* STATS BAR */
+        .baza-stats{background:#1a1a1a;padding:40px}
+        .baza-stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+        .baza-stat{text-align:center}
+        .baza-stat-val{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,3.5vw,44px);color:#3347FF;display:block;line-height:1}
+        .baza-stat-lbl{font-size:11px;color:#888;margin-top:6px;display:block;line-height:1.4}
+
+        /* SECTIONS */
+        .section{max-width:1200px;margin:0 auto;padding:80px 40px}
+        .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#aaa;margin-bottom:12px}
+        .section-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);line-height:.95;letter-spacing:-.03em;margin-bottom:16px}
+        .section-title span{color:#3347FF}
+        .section-subtitle{font-size:15px;color:#666;line-height:1.6;margin-bottom:48px;max-width:600px}
+
+        /* STRUCTURE GRID */
+        .structure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        .structure-card{background:#fff;border-radius:20px;padding:32px;border:1px solid transparent;transition:border-color .2s,transform .2s}
+        .structure-card:hover{border-color:#3347FF;transform:translateY(-3px)}
+        .structure-num{font-family:"Unbounded",sans-serif;font-size:11px;font-weight:700;color:#3347FF;margin-bottom:14px;letter-spacing:.1em}
+        .structure-card h3{font-size:17px;font-weight:700;margin-bottom:10px}
+        .structure-card p{font-size:13px;color:#777;line-height:1.6}
+        .structure-card.wide{grid-column:span 2}
+
+        /* BENEFITS GRID */
+        .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        .benefit-card{background:#fff;border-radius:20px;padding:28px}
+        .benefit-icon{width:40px;height:40px;background:rgba(51,71,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+        .benefit-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
+        .benefit-card p{font-size:13px;color:#777;line-height:1.6}
+
+        /* FEATURES */
+        .features-list{display:flex;flex-direction:column;gap:0}
+        .feature-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+        .feature-row:last-child{border-bottom:none}
+        .feature-row.reverse{direction:rtl}
+        .feature-row.reverse > *{direction:ltr}
+        .feature-num{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:#3347FF;letter-spacing:.12em;margin-bottom:12px}
+        .feature-row h3{font-size:22px;font-weight:700;margin-bottom:12px;line-height:1.2}
+        .feature-row p{font-size:14px;color:#666;line-height:1.7;margin-bottom:16px}
+        .feature-row ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+        .feature-row ul li{font-size:13px;color:#555;display:flex;align-items:flex-start;gap:8px}
+        .feature-row ul li::before{content:"•";color:#3347FF;font-weight:700;flex-shrink:0;margin-top:1px}
+        .feature-visual{background:#fff;border-radius:20px;padding:28px;box-shadow:0 4px 24px rgba(0,0,0,.05)}
+
+        /* FEATURE VISUAL MOCKUPS */
+        .mockup-list{display:flex;flex-direction:column;gap:8px}
+        .mockup-item{background:#F5F0EB;border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
+        .mockup-item .pct{font-family:"Unbounded",sans-serif;font-weight:700;font-size:13px;color:#3347FF}
+        .mockup-item .pct.green{color:#22c55e}
+        .mockup-item .pct.orange{color:#f97316}
+        .mockup-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+        .mockup-tag{font-size:11px;padding:4px 10px;border-radius:100px;background:#F5F0EB;color:#555}
+        .mockup-tag.active{background:#3347FF;color:#fff}
+        .mockup-statuses{display:flex;flex-direction:column;gap:8px}
+        .mockup-status{background:#F5F0EB;border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
+        .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+        .status-dot.blue{background:#3347FF}
+        .status-dot.green{background:#22c55e}
+        .status-dot.orange{background:#f97316}
+        .status-dot.gray{background:#ccc}
+        .mockup-search{background:#F5F0EB;border-radius:10px;padding:10px 14px;font-size:13px;color:#aaa;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+        .mockup-split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+        .mockup-split-left{display:flex;flex-direction:column;gap:6px}
+        .mockup-split-right{background:#F5F0EB;border-radius:10px;padding:12px;font-size:12px;color:#666;line-height:1.5}
+
+        /* CTA */
+        .baza-cta{background:#1a1a1a;padding:80px 40px;text-align:center}
+        .baza-cta-inner{max-width:600px;margin:0 auto}
+        .baza-cta h2{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);color:#fff;line-height:1.05;margin-bottom:16px;letter-spacing:-.02em}
+        .baza-cta h2 span{color:#3347FF}
+        .baza-cta p{font-size:15px;color:#888;margin-bottom:36px;line-height:1.6}
+        .baza-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+        .btn-primary-dark{background:#3347FF;color:#fff;padding:16px 36px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;font-family:"Unbounded",sans-serif;transition:opacity .2s}
+        .btn-primary-dark:hover{opacity:.85}
+
+        /* FOOTER */
+        .footer{max-width:1200px;margin:0 auto;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(0,0,0,.08)}
+        .footer-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:13px}
+        .footer-links{display:flex;gap:24px}
+        .footer-links a{font-size:12px;color:#888;text-decoration:none;transition:color .2s}
+        .footer-links a:hover{color:#1a1a1a}
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+            .baza-hero{grid-template-columns:1fr;gap:40px;padding:120px 24px 60px}
+            .structure-grid{grid-template-columns:1fr}
+            .structure-card.wide{grid-column:span 1}
+            .benefits-grid{grid-template-columns:1fr 1fr}
+            .feature-row{grid-template-columns:1fr;gap:32px}
+            .feature-row.reverse{direction:ltr}
+            .baza-stats-inner{grid-template-columns:repeat(2,1fr)}
+            .section{padding:60px 24px}
+            .nav{padding:16px 24px}
+        }
+        @media(max-width:600px){
+            .benefits-grid{grid-template-columns:1fr}
+            .baza-stats-inner{grid-template-columns:repeat(2,1fr)}
+            .baza-cta-btns{flex-direction:column;align-items:center}
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <a href="/" class="nav-logo">Денис Зюлин</a>
+    <div class="nav-links">
+        <a href="/#cases">Кейсы</a>
+        <a href="/#path">Мой путь</a>
+        <a href="/#formats">Форматы</a>
+        <a href="/#contacts" class="nav-btn">Обсудить задачу</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="baza-hero">
+    <div>
+        <div class="baza-hero-badge">База знаний для практиков</div>
+        <h1>Архив практик<br>для активации<br>и монетизации<br><span>базы подписчиков</span></h1>
+        <p class="baza-hero-desc">Более 200 проверенных приёмов, чек-листов и системных решений, которые помогают стабильно набирать людей на вебинары, марафоны, акции и конференции — и превращать базу в деньги.</p>
+        <ul class="baza-hero-checks">
+            <li>Систематизируйте свои практики запусков</li>
+            <li>Мгновенно находите нужное решение</li>
+            <li>Проводите ревизии проекта за 1–2 минуты</li>
+        </ul>
+        <p class="baza-hero-note">«Арсенал постоянно пополняется новыми рабочими механиками»</p>
+        <div class="baza-hero-btns">
+            <a href="https://arppu.ru" target="_blank" class="btn-primary">Открыть архив →</a>
+            <a href="#structure" class="btn-secondary">Узнать больше</a>
+        </div>
+    </div>
+    <div class="baza-hero-visual">
+        <div class="baza-visual-tag">Каталог приёмов активации</div>
+        <div class="baza-visual-items">
+            <div class="baza-visual-item">
+                <span>Email-цепочка "До/После"</span>
+                <span class="badge green">+25%</span>
+            </div>
+            <div class="baza-visual-item">
+                <span>5-дневный челлендж</span>
+                <span class="badge">+35%</span>
+            </div>
+            <div class="baza-visual-item">
+                <span>Мини-урок за email</span>
+                <span class="badge orange">+18%</span>
+            </div>
+            <div class="baza-visual-item">
+                <span>Вебинар-знакомство</span>
+                <span class="badge green">+22%</span>
+            </div>
+        </div>
+        <div class="baza-visual-metrics">
+            <div class="baza-visual-metric">
+                <span class="baza-visual-metric-val">1 247</span>
+                <span class="baza-visual-metric-lbl">Новых подписчиков</span>
+            </div>
+            <div class="baza-visual-metric">
+                <span class="baza-visual-metric-val">42%</span>
+                <span class="baza-visual-metric-lbl">Открываемость</span>
+            </div>
+            <div class="baza-visual-metric">
+                <span class="baza-visual-metric-val">89</span>
+                <span class="baza-visual-metric-lbl">Клиентов</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="baza-stats">
+    <div class="baza-stats-inner">
+        <div class="baza-stat">
+            <span class="baza-stat-val">12+</span>
+            <span class="baza-stat-lbl">Онлайн-школ уже используют</span>
+        </div>
+        <div class="baza-stat">
+            <span class="baza-stat-val">200+</span>
+            <span class="baza-stat-lbl">Приёмов активации в базе</span>
+        </div>
+        <div class="baza-stat">
+            <span class="baza-stat-val">35%</span>
+            <span class="baza-stat-lbl">Средний рост Open Rate</span>
+        </div>
+        <div class="baza-stat">
+            <span class="baza-stat-val">3×</span>
+            <span class="baza-stat-lbl">Рост продаж в среднем</span>
+        </div>
+    </div>
+</div>
+
+<!-- STRUCTURE -->
+<div class="section" id="structure">
+    <div class="section-label">Структура архива</div>
+    <h2 class="section-title">5 ключевых <span>разделов</span></h2>
+    <p class="section-subtitle">Архив покрывает все аспекты работы с базой — от диагностики метрик до конкретных методов набора на мероприятия.</p>
+    <div class="structure-grid">
+        <div class="structure-card">
+            <div class="structure-num">01</div>
+            <h3>Метрики</h3>
+            <p>Количественные и качественные метрики: новые пользователи, спящие, активные, видели офер, повторные клиенты, доход, объём базы. Все приёмы привязаны к конкретным метрикам.</p>
+        </div>
+        <div class="structure-card">
+            <div class="structure-num">02</div>
+            <h3>Диагностика</h3>
+            <p>Калькулятор метрик + подробные описания + прогноз результатов.</p>
+        </div>
+        <div class="structure-card wide">
+            <div class="structure-num">03</div>
+            <h3>Прокачка запуска</h3>
+            <p>Охват, доходимость, удержание, конверсия, доход, понятность, регистрации и риски каждой активности.</p>
+        </div>
+        <div class="structure-card">
+            <div class="structure-num">04</div>
+            <h3>Продающие события</h3>
+            <p>Вебинары, марафоны, акции, конференции, персональные технологии и другие события. Скоро появятся фильтры по типам мероприятий.</p>
+        </div>
+        <div class="structure-card">
+            <div class="structure-num">05</div>
+            <h3>Чеклисты</h3>
+            <p>Публичные, проектные и личные чек-листы. Точки кристаллизации внимания, критерии работы с базой, риски онлайн-школы и многое другое.</p>
+        </div>
+    </div>
+</div>
+
+<!-- BENEFITS -->
+<div style="background:#fff;padding:1px 0">
+<div class="section">
+    <div class="section-label">Преимущества</div>
+    <h2 class="section-title">Почему онлайн-школы<br><span>выбирают</span> этот сервис</h2>
+    <p class="section-subtitle">Решаем ключевые проблемы владельцев онлайн-школ при работе с базой подписчиков.</p>
+    <div class="benefits-grid">
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>База перестаёт остывать</h3>
+            <p>Систематизируйте приёмы активации, чтобы подписчики не забывали о вас между запусками.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>Измеримый рост метрик</h3>
+            <p>Отслеживайте, какие приёмы реально работают для вашей ниши. Принимайте решения на основе данных.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Экономия времени</h3>
+            <p>Больше не нужно искать "что ещё можно сделать". Все проверенные приёмы активации — в одном месте.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Единая база знаний</h3>
+            <p>Делитесь наработками с командой. Сохраняйте экспертизу, даже если менеджеры уходят.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            </div>
+            <h3>Повторяемый результат</h3>
+            <p>Фиксируйте, что сработало в прошлых запусках. Тиражируйте успех, а не начинайте с нуля.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3347FF" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3>Рост дохода</h3>
+            <p>Активная база покупает чаще и больше. Отслеживайте рост LTV и повторных продаж.</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- FEATURES -->
+<div class="section">
+    <div class="section-label">Функционал</div>
+    <h2 class="section-title">Полный набор <span>инструментов</span></h2>
+    <p class="section-subtitle">Для работы с подписчиками между и во время запусков.</p>
+
+    <div class="features-list">
+
+        <!-- Feature 1 -->
+        <div class="feature-row">
+            <div>
+                <div class="feature-num">01</div>
+                <h3>Каталог приёмов активации</h3>
+                <p>Библиотека проверенных приёмов для активации базы подписчиков онлайн-школ. От email-цепочек до челленджей и прямых эфиров — всё с описанием и оценкой эффективности.</p>
+                <ul>
+                    <li>200+ приёмов специально для онлайн-образования</li>
+                    <li>Оценка влияния на открываемость, клики и продажи</li>
+                    <li>Сложность внедрения и необходимые ресурсы</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Каталог</div>
+                <div class="mockup-list">
+                    <div class="mockup-item"><span>Email-цепочка "До/После"</span><span class="pct green">+25%</span></div>
+                    <div class="mockup-item"><span>5-дневный челлендж</span><span class="pct">+35%</span></div>
+                    <div class="mockup-item"><span>Мини-урок за email</span><span class="pct orange">+18%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-row reverse">
+            <div>
+                <div class="feature-num">02</div>
+                <h3>Два набора метрик</h3>
+                <p>Переключайтесь между количественными метриками (база, продажи, доход) и качественными (открываемость, конверсия, активность).</p>
+                <ul>
+                    <li>8 количественных KPI: от новых подписчиков до повторных продаж</li>
+                    <li>6 качественных показателей вовлечённости базы</li>
+                    <li>Каждый приём связан с конкретными метриками</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Метрики</div>
+                <div class="mockup-tags">
+                    <span class="mockup-tag active">Количественные</span>
+                    <span class="mockup-tag">Качественные</span>
+                </div>
+                <div class="baza-visual-metrics" style="margin-top:16px">
+                    <div class="baza-visual-metric"><span class="baza-visual-metric-val">1 247</span><span class="baza-visual-metric-lbl">Новых подписчиков</span></div>
+                    <div class="baza-visual-metric"><span class="baza-visual-metric-val">42%</span><span class="baza-visual-metric-lbl">Открываемость</span></div>
+                    <div class="baza-visual-metric"><span class="baza-visual-metric-val">89</span><span class="baza-visual-metric-lbl">Клиентов</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-row">
+            <div>
+                <div class="feature-num">03</div>
+                <h3>Статусы внедрения</h3>
+                <p>Контролируйте, какие приёмы уже работают, а какие только в планах. Видьте прогресс по активации базы в каждом запуске.</p>
+                <ul>
+                    <li>4 статуса: Идея, В работе, Работает, Не подошло</li>
+                    <li>Визуальная матрица статусов по всем приёмам</li>
+                    <li>Заметки о результатах и доработках</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Статусы</div>
+                <div class="mockup-statuses">
+                    <div class="mockup-status"><span>Email-цепочка приветствия</span><span class="status-dot green"></span></div>
+                    <div class="mockup-status"><span>Telegram-бот с уроками</span><span class="status-dot blue"></span></div>
+                    <div class="mockup-status"><span>Геймификация челленджа</span><span class="status-dot orange"></span></div>
+                    <div class="mockup-status"><span>Подкаст-серия</span><span class="status-dot gray"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-row reverse">
+            <div>
+                <div class="feature-num">04</div>
+                <h3>Создание собственных приёмов</h3>
+                <p>Добавляйте свои уникальные приёмы активации базы с привязкой к метрикам. Указывайте сложность, время внедрения и ожидаемое влияние на показатели.</p>
+                <ul>
+                    <li>Привязка к нескольким метрикам одновременно</li>
+                    <li>Оценка сложности и времени на внедрение</li>
+                    <li>Контекстное описание для каждой метрики</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Свой приём</div>
+                <div class="mockup-list">
+                    <div class="mockup-item"><span>Сторис с отзывами</span><span class="pct green">+высокое</span></div>
+                    <div class="mockup-item"><span>Открываемость</span><span class="pct orange">+среднее</span></div>
+                </div>
+                <div class="mockup-tags" style="margin-top:12px">
+                    <span class="mockup-tag active">Высокое +</span>
+                    <span class="mockup-tag active">Среднее +</span>
+                    <span class="mockup-tag">Низкое +</span>
+                    <span class="mockup-tag">Нейтральное</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-row">
+            <div>
+                <div class="feature-num">05</div>
+                <h3>Фильтрация по влиянию</h3>
+                <p>Показывайте только приёмы с нужным уровнем влияния на метрики. 7 уровней: от высокого положительного до высокого отрицательного.</p>
+                <ul>
+                    <li>7 уровней влияния: high_positive → high_negative</li>
+                    <li>Множественный выбор фильтров</li>
+                    <li>Мгновенное обновление результатов</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Фильтры</div>
+                <div class="mockup-tags">
+                    <span class="mockup-tag active">Высокое +</span>
+                    <span class="mockup-tag active">Среднее +</span>
+                    <span class="mockup-tag">Низкое +</span>
+                    <span class="mockup-tag">Нейтральное</span>
+                    <span class="mockup-tag">Низкое −</span>
+                </div>
+                <div class="mockup-list" style="margin-top:12px">
+                    <div class="mockup-item"><span>5-дневный челлендж</span><span class="pct green">+35%</span></div>
+                    <div class="mockup-item"><span>Email-цепочка "До/После"</span><span class="pct green">+25%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-row reverse">
+            <div>
+                <div class="feature-num">06</div>
+                <h3>Поиск по каталогу</h3>
+                <p>Мгновенно находите нужные приёмы по названию. Регистронезависимый поиск работает по всей библиотеке методик.</p>
+                <ul>
+                    <li>Мгновенная фильтрация при вводе</li>
+                    <li>Поиск по всем 200+ приёмам одновременно</li>
+                    <li>Сочетание с фильтрами по влиянию и статусам</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Поиск</div>
+                <div class="mockup-search">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    email-цепочка
+                </div>
+                <div class="mockup-list">
+                    <div class="mockup-item"><span>Email-цепочка "До/После"</span><span class="pct green">+25%</span></div>
+                    <div class="mockup-item"><span>Email-цепочка приветствия</span><span class="pct">+20%</span></div>
+                    <div class="mockup-item"><span>Email с кейсом клиента</span><span class="pct orange">+15%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="feature-row">
+            <div>
+                <div class="feature-num">07</div>
+                <h3>Отслеживание просмотров</h3>
+                <p>Система запоминает, какие приёмы вы уже изучили. Просмотренные приёмы выделяются в списке — легко найти новые.</p>
+                <ul>
+                    <li>Автоматическая пометка при открытии</li>
+                    <li>Сквозная синхронизация между всеми проектами</li>
+                    <li>Визуальное выделение новых приёмов</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">История просмотров</div>
+                <div class="mockup-list">
+                    <div class="mockup-item" style="opacity:.5"><span>История просмотров</span><span style="font-size:11px;color:#aaa">просмотрено</span></div>
+                    <div class="mockup-item" style="opacity:.5"><span>Челлендж 5 дней</span><span style="font-size:11px;color:#aaa">просмотрено</span></div>
+                    <div class="mockup-item"><span>Вебинар-знакомство</span><span class="pct" style="font-size:11px;background:#3347FF;color:#fff;padding:2px 8px;border-radius:100px">новое</span></div>
+                    <div class="mockup-item"><span>PDF-гайд</span><span class="pct" style="font-size:11px;background:#3347FF;color:#fff;padding:2px 8px;border-radius:100px">новое</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="feature-row reverse">
+            <div>
+                <div class="feature-num">08</div>
+                <h3>Персональное скрытие</h3>
+                <p>Скрывайте нерелевантные приёмы из своего списка. Скрытые приёмы не исчезают полностью — их можно вернуть в любой момент.</p>
+                <ul>
+                    <li>Индивидуальное скрытие для каждого пользователя</li>
+                    <li>Режим "Показать скрытое" для просмотра</li>
+                    <li>Не влияет на общую базу приёмов</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Скрытие</div>
+                <div class="mockup-list">
+                    <div class="mockup-item"><span>Прямой эфир</span><span class="pct green">+28%</span></div>
+                    <div class="mockup-item" style="opacity:.4;text-decoration:line-through"><span>Квиз в stories</span><span style="font-size:11px;color:#aaa">скрыто</span></div>
+                    <div class="mockup-item"><span>Подкаст</span><span class="pct orange">+12%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature 9 -->
+        <div class="feature-row">
+            <div>
+                <div class="feature-num">09</div>
+                <h3>Split-view режим</h3>
+                <p>Просматривайте детали приёма без потери контекста. Правая панель открывается рядом со списком — легко переключаться.</p>
+                <ul>
+                    <li>50/50 разделение экрана на десктопе</li>
+                    <li>Анимация открытия и закрытия</li>
+                    <li>Адаптивный оверлей на мобильных</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <div class="baza-visual-tag">Split-view</div>
+                <div class="mockup-split">
+                    <div class="mockup-split-left">
+                        <div class="mockup-item" style="background:#3347FF;color:#fff;border-radius:8px;padding:10px 12px;font-size:12px">Приём 1</div>
+                        <div class="mockup-item" style="border-radius:8px;font-size:12px">Приём 2</div>
+                        <div class="mockup-item" style="border-radius:8px;font-size:12px">Приём 3</div>
+                    </div>
+                    <div class="mockup-split-right">
+                        <strong style="font-size:12px;color:#1a1a1a">Детали приёма</strong><br><br>
+                        Описание, метрики и статус внедрения открываются рядом со списком.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="baza-cta">
+    <div class="baza-cta-inner">
+        <h2>Готовы систематизировать <span>рост</span>?</h2>
+        <p>Начните бесплатно — первые результаты уже в первом запуске.</p>
+        <div class="baza-cta-btns">
+            <a href="https://arppu.ru" target="_blank" class="btn-primary-dark">Открыть архив →</a>
+            <a href="/#contacts" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,.3)">Обсудить с Денисом</a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-logo">Денис Зюлин</div>
+    <div class="footer-links">
+        <a href="https://t.me/deniszy">Telegram</a>
+        <a href="/">На главную</a>
+    </div>
+</footer>
+
+</body>
+</html>
