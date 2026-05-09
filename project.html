@@ -1,803 +1,542 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый проект — Аудит базы · Денис Зюлин</title>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        *{box-sizing:border-box;margin:0;padding:0}
-        :root{
-            --blue:#3347FF;
-            --gold:#C8A96E;
-            --bg:#111113;
-            --bg2:#18181C;
-            --bg3:#1F1F26;
-            --border:rgba(255,255,255,.08);
-            --text:#FFFFFF;
-            --muted:rgba(255,255,255,.55);
-            --dim:rgba(255,255,255,.25);
-            --radius:14px;
-        }
-        body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
-
-        /* ── NAV ── */
-        .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;display:flex;align-items:center;padding:0 28px;background:rgba(17,17,19,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-        .nav-back{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--muted);font-size:12px;font-weight:600;transition:color .2s;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:6px 12px}
-        .nav-back:hover{color:var(--text)}
-        .nav-back svg{width:14px;height:14px}
-        .nav-logo{font-family:"Unbounded",sans-serif;font-weight:900;font-size:12px;letter-spacing:.04em;color:var(--muted);margin-left:16px}
-
-        /* ── PAGE ── */
-        .page{padding-top:56px;min-height:100vh}
-
-        /* ── HEADER ── */
-        .proj-header{text-align:center;padding:48px 24px 32px}
-        .proj-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:clamp(28px,5vw,52px);letter-spacing:-.03em;line-height:1;margin-bottom:0}
-
-        /* ── TABS ── */
-        .tabs-wrap{display:flex;justify-content:center;padding:0 24px 0;margin-bottom:0}
-        .tabs{display:inline-flex;background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:4px;gap:2px}
-        .tab{padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;border:none;background:transparent;font-family:"Inter",sans-serif;white-space:nowrap}
-        .tab:hover{color:var(--text)}
-        .tab.active{background:var(--gold);color:#1a1200;font-weight:700}
-
-        /* ── TOOLBAR ── */
-        .toolbar{display:flex;align-items:center;gap:10px;padding:20px 28px 0;justify-content:center;flex-wrap:wrap}
-        .search-wrap{position:relative}
-        .search-input{width:220px;padding:10px 14px 10px 38px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-family:"Inter",sans-serif;outline:none;transition:border-color .2s}
-        .search-input::placeholder{color:var(--dim)}
-        .search-input:focus{border-color:rgba(255,255,255,.25)}
-        .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--dim)}
-        .filter-select{padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-family:"Inter",sans-serif;cursor:pointer;outline:none;appearance:none;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='rgba(255,255,255,.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-        .discuss-btn{display:flex;align-items:center;gap:7px;padding:10px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:"Inter",sans-serif}
-        .discuss-btn:hover{background:var(--bg3);border-color:rgba(255,255,255,.2)}
-        .discuss-btn svg{width:15px;height:15px;color:var(--muted)}
-        .view-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;color:var(--muted);transition:all .2s}
-        .view-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
-        .view-btn.active{background:var(--bg3);color:var(--text)}
-
-        /* ── TAB SUBTITLE ── */
-        .tab-subtitle{text-align:center;font-size:14px;color:var(--muted);padding:14px 24px 0}
-
-        /* ── VIEWS ── */
-        .view{display:none}
-        .view.active{display:block}
-
-        /* ── REVISION VIEW (3 columns) ── */
-        .revision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:28px 28px 0;border-top:1px solid var(--border);margin-top:20px}
-        .rev-col{padding:0 28px 40px;border-right:1px solid var(--border)}
-        .rev-col:first-child{padding-left:0}
-        .rev-col:last-child{border-right:none;padding-right:0}
-        .rev-col-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:16px;margin-bottom:20px;color:var(--text)}
-        .rev-list{list-style:none;display:flex;flex-direction:column;gap:0}
-        .rev-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:all .15s;border-radius:0}
-        .rev-item:last-child{border-bottom:none}
-        .rev-item:hover .rev-item-text{color:var(--text)}
-        .rev-dash{color:var(--dim);font-size:14px;flex-shrink:0;margin-top:1px}
-        .rev-item-text{font-size:14px;color:var(--muted);line-height:1.4;transition:color .15s}
-        .rev-item.has-status .rev-item-text{color:var(--text)}
-        .rev-status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
-        .dot-idea{background:#3347FF}
-        .dot-wip{background:#C8A96E}
-        .dot-works{background:#4ADE80}
-        .dot-nope{background:#FF4D4D}
-
-        /* ── DETAIL PANEL (slide in from right) ── */
-        .detail-overlay{position:fixed;inset:0;z-index:300;pointer-events:none}
-        .detail-overlay.open{pointer-events:all}
-        .detail-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .25s}
-        .detail-overlay.open .detail-backdrop{opacity:1}
-        .detail-panel{position:absolute;top:0;right:0;bottom:0;width:440px;background:var(--bg2);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
-        .detail-overlay.open .detail-panel{transform:translateX(0)}
-        .detail-head{padding:24px 24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-        .detail-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:22px;line-height:1;padding:0;transition:color .15s}
-        .detail-close:hover{color:var(--text)}
-        .detail-seg{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
-        .detail-title{font-family:"Unbounded",sans-serif;font-weight:900;font-size:20px;line-height:1.2;letter-spacing:-.02em}
-        .detail-body{padding:24px;flex:1}
-        .detail-section{margin-bottom:24px}
-        .detail-section-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
-        .detail-desc{font-size:14px;line-height:1.7;color:var(--muted)}
-        .detail-tags{display:flex;flex-wrap:wrap;gap:6px}
-        .detail-tag{padding:5px 12px;background:rgba(255,255,255,.07);border-radius:100px;font-size:11px;font-weight:600;color:var(--muted)}
-        .detail-status-select{width:100%;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-family:"Inter",sans-serif;cursor:pointer;outline:none;transition:border-color .2s;appearance:none}
-        .detail-status-select:focus{border-color:rgba(255,255,255,.3)}
-        .detail-notes{width:100%;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-family:"Inter",sans-serif;resize:vertical;min-height:90px;outline:none;transition:border-color .2s}
-        .detail-notes::placeholder{color:var(--dim)}
-        .detail-notes:focus{border-color:rgba(255,255,255,.3)}
-        .detail-save{width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;font-family:"Unbounded",sans-serif;cursor:pointer;transition:opacity .2s;margin-top:8px;letter-spacing:.02em}
-        .detail-save:hover{opacity:.85}
-
-        /* ── DIAGNOSTICS VIEW ── */
-        .diag-wrap{max-width:900px;margin:28px auto 0;padding:0 28px 60px}
-        .diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-        @media(max-width:700px){.diag-grid{grid-template-columns:1fr}}
-        .diag-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
-        .diag-card-title{font-family:"Unbounded",sans-serif;font-size:14px;font-weight:700;margin-bottom:20px}
-        .diag-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-        .diag-label{font-size:13px;color:var(--muted)}
-        .diag-input{width:120px;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:"Inter",sans-serif;text-align:right;outline:none;transition:border-color .2s}
-        .diag-input:focus{border-color:rgba(255,255,255,.3)}
-        .diag-result{background:rgba(51,71,255,.12);border:1px solid rgba(51,71,255,.3);border-radius:var(--radius);padding:20px}
-        .diag-result-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
-        .diag-result-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}
-        .diag-result-label{color:var(--muted)}
-        .diag-result-val{font-weight:700;color:var(--text)}
-        .diag-result-val.positive{color:#4ADE80}
-        .diag-health{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-size:13px;line-height:2;color:var(--muted)}
-        .diag-recs{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;font-size:13px;line-height:2;color:var(--muted)}
-        .diag-full{grid-column:1/-1}
-
-        /* ── CHECKLIST VIEW ── */
-        .checklist-wrap{max-width:720px;margin:28px auto 0;padding:0 28px 60px}
-        .cl-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-        .cl-tab{padding:8px 18px;border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--muted);transition:all .15s;font-family:"Inter",sans-serif}
-        .cl-tab:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
-        .cl-tab.active{background:var(--gold);color:#1a1200;border-color:var(--gold)}
-        .cl-progress{margin-bottom:20px}
-        .cl-progress-label{font-size:12px;color:var(--dim);margin-bottom:6px}
-        .cl-progress-bg{background:rgba(255,255,255,.08);border-radius:100px;height:5px;overflow:hidden}
-        .cl-progress-fill{height:100%;background:var(--gold);border-radius:100px;transition:width .3s}
-        .cl-list{display:flex;flex-direction:column;gap:8px}
-        .cl-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s}
-        .cl-item:hover{border-color:rgba(255,255,255,.2)}
-        .cl-item.checked{background:rgba(74,222,128,.06);border-color:rgba(74,222,128,.2)}
-        .cl-checkbox{width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:1px}
-        .cl-item.checked .cl-checkbox{background:#4ADE80;border-color:#4ADE80}
-        .cl-check-icon{color:#111;font-size:11px;display:none;font-weight:900}
-        .cl-item.checked .cl-check-icon{display:block}
-        .cl-text{font-size:13px;color:var(--muted);line-height:1.5;transition:color .15s}
-        .cl-item.checked .cl-text{color:var(--dim);text-decoration:line-through}
-
-        /* ── EVENTS VIEW ── */
-        .events-wrap{max-width:900px;margin:28px auto 0;padding:0 28px 60px}
-        .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-        .event-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;cursor:pointer;transition:all .2s}
-        .event-card:hover{border-color:rgba(255,255,255,.2);transform:translateY(-2px)}
-        .event-num{font-family:"Unbounded",sans-serif;font-size:10px;font-weight:700;color:var(--blue);margin-bottom:10px}
-        .event-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.4}
-        .event-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px}
-        .event-badge{display:inline-flex;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700}
-        .badge-hp{background:rgba(74,222,128,.15);color:#4ADE80}
-        .badge-mp{background:rgba(200,169,110,.15);color:var(--gold)}
-        .badge-lp{background:rgba(51,71,255,.15);color:#7B8FFF}
-
-        /* ── LAUNCH VIEW ── */
-        .launch-wrap{max-width:900px;margin:28px auto 0;padding:0 28px 60px}
-        .launch-stages{display:flex;flex-direction:column;gap:16px}
-        .launch-stage{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-        .launch-stage-head{padding:18px 22px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .15s}
-        .launch-stage-head:hover{background:var(--bg3)}
-        .launch-stage-num{font-family:"Unbounded",sans-serif;font-size:11px;font-weight:700;color:var(--blue);min-width:28px}
-        .launch-stage-title{font-size:14px;font-weight:600;flex:1}
-        .launch-stage-arrow{color:var(--dim);font-size:12px;transition:transform .2s}
-        .launch-stage.open .launch-stage-arrow{transform:rotate(180deg)}
-        .launch-stage-body{display:none;padding:0 22px 18px;border-top:1px solid var(--border)}
-        .launch-stage.open .launch-stage-body{display:block}
-        .launch-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--muted)}
-        .launch-item:last-child{border-bottom:none}
-        .launch-item-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:5px}
-
-        /* ── EMPTY STATE ── */
-        .empty{text-align:center;padding:60px 20px;color:var(--dim)}
-        .empty-icon{font-size:36px;margin-bottom:12px;opacity:.4}
-        .empty-title{font-family:"Unbounded",sans-serif;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:8px}
-
-        /* ── TOAST ── */
-        .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#fff;color:#111;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
-        .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
-        /* ── RESPONSIVE ── */
-        @media(max-width:900px){
-            .revision-grid{grid-template-columns:1fr;gap:0}
-            .rev-col{border-right:none;border-bottom:1px solid var(--border);padding:20px 0}
-            .rev-col:last-child{border-bottom:none}
-            .detail-panel{width:100%;max-width:100%}
-            .tabs{flex-wrap:wrap;border-radius:12px}
-        }
-        @media(max-width:640px){
-            .proj-title{font-size:28px}
-            .tabs{gap:4px}
-            .tab{padding:8px 14px;font-size:12px}
-            .toolbar{padding:16px 16px 0}
-            .revision-grid{padding:20px 16px 0}
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Управление проектами | ARPPU.RU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+    --bg:#111113;--bg2:#1a1a1e;--bg3:#222228;
+    --border:rgba(255,255,255,.08);--text:#f0f0f0;
+    --muted:#a0a0a8;--dim:#666;
+    --gold:#C8A96E;--gold-bg:rgba(200,169,110,.12);
+    --blue:#3347FF;--blue-bg:rgba(51,71,255,.12);
+    --green:#4ADE80;--radius:12px;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;font-size:14px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(17,17,19,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px}
+.hdr-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;height:56px;gap:20px}
+.hdr-back{display:flex;align-items:center;gap:8px;font-family:"Unbounded",sans-serif;font-size:11px;font-weight:700;color:var(--muted);transition:color .15s;white-space:nowrap;border:1px solid var(--border);border-radius:8px;padding:6px 12px}
+.hdr-back:hover{color:var(--text)}
+.hdr-title{font-family:"Unbounded",sans-serif;font-size:22px;font-weight:900;flex:1;text-align:center;color:var(--text)}
+.hdr-spacer{width:120px}
+.tabs-bar{display:flex;justify-content:center;padding:16px 28px 0;gap:4px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--border);border-radius:100px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--muted);transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.tab.active{background:var(--gold);color:#1a1200;border-color:var(--gold);font-weight:700}
+.toolbar{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 28px;flex-wrap:wrap}
+.toolbar-subtitle{font-size:13px;color:var(--dim);width:100%;text-align:center;margin-bottom:4px}
+.search-wrap{position:relative}
+.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--dim);pointer-events:none}
+.search-input{background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:9px 16px 9px 38px;font-size:13px;color:var(--text);outline:none;width:220px;transition:border-color .15s;font-family:inherit}
+.search-input::placeholder{color:var(--dim)}
+.search-input:focus{border-color:rgba(255,255,255,.2)}
+.filter-btn{background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:9px 16px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;transition:all .15s}
+.filter-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.discuss-btn{background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:9px 16px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;transition:all .15s}
+.discuss-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.view-btn{background:var(--bg2);border:1px solid var(--border);border-radius:100px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--dim);transition:all .15s}
+.view-btn:hover{color:var(--text)}
+.view-btn.active{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.view{display:none}.view.active{display:block}
+.revision-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.rev-col{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 20px}
+.rev-col-title{font-family:"Unbounded",sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px}
+.rev-list{list-style:none}
+.rev-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
+.rev-item:last-child{border-bottom:none}
+.rev-item:hover .rev-item-text{color:var(--text)}
+.rev-item-dash{color:var(--dim);flex-shrink:0;margin-top:1px}
+.rev-item-text{font-size:13px;color:var(--muted);line-height:1.4;transition:color .15s}
+.rev-item.s-working .rev-item-text{color:#4ADE80}
+.rev-item.s-inprogress .rev-item-text{color:var(--gold)}
+.rev-item.s-notfit .rev-item-text{color:#FF6B6B;text-decoration:line-through}
+.rev-item.s-hidden{display:none}
+.detail-overlay{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:0;transition:opacity .2s}
+.detail-overlay.open{pointer-events:auto;opacity:1}
+.detail-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.detail-panel{position:absolute;right:0;top:0;bottom:0;width:420px;background:var(--bg2);border-left:1px solid var(--border);overflow-y:auto;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.detail-overlay.open .detail-panel{transform:translateX(0)}
+.dp-header{padding:24px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.dp-title{font-family:"Unbounded",sans-serif;font-size:16px;font-weight:700;line-height:1.3}
+.dp-close{background:transparent;border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0;transition:all .15s}
+.dp-close:hover{color:var(--text)}
+.dp-body{padding:20px 24px;display:flex;flex-direction:column;gap:20px}
+.dp-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:8px}
+.dp-status-row{display:flex;gap:8px;flex-wrap:wrap}
+.dp-sbtn{padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s;cursor:pointer}
+.dp-sbtn:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+.dp-sbtn.s-idea.active{background:var(--blue-bg);border-color:var(--blue);color:#7B8FFF}
+.dp-sbtn.s-inprogress.active{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.dp-sbtn.s-working.active{background:rgba(74,222,128,.12);border-color:#4ADE80;color:#4ADE80}
+.dp-sbtn.s-notfit.active{background:rgba(255,107,107,.12);border-color:#FF6B6B;color:#FF6B6B}
+.dp-notes{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--text);font-family:inherit;resize:vertical;min-height:100px;outline:none;transition:border-color .15s}
+.dp-notes:focus{border-color:rgba(255,255,255,.2)}
+.dp-hide-btn{background:transparent;border:1px solid var(--border);border-radius:100px;padding:8px 16px;font-size:12px;color:var(--dim);transition:all .15s;cursor:pointer}
+.dp-hide-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.diag-wrap{max-width:900px;margin:28px auto 0;padding:0 28px 60px}
+.diag-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.diag-card-title{font-size:14px;font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.diag-metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.diag-metric-card{background:var(--bg3);border-radius:10px;padding:16px}
+.diag-metric-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:6px}
+.diag-metric-val{font-family:"Unbounded",sans-serif;font-size:18px;font-weight:700;color:var(--text)}
+.diag-metric-val.positive{color:#4ADE80}
+.diag-income-input{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:18px;font-weight:700;font-family:"Unbounded",sans-serif;color:var(--text);width:100%;max-width:200px;outline:none;transition:border-color .15s}
+.diag-income-input:focus{border-color:var(--gold)}
+.diag-vectors{background:var(--bg3);border-radius:10px;padding:16px}
+.diag-vectors-title{font-size:12px;color:var(--dim);margin-bottom:12px}
+.diag-vector-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.diag-vector-row:last-child{border-bottom:none;font-weight:600;color:var(--text)}
+.diag-vector-name{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.diag-vector-dot{width:8px;height:8px;border-radius:50%}
+.diag-vector-val{font-size:12px;font-weight:600;color:var(--muted)}
+.diag-acc-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px}
+.diag-acc-head{padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .15s}
+.diag-acc-head:hover{background:var(--bg3)}
+.diag-acc-num{width:28px;height:28px;border-radius:50%;background:var(--blue-bg);border:1px solid var(--blue);display:flex;align-items:center;justify-content:center;font-family:"Unbounded",sans-serif;font-size:11px;font-weight:700;color:#7B8FFF;flex-shrink:0}
+.diag-acc-info{flex:1}
+.diag-acc-title{font-size:14px;font-weight:600;margin-bottom:2px}
+.diag-acc-sub{font-size:12px;color:var(--dim)}
+.diag-acc-mult{font-family:"Unbounded",sans-serif;font-size:13px;font-weight:700;color:var(--gold);margin-right:8px}
+.diag-acc-arrow{color:var(--dim);font-size:12px;transition:transform .2s}
+.diag-acc-item.open .diag-acc-arrow{transform:rotate(180deg)}
+.diag-acc-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border)}
+.diag-acc-item.open .diag-acc-body{display:block}
+.diag-acc-desc{font-size:12px;color:var(--dim);margin:12px 0 16px;line-height:1.6}
+.diag-metric-row{margin-bottom:16px}
+.diag-metric-name{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.diag-slider{width:100%;accent-color:var(--gold);cursor:pointer}
+.diag-slider-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:4px}
+.diag-norm-badge{font-size:10px;padding:3px 8px;border-radius:100px}
+.diag-norm-badge.ok{background:rgba(74,222,128,.12);color:#4ADE80}
+.diag-norm-badge.warn{background:rgba(255,107,107,.12);color:#FF6B6B}
+.diag-profile-bars{display:flex;flex-direction:column;gap:10px}
+.diag-profile-bar-row{display:flex;align-items:center;gap:12px}
+.diag-profile-bar-label{font-size:12px;color:var(--muted);width:200px;flex-shrink:0}
+.diag-profile-bar-bg{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden}
+.diag-profile-bar-fill{height:100%;background:var(--gold);border-radius:100px;transition:width .4s}
+.diag-profile-bar-val{font-size:11px;color:var(--dim);width:36px;text-align:right;flex-shrink:0}
+.checklist-wrap{max-width:900px;margin:28px auto 0;padding:0 28px 60px}
+.cl-sidebar-layout{display:grid;grid-template-columns:240px 1fr;gap:20px}
+.cl-sidebar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.cl-sidebar-section{border-bottom:1px solid var(--border)}
+.cl-sidebar-section:last-child{border-bottom:none}
+.cl-sidebar-section-head{padding:12px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .15s}
+.cl-sidebar-section-head:hover{background:var(--bg3)}
+.cl-sidebar-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.cl-main-area{display:flex;align-items:center;justify-content:center;min-height:300px;color:var(--dim);flex-direction:column;gap:12px;font-size:13px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius)}
+.events-wrap{max-width:1200px;margin:0 auto;padding:0 28px 60px}
+.events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.event-col{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 20px}
+.event-col-title{font-family:"Unbounded",sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px}
+.event-list{list-style:none}
+.event-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
+.event-item:last-child{border-bottom:none}
+.event-item:hover .event-item-text{color:var(--text)}
+.event-item-dash{color:var(--dim);flex-shrink:0}
+.event-item-text{font-size:13px;color:var(--muted);line-height:1.4;transition:color .15s}
+.event-item.s-working .event-item-text{color:#4ADE80}
+.event-item.s-inprogress .event-item-text{color:var(--gold)}
+.event-item.s-notfit .event-item-text{color:#FF6B6B;text-decoration:line-through}
+.funnel-wrap{max-width:1200px;margin:0 auto;padding:0 28px 60px}
+.funnel-filter-row{display:flex;justify-content:center;gap:8px;margin-bottom:20px;padding:0 28px}
+.funnel-filter-btn{padding:7px 16px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;transition:all .15s}
+.funnel-filter-btn:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+.funnel-filter-btn.active{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.funnel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.funnel-col{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 20px}
+.funnel-col-title{font-family:"Unbounded",sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px}
+.funnel-list{list-style:none}
+.funnel-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
+.funnel-item:last-child{border-bottom:none}
+.funnel-item:hover .funnel-item-text{color:var(--text)}
+.funnel-item-dash{color:var(--dim);flex-shrink:0}
+.funnel-item-text{font-size:13px;color:var(--muted);line-height:1.4;transition:color .15s}
+.funnel-item.s-working .funnel-item-text{color:#4ADE80}
+.funnel-item.s-inprogress .funnel-item-text{color:var(--gold)}
+.funnel-item.s-notfit .funnel-item-text{color:#FF6B6B;text-decoration:line-through}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#fff;color:#111;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:900px){.revision-grid,.events-grid,.funnel-grid{grid-template-columns:1fr 1fr}.detail-panel{width:100%}.diag-metrics-row{grid-template-columns:1fr 1fr}.cl-sidebar-layout{grid-template-columns:1fr}}
+@media(max-width:600px){.revision-grid,.events-grid,.funnel-grid{grid-template-columns:1fr}.hdr-title{font-size:16px}}
+</style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav class="nav">
-    <a href="/" class="nav-back">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 2L4 7l5 5"/></svg>
-        ARPPU.RU
-    </a>
-    <span class="nav-logo">Мой первый проект</span>
-</nav>
-
-<div class="page">
-    <!-- HEADER -->
-    <div class="proj-header">
-        <h1 class="proj-title">Мой первый проект</h1>
-    </div>
-
-    <!-- TABS -->
-    <div class="tabs-wrap">
-        <div class="tabs">
-            <button class="tab active" id="tab-revision" onclick="switchTab('revision',this)">Ревизия практик</button>
-            <button class="tab" id="tab-diagnostics" onclick="switchTab('diagnostics',this)">Диагностика</button>
-            <button class="tab" id="tab-checklist" onclick="switchTab('checklist',this)">Чек-лист</button>
-            <button class="tab" id="tab-events" onclick="switchTab('events',this)">Продающие события</button>
-            <button class="tab" id="tab-launch" onclick="switchTab('launch',this)">Прокачка запуска</button>
-        </div>
-    </div>
-
-    <!-- TOOLBAR -->
-    <div class="toolbar">
-        <div class="search-wrap">
-            <svg class="search-icon" width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="5"/><path d="M10.5 10.5l3 3"/></svg>
-            <input class="search-input" type="text" placeholder="Поиск по названию..." id="searchInput" oninput="filterRevision()">
-        </div>
-        <select class="filter-select" id="metricFilter" onchange="filterRevision()">
-            <option value="">Все метрики</option>
-            <option value="quant">Количественные</option>
-            <option value="qual">Качественные</option>
-        </select>
-        <button class="discuss-btn" onclick="showToast('Функция обсуждения скоро появится')">
-            <svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2h11v9H8l-3 3v-3H2z"/></svg>
-            Обсудить
-        </button>
-        <button class="view-btn" id="viewToggleBtn" onclick="toggleViewMode()" title="Переключить вид">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/></svg>
-        </button>
-    </div>
-
-    <!-- TAB SUBTITLE -->
-    <div class="tab-subtitle" id="tabSubtitle">Анализ стратегий по сегментам аудитории</div>
-
-    <!-- ── REVISION VIEW ── -->
-    <div class="view active" id="view-revision">
-        <div class="revision-grid" id="revisionGrid"></div>
-    </div>
-
-    <!-- ── DIAGNOSTICS VIEW ── -->
-    <div class="view" id="view-diagnostics">
-        <div class="diag-wrap">
-            <div class="diag-grid">
-                <div class="diag-card">
-                    <div class="diag-card-title">Текущие показатели</div>
-                    <div class="diag-row"><span class="diag-label">Объём базы</span><input class="diag-input" type="number" id="d_base" placeholder="10000" oninput="calcDiag()"></div>
-                    <div class="diag-row"><span class="diag-label">Open Rate (%)</span><input class="diag-input" type="number" id="d_or" placeholder="20" oninput="calcDiag()"></div>
-                    <div class="diag-row"><span class="diag-label">CTR (%)</span><input class="diag-input" type="number" id="d_ctr" placeholder="3" oninput="calcDiag()"></div>
-                    <div class="diag-row"><span class="diag-label">Конверсия (%)</span><input class="diag-input" type="number" id="d_conv" placeholder="2" oninput="calcDiag()"></div>
-                    <div class="diag-row"><span class="diag-label">Средний чек (₽)</span><input class="diag-input" type="number" id="d_check" placeholder="15000" oninput="calcDiag()"></div>
-                    <div class="diag-row"><span class="diag-label">Спящих (%)</span><input class="diag-input" type="number" id="d_sleep" placeholder="40" oninput="calcDiag()"></div>
-                </div>
-                <div class="diag-card">
-                    <div class="diag-card-title">Прогноз после активации</div>
-                    <div id="diagResult"><div style="font-size:13px;color:var(--dim)">Заполните показатели слева</div></div>
-                </div>
-                <div class="diag-card">
-                    <div class="diag-card-title">Диагностика здоровья</div>
-                    <div class="diag-health" id="diagHealth">Введите показатели для диагностики</div>
-                </div>
-                <div class="diag-card">
-                    <div class="diag-card-title">Рекомендации</div>
-                    <div class="diag-recs" id="diagRecs">Введите показатели для рекомендаций</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ── CHECKLIST VIEW ── -->
-    <div class="view" id="view-checklist">
-        <div class="checklist-wrap">
-            <div class="cl-tabs" id="clTabs"></div>
-            <div id="clProgress"></div>
-            <div class="cl-list" id="clList"></div>
-        </div>
-    </div>
-
-    <!-- ── EVENTS VIEW ── -->
-    <div class="view" id="view-events">
-        <div class="events-wrap">
-            <div class="events-grid" id="eventsGrid"></div>
-        </div>
-    </div>
-
-    <!-- ── LAUNCH VIEW ── -->
-    <div class="view" id="view-launch">
-        <div class="launch-wrap">
-            <div class="launch-stages" id="launchStages"></div>
-        </div>
-    </div>
+<header class="hdr">
+<div class="hdr-inner">
+<a href="/baza" class="hdr-back">&#8249; ARPPU.RU</a>
+<div class="hdr-title" id="projTitle">Мой первый проект</div>
+<div class="hdr-spacer"></div>
 </div>
-
-<!-- DETAIL PANEL -->
+</header>
+<div class="tabs-bar">
+<button class="tab active" onclick="switchTab('revision',this)">Ревизия практик</button>
+<button class="tab" onclick="switchTab('diag',this)">Диагностика</button>
+<button class="tab" onclick="switchTab('checklist',this)">Чек-лист</button>
+<button class="tab" onclick="switchTab('events',this)">Продающие события</button>
+<button class="tab" onclick="switchTab('funnel',this)">Прокачка запуска</button>
+</div>
+<div class="toolbar">
+<div class="toolbar-subtitle" id="toolbarSubtitle">Анализ стратегий по сегментам аудитории</div>
+<div class="search-wrap">
+<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+<input class="search-input" id="searchInput" type="text" placeholder="Поиск по названию приема..." oninput="handleSearch()">
+</div>
+<button class="filter-btn" id="filterBtn" onclick="toggleFilter()">Количественные <span>&#9660;</span></button>
+<a href="https://t.me/arppu_ru" target="_blank" class="discuss-btn" id="discussBtn">
+<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+Обсудить
+</a>
+<button class="view-btn" id="viewToggleBtn" onclick="toggleViewMode()">
+<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 6h22M1 12h22M1 18h22"/></svg>
+</button>
+</div>
+<div class="view active" id="view-revision"><div class="revision-grid" id="revisionGrid"></div></div>
+<div class="view" id="view-diag">
+<div class="diag-wrap">
+<div class="diag-card">
+<div class="diag-card-title">
+<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+Прогноз роста на 12 месяцев
+</div>
+<div style="margin-bottom:16px">
+<div class="diag-metric-label">ТЕКУЩИЙ ДОХОД</div>
+<div style="display:flex;align-items:center;gap:8px">
+<input class="diag-income-input" type="text" id="incomeInput" placeholder="1 000 000" oninput="calcDiag()">
+<span style="font-size:18px;font-weight:700;font-family:'Unbounded',sans-serif;color:var(--dim)">&#8381;</span>
+</div>
+</div>
+<div class="diag-metrics-row">
+<div class="diag-metric-card"><div class="diag-metric-label">ДОХОД ЧЕРЕЗ ГОД</div><div class="diag-metric-val" id="diagForecast">&#8212; &#8381;</div></div>
+<div class="diag-metric-card"><div class="diag-metric-label">РОСТ</div><div class="diag-metric-val positive" id="diagGrowth">&#8212;</div></div>
+<div class="diag-metric-card"><div class="diag-metric-label">ДОП.ДОХОД ЗА ГОД</div><div class="diag-metric-val" id="diagExtra">&#8212; &#8381;</div></div>
+<div class="diag-metric-card"><div class="diag-metric-label">ИТОГОВЫЙ РОСТ</div><div class="diag-metric-val" id="diagMult">&#8212;</div></div>
+</div>
+<div class="diag-vectors">
+<div class="diag-vectors-title">Вклад векторов:</div>
+<div class="diag-vector-row"><span class="diag-vector-name"><span class="diag-vector-dot" style="background:#7B8FFF"></span>Модель авокадо</span><span class="diag-vector-val" id="vAvocado">&#215;1,00</span></div>
+<div class="diag-vector-row"><span class="diag-vector-name"><span class="diag-vector-dot" style="background:var(--gold)"></span>Средний чек</span><span class="diag-vector-val" id="vCheck">&#215;1,00</span></div>
+<div class="diag-vector-row"><span class="diag-vector-name"><span class="diag-vector-dot" style="background:#4ADE80"></span>Размер базы</span><span class="diag-vector-val" id="vBase">&#215;1,00</span></div>
+<div class="diag-vector-row" style="padding-top:8px;margin-top:4px;border-top:1px solid var(--border)"><span class="diag-vector-name" style="font-weight:600;color:var(--text)">Итоговый рост</span><span class="diag-vector-val" id="vTotal" style="color:var(--text)">&#215;1,00</span></div>
+</div>
+</div>
+<div class="diag-acc-item open" id="acc-avocado">
+<div class="diag-acc-head" onclick="toggleAcc('avocado')">
+<div class="diag-acc-num">1</div>
+<div class="diag-acc-info"><div class="diag-acc-title">Модель авокадо</div><div class="diag-acc-sub">Центральный узел всех метрик (6 показателей)</div></div>
+<span class="diag-acc-mult" id="mult-avocado">&#215;1,00</span>
+<span class="diag-acc-arrow">&#9660;</span>
+</div>
+<div class="diag-acc-body">
+<div class="diag-acc-desc">Качественные и количественные показатели вовлеченности базы</div>
+<div id="avocado-metrics"></div>
+</div>
+</div>
+<div class="diag-acc-item" id="acc-check">
+<div class="diag-acc-head" onclick="toggleAcc('check')">
+<div class="diag-acc-num">2</div>
+<div class="diag-acc-info"><div class="diag-acc-title">Средний чек</div><div class="diag-acc-sub">Повышение чека и стратегия роста</div></div>
+<span class="diag-acc-mult" id="mult-check">&#215;1,00</span>
+<span class="diag-acc-arrow">&#9660;</span>
+</div>
+<div class="diag-acc-body">
+<div class="diag-acc-desc">Стратегии увеличения среднего чека через ценообразование и линейку продуктов</div>
+<div id="check-metrics"></div>
+</div>
+</div>
+<div class="diag-acc-item" id="acc-base">
+<div class="diag-acc-head" onclick="toggleAcc('base')">
+<div class="diag-acc-num">3</div>
+<div class="diag-acc-info"><div class="diag-acc-title">Размер базы</div><div class="diag-acc-sub">Активность и охват аудитории</div></div>
+<span class="diag-acc-mult" id="mult-base">&#215;1,00</span>
+<span class="diag-acc-arrow">&#9660;</span>
+</div>
+<div class="diag-acc-body">
+<div class="diag-acc-desc">Методы привлечения новой аудитории и расширения базы подписчиков</div>
+<div id="base-metrics"></div>
+</div>
+</div>
+<div class="diag-card">
+<div class="diag-card-title">Профиль метрик</div>
+<div class="diag-profile-bars" id="profileBars"></div>
+<button onclick="resetDiag()" style="background:transparent;border:1px solid var(--border);border-radius:100px;padding:8px 20px;font-size:12px;color:var(--dim);cursor:pointer;transition:all .15s;display:block;margin:16px auto 0">Сбросить</button>
+</div>
+</div>
+</div>
+<div class="view" id="view-checklist">
+<div class="checklist-wrap">
+<div class="cl-sidebar-layout">
+<div class="cl-sidebar">
+<div class="cl-sidebar-section">
+<div class="cl-sidebar-section-head"><span class="cl-sidebar-section-title">МОИ СПИСКИ</span><span style="margin-left:auto;color:var(--dim);font-size:10px">&#9660;</span></div>
+<div style="padding:12px 16px;font-size:12px;color:var(--dim)">Нет общих чек-листов</div>
+</div>
+<div class="cl-sidebar-section">
+<div class="cl-sidebar-section-head"><span class="cl-sidebar-section-title">СПИСКИ ПРОЕКТА</span><span style="margin-left:auto;color:var(--dim);font-size:10px">&#9660;</span></div>
+<div style="padding:12px 16px;font-size:12px;color:var(--dim)">Нет частных чек-листов</div>
+</div>
+<div class="cl-sidebar-section">
+<div class="cl-sidebar-section-head"><span class="cl-sidebar-section-title">ПУБЛИЧНЫЕ</span><span style="margin-left:auto;color:var(--dim);font-size:10px">&#9660;</span></div>
+<div style="padding:12px 16px;font-size:12px;color:var(--dim)">Нет публичных чек-листов</div>
+</div>
+</div>
+<div class="cl-main-area">
+<div style="font-size:36px;opacity:.3">&#9745;</div>
+<div>Выберите чек-лист или создайте новый</div>
+</div>
+</div>
+</div>
+</div>
+<div class="view" id="view-events"><div class="events-wrap"><div class="events-grid" id="eventsGrid"></div></div></div>
+<div class="view" id="view-funnel">
+<div class="funnel-wrap">
+<div class="funnel-filter-row">
+<button class="funnel-filter-btn active" onclick="setFunnelFilter(this)">Первичные</button>
+<button class="funnel-filter-btn" onclick="setFunnelFilter(this)">Все</button>
+</div>
+<div class="funnel-grid" id="funnelGrid"></div>
+</div>
+</div>
 <div class="detail-overlay" id="detailOverlay">
-    <div class="detail-backdrop" onclick="closeDetail()"></div>
-    <div class="detail-panel" id="detailPanel"></div>
+<div class="detail-backdrop" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detailPanel"></div>
 </div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
-
 <script>
-// ============================================================
-// DATA
-// ============================================================
-
-// REVISION DATA — 3 segments × many practices
-const REVISION_DATA = {
-    "Новые пользователи": {
-        quant: [
-            {id:"np1",title:"Упоминание от спонсоров конференции",desc:"Партнёрское упоминание на конференциях и мероприятиях для привлечения новой аудитории.",tags:["Партнёрства","Охват"]},
-            {id:"np2",title:"Страница free",desc:"Бесплатная точка входа — страница с ценным контентом без регистрации.",tags:["Лид-магнит","Контент"]},
-            {id:"np3",title:"Партнерская система",desc:"Система вознаграждений для партнёров, приводящих новых подписчиков.",tags:["Партнёрства","Монетизация"]},
-            {id:"np4",title:"Реферальная система",desc:"Программа «приведи друга» с бонусами для обеих сторон.",tags:["Реферал","Вирусность"]},
-            {id:"np5",title:"Альтернативные воронки",desc:"Несколько параллельных воронок привлечения под разные сегменты.",tags:["Воронки","Сегментация"]},
-            {id:"np6",title:"Закупка нового трафика",desc:"Платное привлечение через таргет, контекст, посевы.",tags:["Трафик","Реклама"]},
-            {id:"np7",title:"Клубная система",desc:"Закрытый клуб с эксклюзивным доступом как точка входа.",tags:["Клуб","Удержание"]},
-        ],
-        qual: [
-            {id:"np8",title:"Квиз для новичков",desc:"Интерактивный тест для определения уровня и сегментации.",tags:["Квиз","Сегментация"]},
-            {id:"np9",title:"Welcome-серия писем",desc:"Автоматическая цепочка из 5-7 писем для новых подписчиков.",tags:["Email","Автоматизация"]},
-            {id:"np10",title:"Бесплатный мини-курс",desc:"3-5 уроков бесплатно для знакомства с экспертом.",tags:["Контент","Прогрев"]},
-        ]
-    },
-    "Спящие": {
-        quant: [
-            {id:"sp1",title:"Онбординг",desc:"Серия писем для тех, кто подписался, но не проявлял активности.",tags:["Email","Онбординг"]},
-            {id:"sp2",title:"Реактивационные письма",desc:"Специальная цепочка для возврата неактивных подписчиков.",tags:["Email","Реактивация"]},
-            {id:"sp3",title:"Регулярные полезные письма",desc:"Систематические рассылки с ценным контентом для поддержания контакта.",tags:["Email","Контент"]},
-            {id:"sp4",title:"Полезные мероприятия",desc:"Бесплатные вебинары и эфиры для пробуждения интереса.",tags:["Вебинар","Активация"]},
-            {id:"sp5",title:"Автообзвоны с правом выбора",desc:"Голосовые сообщения с предложением выбрать тему следующего контента.",tags:["Звонки","Персонализация"]},
-            {id:"sp6",title:"Мини-задача для результата",desc:"Простое задание с быстрым результатом для возврата в активность.",tags:["Геймификация","Активация"]},
-            {id:"sp7",title:"Экспертный чат с подписчиками",desc:"Открытый чат с экспертом для вовлечения спящей аудитории.",tags:["Сообщество","Вовлечение"]},
-            {id:"sp8",title:"Ценный приз",desc:"Розыгрыш ценного приза для активации спящих подписчиков.",tags:["Конкурс","Активация"]},
-            {id:"sp9",title:"Опрос с подарком",desc:"Опрос с призом за участие — простой способ разбудить базу.",tags:["Опрос","Вовлечение"]},
-            {id:"sp10",title:"Личное письмо от эксперта",desc:"Персональное письмо без маркетинговых шаблонов.",tags:["Email","Персонализация"]},
-        ],
-        qual: [
-            {id:"sp11",title:"Сегментация спящих",desc:"Разделение неактивных по причинам отсутствия активности.",tags:["Сегментация","Аналитика"]},
-            {id:"sp12",title:"Флэш-распродажа 24 часа",desc:"Скидка на 24 часа для активации спящих клиентов.",tags:["Акция","Срочность"]},
-        ]
-    },
-    "Активные": {
-        quant: [
-            {id:"ac1",title:"Регулярные полезные письма",desc:"Систематические рассылки с ценным контентом для поддержания вовлечённости.",tags:["Email","Контент"]},
-            {id:"ac2",title:"Онбординг",desc:"Онбординг для новых активных подписчиков.",tags:["Онбординг","Удержание"]},
-            {id:"ac3",title:"Клубная система",desc:"Закрытый клуб с эксклюзивным контентом для активных.",tags:["Клуб","Лояльность"]},
-            {id:"ac4",title:"Реферальная система",desc:"Программа для активных подписчиков — они лучшие амбассадоры.",tags:["Реферал","Вирусность"]},
-            {id:"ac5",title:"Сериальность в контенте",desc:"Серийный контент с продолжением — создаёт привычку читать.",tags:["Контент","Удержание"]},
-            {id:"ac6",title:"Задвоение коммуникации",desc:"Дублирование ключевых сообщений через разные каналы.",tags:["Омниканальность","Охват"]},
-            {id:"ac7",title:"Страница free",desc:"Бесплатные материалы для поощрения активных подписчиков.",tags:["Лид-магнит","Лояльность"]},
-            {id:"ac8",title:"Полезные мероприятия",desc:"Регулярные мероприятия для поддержания высокой вовлечённости.",tags:["Вебинар","Сообщество"]},
-            {id:"ac9",title:"Продающие события",desc:"Регулярные продающие мероприятия для монетизации активной базы.",tags:["Продажи","Монетизация"]},
-            {id:"ac10",title:"Геймификация",desc:"Система баллов, уровней и наград для активных подписчиков.",tags:["Геймификация","Удержание"]},
-        ],
-        qual: [
-            {id:"ac11",title:"NPS-опрос",desc:"Измерение индекса лояльности для выявления промоутеров.",tags:["Аналитика","Лояльность"]},
-            {id:"ac12",title:"Программа лояльности",desc:"Накопительная система бонусов для постоянных клиентов.",tags:["Лояльность","Монетизация"]},
-        ]
-    }
-};
-
-const EVENTS_DATA = [
-    {id:"e1",num:"01",title:"Продающий вебинар",desc:"Классический формат: польза + продажа. Конверсия 5-15% при правильной структуре.",impact:"hp",tags:["Вебинар","Продажи"]},
-    {id:"e2",num:"02",title:"Автовебинар",desc:"Записанный вебинар с имитацией живого. Работает 24/7 без участия эксперта.",impact:"hp",tags:["Автоматизация","Продажи"]},
-    {id:"e3",num:"03",title:"Марафон с продажей",desc:"3-7 дневный марафон с продажей в конце. Высокая вовлечённость и конверсия.",impact:"hp",tags:["Марафон","Вовлечение"]},
-    {id:"e4",num:"04",title:"Флэш-распродажа 24 часа",desc:"Скидка на 24 часа. Создаёт срочность и активирует спящих клиентов.",impact:"mp",tags:["Акция","Срочность"]},
-    {id:"e5",num:"05",title:"Мастер-класс с продажей",desc:"Интенсивный 2-3 часовой МК с предложением в конце.",impact:"hp",tags:["МК","Продажи"]},
-    {id:"e6",num:"06",title:"Акция «Чёрная пятница»",desc:"Сезонная акция с ограниченным предложением. Быстрый всплеск продаж.",impact:"hp",tags:["Акция","Сезонность"]},
-    {id:"e7",num:"07",title:"VIP-день с экспертом",desc:"Интенсивный день работы с экспертом. Высокий чек, низкие затраты.",impact:"hp",tags:["VIP","Высокий чек"]},
-    {id:"e8",num:"08",title:"Интенсив за символическую цену",desc:"Платный интенсив по низкой цене. Отсеивает незаинтересованных.",impact:"hp",tags:["Интенсив","Конверсия"]},
-    {id:"e9",num:"09",title:"Живой Q&A эфир",desc:"Сессия вопросов и ответов. Снимает возражения перед покупкой.",impact:"mp",tags:["Эфир","Возражения"]},
-    {id:"e10",num:"10",title:"Закрытый клуб подписки",desc:"Ежемесячная подписка с эксклюзивным контентом. Предсказуемый доход.",impact:"hp",tags:["Подписка","Регулярный доход"]},
-    {id:"e11",num:"11",title:"Мастермайнд-группа",desc:"Закрытая группа для совместной работы. Высокий чек и лояльность.",impact:"hp",tags:["Мастермайнд","Сообщество"]},
-    {id:"e12",num:"12",title:"Конференция онлайн",desc:"Многодневная конференция с несколькими спикерами. Максимальный охват.",impact:"hp",tags:["Конференция","Охват"]},
+const PROJ_KEY="arppu_project_v2";
+let S={statuses:{},notes:{},hidden:{},diag:{income:0,clientShare:12,oldSales:80,repeatSales:80,conversion:2.5,active:40,openRate:15,avgCheck:100,baseGrowth:0}};
+try{const d=localStorage.getItem(PROJ_KEY);if(d)S=JSON.parse(d);}catch(e){}
+function saveS(){localStorage.setItem(PROJ_KEY,JSON.stringify(S));}
+const SEGMENTS=[
+{id:"new_users",title:"Новые пользователи",items:["Упоминание от спонсоров конференции","Страница free","Партнерская система","Реферальная система","Альтернативные воронки","Закупка нового трафика","Клубная система"]},
+{id:"sleeping",title:"Спящие",items:["Онбординг","Реактивационные письма","Регулярные полезные письма","Полезные мероприятия","Автообзвоны с правом выбора","Мини-задача для результата","Экспертный чат с подписчиками","Ценный приз","Клубная система","Страница free","Лекторий (архив материалов)","Задвоение коммуникации"]},
+{id:"active",title:"Активные",items:["Регулярные полезные письма","Онбординг","Клубная система","Реферальная система","Сериальность в контенте","Задвоение коммуникации","Страница free","Полезные мероприятия","Лекторий (архив материалов)","Игрофикация (в мероприятии)","Игрофикация (как нарратив)","Событие на основе мероприятия","Пространство для экспериментов","Платный формат мероприятий","Мини-задача для результата","Множество продуктов","Экспертный чат с подписчиками"]},
+{id:"seen_offer",title:"Видели офер",items:["Клик-бейт","Кейсы учеников","Лекторий (архив материалов)","Игрофикация (как нарратив)","Игрофикация (в мероприятии)","Единая ссылка на все вебы","Внутренняя баннерная сеть","Несколько лендингов на один продукт","Лонгрид на курс","Лендинг курса","Клубная система"]},
+{id:"clients",title:"Клиенты",items:["Партнерская система","Клубная система","Кейсы учеников","Реферальная система","Кураторские касания","Обновление текущего продукта","Платная бронь","Ценный приз","Множество продуктов","Увеличение стоимости"]},
+{id:"repeat_clients",title:"Повторные клиенты",items:["Ретаргетинг на клиентов","Автосписание (в подписке)","Линейка связанных продуктов","Клубная система","Множество продуктов","Регулярные полезные письма","Игрофикация (в продукте)","Продажа внутри курса","Потоковое обучение"]},
+{id:"income",title:"Доход",items:["Витрина продуктов","Ценный приз","Автосписание (в подписке)","Линейка связанных продуктов","Клубная система","Потоковое обучение","Увеличение стоимости","Полезные мероприятия","Событие на основе мероприятия","Закупка трафика в ноль","СМС по актуальным","Мультипродажи на мероприятиях","Короткие прогревы перед запуском","Короткие наборы на мероприятия","Пространство для экспериментов","СМС по горячим сегментам","Upsell текущего тарифа","График повышения и понижения цен","План мероприятий на 6 месяцев","Множество продуктов"]},
+{id:"base_size",title:"Объем базы",items:["Большая закупка трафика сейчас","Альтернативные воронки","Закупка нового трафика","Закупка трафика в ноль","Клубная система"]},
 ];
-
-const LAUNCH_STAGES = [
-    {id:"ls1",title:"За 30 дней до запуска",items:[
-        "Определить целевую аудиторию и сегменты базы",
-        "Составить контент-план прогрева",
-        "Настроить аналитику и UTM-метки",
-        "Подготовить лид-магниты для привлечения",
-        "Настроить автоматическую welcome-цепочку",
-        "Проверить доставляемость писем (SPF, DKIM, DMARC)",
-    ]},
-    {id:"ls2",title:"За 14 дней — прогрев",items:[
-        "Запустить прогревающую цепочку писем",
-        "Активировать Telegram-канал с анонсами",
-        "Опубликовать кейсы и отзывы клиентов",
-        "Провести бесплатный мастер-класс или эфир",
-        "Открыть список ожидания (waitlist)",
-        "Запустить ретаргетинг по базе",
-    ]},
-    {id:"ls3",title:"За 7 дней — финальный прогрев",items:[
-        "Отправить анонсирующее письмо с датой открытия",
-        "Серия писем «До/После» с кейсами",
-        "Письмо с ответами на частые возражения",
-        "Telegram-рассылка по базе подписчиков",
-        "Напоминание о ранних птицах и бонусах",
-    ]},
-    {id:"ls4",title:"День открытия продаж",items:[
-        "Письмо «Открыты продажи» в 9:00",
-        "Telegram-сообщение с прямой ссылкой",
-        "Письмо-напоминание в 18:00",
-        "Мониторинг конверсии в реальном времени",
-        "Ответы на вопросы в чате",
-    ]},
-    {id:"ls5",title:"После запуска",items:[
-        "Анализ метрик: открываемость, клики, конверсия",
-        "Сегментация купивших и не купивших",
-        "Запуск онбординг-цепочки для новых клиентов",
-        "Реактивация не купивших через 7 дней",
-        "Сбор и публикация отзывов",
-        "Расчёт ROI и LTV",
-        "Документирование работающих приёмов",
-    ]},
+const EVENTS_CATS=[
+{id:"efiry",title:"Эфиры",items:["Вебинар","Разбор","Другой эксперт","Мастер-класс","Обзоры","Реакции","Ответы","Круглый стол","Экскурсия","Интервью","Пробный урок","Платный формат мероприятия","Закрытый эфир","Клиентские эфиры"]},
+{id:"marafony",title:"Марафоны",items:["Интенсив","Экшен-план","Практикум","Демо доступ","Игры","Квизы","Челенджи","Курс (б/п)","Платный формат мероприятия","Мастер-класс","Марафон"]},
+{id:"games",title:"Игровые акции",items:["День рождения","ДОД","ЧП","НГ","Ликвидация","Колесо фортуны","Викторины","Платный формат мероприятия"]},
+{id:"conf",title:"Конференции",items:["Онлайн","Офлайн","Выставки","Платный формат мероприятия"]},
+{id:"pers",title:"Перс.технологии",items:["Диагностики","Пред.списки","Разборы","Платный формат мероприятия","Прозвон сегментов ОП","Кураторские касания","Консультация"]},
+{id:"other",title:"Другие события",items:["Квизы","Запись эфира","Фрагменты вебинара","Конспект выступления","Калькулятор на сайте","Шаблон файла","Тематический чат","Ролик","Серия постов","Избранные моменты конфы","Экшен-план","Обновление лектория","Платный формат мероприятия","Лучшие в мире дайджесты","Короткие живые включения","Страница free (с бесплатным материалом)","Мини-задание или тест","Групповая консультация","Аудио-подкаст","Оффер в лоб","Лонгрид"]},
 ];
-
-const CHECKLISTS = {
-    prelaunch:{label:"Перед запуском",items:[
-        {id:"pl1",text:"Определена целевая аудитория и сегменты базы"},
-        {id:"pl2",text:"Составлен контент-план прогрева"},
-        {id:"pl3",text:"Настроена аналитика и UTM-метки"},
-        {id:"pl4",text:"Подготовлены лид-магниты для привлечения"},
-        {id:"pl5",text:"Настроена автоматическая welcome-цепочка"},
-        {id:"pl6",text:"Проверена доставляемость писем (SPF, DKIM, DMARC)"},
-        {id:"pl7",text:"Сегментирована база по активности"},
-        {id:"pl8",text:"Подготовлены шаблоны писем в фирменном стиле"},
-        {id:"pl9",text:"Настроены триггерные письма"},
-        {id:"pl10",text:"Проведён A/B тест темы письма"},
-    ]},
-    launch:{label:"Во время запуска",items:[
-        {id:"l1",text:"Отправлено анонсирующее письмо за 7 дней"},
-        {id:"l2",text:"Запущена прогревающая цепочка писем"},
-        {id:"l3",text:"Активирован Telegram-канал с анонсами"},
-        {id:"l4",text:"Настроен ретаргетинг по базе"},
-        {id:"l5",text:"Запущены напоминания о событии"},
-        {id:"l6",text:"Мониторинг открываемости и кликов в реальном времени"},
-        {id:"l7",text:"Реакция на отписки и жалобы на спам"},
-        {id:"l8",text:"Отправлено письмо за 1 час до события"},
-        {id:"l9",text:"Сбор отзывов и обратной связи"},
-        {id:"l10",text:"Отправлено письмо с записью/итогами"},
-    ]},
-    postlaunch:{label:"После запуска",items:[
-        {id:"po1",text:"Анализ метрик: открываемость, клики, конверсия"},
-        {id:"po2",text:"Сегментация купивших и не купивших"},
-        {id:"po3",text:"Запуск онбординг-цепочки для новых клиентов"},
-        {id:"po4",text:"Реактивация не купивших через 7 дней"},
-        {id:"po5",text:"Сбор и публикация отзывов"},
-        {id:"po6",text:"Анализ причин отписок"},
-        {id:"po7",text:"Обновление сегментации базы"},
-        {id:"po8",text:"Планирование следующего запуска"},
-        {id:"po9",text:"Документирование работающих приёмов"},
-        {id:"po10",text:"Расчёт ROI и LTV"},
-    ]},
-    risks:{label:"Риски",items:[
-        {id:"r1",text:"Проверена репутация домена отправителя"},
-        {id:"r2",text:"Нет массовых жалоб на спам (< 0.1%)"},
-        {id:"r3",text:"База собрана с явным согласием (double opt-in)"},
-        {id:"r4",text:"Есть резервный канал коммуникации (Telegram)"},
-        {id:"r5",text:"Настроена обработка отписок в соответствии с законом"},
-        {id:"r6",text:"Проверена работа всех ссылок в письмах"},
-        {id:"r7",text:"Есть план действий при падении Open Rate"},
-        {id:"r8",text:"Сделан бэкап базы подписчиков"},
-    ]},
-};
-
-// ============================================================
-// STATE
-// ============================================================
-const SK = "project_v1";
-let S = {statuses:{},notes:{},checklists:{}};
-function loadS(){try{const d=localStorage.getItem(SK);if(d)S={...S,...JSON.parse(d)};}catch(e){}}
-function saveS(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
-
-let activeTab = "revision";
-let clTab = "prelaunch";
-let metricFilter = "";
-let searchQ = "";
-let selectedItem = null;
-
-// ============================================================
-// INIT
-// ============================================================
-function init(){
-    loadS();
-    renderRevision();
-    renderEvents();
-    renderLaunch();
-    renderChecklists();
-}
-
-// ============================================================
-// TABS
-// ============================================================
-const TAB_SUBTITLES = {
-    revision: "Анализ стратегий по сегментам аудитории",
-    diagnostics: "Введите показатели — получите прогноз роста",
-    checklist: "Точки кристаллизации внимания при работе с базой",
-    events: "Форматы продающих мероприятий для монетизации базы",
-    launch: "Пошаговый план прокачки запуска",
-};
-function switchTab(id, el){
-    activeTab = id;
-    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-    document.getElementById("view-"+id).classList.add("active");
-    if(el) el.classList.add("active");
-    document.getElementById("tabSubtitle").textContent = TAB_SUBTITLES[id]||"";
-    if(id==="checklist") renderChecklists();
-}
-
-// ============================================================
-// REVISION
-// ============================================================
-function filterRevision(){
-    searchQ = document.getElementById("searchInput").value.toLowerCase();
-    metricFilter = document.getElementById("metricFilter").value;
-    renderRevision();
-}
-
+const FUNNEL_CATS=[
+{id:"ohvat",title:"Охват",items:["Упоминание спонсоров (инфопартнеры)","Привычка приходить на регулярное событие","Кол-во сообщений базе","Продолжительность набора","Продолжительность мероприятия","Использование всех каналов","Забыли закрыть страницу после окончания мероприятия","Чек-лист: Методы набора на мероприятие"]},
+{id:"dohodimost",title:"Доходимость",items:["Предварительный список","Видео-приглашение на странице записи","Чат под мероприятие","Эксперт тусит в чате","Расписание мероприятия","Отдельная страница с приглашением","Понятные даты","Спрашиваем сейчас, чтобы ответить на вебинаре","Бонусы при регистрации","Выдача бонусных рублей","Интеграция с календарем"]},
+{id:"uderzhanie",title:"Удержание",items:["Чат под мероприятие","Система баллов за ежедневное посещение","Лидерборды","Визуальный трекер завершенности мероприятия","Сценарий удержания","Разнесение даты старта и контента","Колесо фортуны","Письма каждый день","Продолжительность","Розыгрыш среди купивших каждый день","Интеграция с календарем","Виртуальные бейджи","Ежедневные бэкстейджи: за кулисами подготовки","Анонс следующего дня","Расписание на холодильнике","Причина приходить каждый день"]},
+{id:"konversiya",title:"Конверсия",items:["Старт обучения или предобучения в середине мероприятия","Как использовать мероприятие на 100%","Количество комментариев в чате","Бонусы за быструю покупку","Email-ретаргетинг","Видео-отзывы","Обзвон горячих","Снижение цен","Усиление бонусами","Сценарий ограничений","Дорогой приз","Индивидуальные условия и примеры","Контент в контексте продукта","Отдельные офферы для клиентов","Таймеры","Видео-демо продукта","Сервисные касания"]},
+{id:"dohod",title:"Доход",items:["Причина покупать как можно раньше","Продажи до старта продаж","Нужные продукты","Отдельная страница","Пакетные предложения","Персональные допродажи","Отсрочка первого платежа на 3 месяца","Второе окно продаж","Удачные предложения","Не закрываем мероприятие раньше времени","Сначала дорогое","Продажи после окончания мероприятия","Раздельный старт для предсписка и базы","Старт мероприятия утром","Длинные вебинары"]},
+{id:"ponyatnost",title:"Понятность",items:["Объяснение правил игры","Как использовать мероприятие на 100%","Визуальный трекер завершенности мероприятия","FAQ-блок","Подпись к кнопкам","Отдельный блок в письмах по расписанию","Даты на странице","Все по графику","Блоки с заголовками и с описанием","Видео-приветствие на странице с офферами","Мобильная адаптация","Движ в чате ведет к бонусам на акции","Расписание видно","Сервисные касания"]},
+{id:"registracii",title:"Регистрации",items:["Повышение интереса","Отдельная страница с приглашением","Видео-приглашение на странице записи","Бонусы при регистрации"]},
+{id:"riski",title:"Риски",items:["Не угадали с оффером","На каждом шагу задержки","Эксперт заболел","Письма не уходят","В предпродажах нет продаж","Мало регистраций","Посещения есть, но нет продаж","Домен перестал работать","Негатив по ценам"]},
+];
+const AVOCADO_METRICS=[
+{id:"clientShare",label:"Доля клиентов в базе",norm:12,max:50,unit:"%",normLabel:"12%"},
+{id:"oldSales",label:"Доля продаж старым пользователям",norm:80,max:100,unit:"%",normLabel:"80%"},
+{id:"repeatSales",label:"Доля повторных продаж",norm:80,max:100,unit:"%",normLabel:"80%"},
+{id:"conversion",label:"Конверсия базы в платный заказ",norm:2.5,max:10,unit:"%",normLabel:"2,5%",step:0.1},
+{id:"active",label:"Количество активных пользователей",norm:40,max:100,unit:"%",normLabel:"40%"},
+{id:"openRate",label:"Открываемость писем",norm:15,max:30,unit:"%",normLabel:"15%"},
+];
+const CHECK_METRICS=[{id:"avgCheck",label:"Средний чек (% от нормы)",norm:100,max:300,unit:"%",normLabel:"100%"}];
+const BASE_METRICS=[{id:"baseGrowth",label:"Рост базы в месяц",norm:10,max:50,unit:"%",normLabel:"10%"}];
+function mkId(segId,item){return segId+"_"+item.replace(/[^a-z\u0430-\u044f\u0451\u0410-\u042f\u04510-9]/gi,"_");}
+function esc(s){return s.replace(/'/g,"&#39;").replace(/"/g,"&quot;");}
 function renderRevision(){
-    const grid = document.getElementById("revisionGrid");
-    const segments = Object.keys(REVISION_DATA);
-    grid.innerHTML = segments.map(seg => {
-        const data = REVISION_DATA[seg];
-        let items = [];
-        if(!metricFilter || metricFilter==="quant") items = items.concat((data.quant||[]).map(i=>({...i,_type:"quant"})));
-        if(!metricFilter || metricFilter==="qual") items = items.concat((data.qual||[]).map(i=>({...i,_type:"qual"})));
-        if(searchQ) items = items.filter(i=>i.title.toLowerCase().includes(searchQ)||i.desc.toLowerCase().includes(searchQ));
-        const listHtml = items.length ? items.map(item => {
-            const status = S.statuses[item.id];
-            const dotHtml = status ? `<div class="rev-status-dot dot-${status}"></div>` : "";
-            return `<li class="rev-item${status?" has-status":""}" onclick="openDetail('${item.id}','${seg}')">
-                <span class="rev-dash">—</span>
-                <span class="rev-item-text">${item.title}</span>
-                ${dotHtml}
-            </li>`;
-        }).join("") : `<li style="font-size:13px;color:var(--dim);padding:10px 0">Нет совпадений</li>`;
-        return `<div class="rev-col">
-            <div class="rev-col-title">${seg}</div>
-            <ul class="rev-list">${listHtml}</ul>
-        </div>`;
-    }).join("");
+const q=document.getElementById("searchInput").value.toLowerCase();
+let html="";
+SEGMENTS.forEach(seg=>{
+let items=seg.items;
+if(q)items=items.filter(it=>it.toLowerCase().includes(q));
+html+=`<div class="rev-col"><div class="rev-col-title">${seg.title}</div><ul class="rev-list">`;
+items.forEach(item=>{
+const id=mkId(seg.id,item);
+const st=S.statuses[id]||"";
+const hid=S.hidden[id]?"s-hidden":"";
+html+=`<li class="rev-item${st?" s-"+st:""}${hid?" "+hid:""}" onclick="openDetail('${id}','${esc(item)}')" id="ri_${id}"><span class="rev-item-dash">&#8212;</span><span class="rev-item-text">${item}</span></li>`;
+});
+html+=`</ul></div>`;
+});
+document.getElementById("revisionGrid").innerHTML=html;
 }
-
-// ============================================================
-// DETAIL PANEL
-// ============================================================
-function findItem(id){
-    for(const seg of Object.keys(REVISION_DATA)){
-        const data = REVISION_DATA[seg];
-        const all = [...(data.quant||[]),...(data.qual||[])];
-        const found = all.find(i=>i.id===id);
-        if(found) return {item:found, seg};
-    }
-    return null;
-}
-
-function openDetail(id, seg){
-    const found = findItem(id);
-    if(!found) return;
-    const {item} = found;
-    selectedItem = id;
-    const status = S.statuses[id]||"";
-    const notes = S.notes[id]||"";
-    const tagsHtml = (item.tags||[]).map(t=>`<span class="detail-tag">${t}</span>`).join("");
-    document.getElementById("detailPanel").innerHTML = `
-        <div class="detail-head">
-            <div>
-                <div class="detail-seg">${seg}</div>
-                <div class="detail-title">${item.title}</div>
-            </div>
-            <button class="detail-close" onclick="closeDetail()">×</button>
-        </div>
-        <div class="detail-body">
-            <div class="detail-section">
-                <div class="detail-section-label">Описание</div>
-                <div class="detail-desc">${item.desc}</div>
-            </div>
-            ${tagsHtml?`<div class="detail-section"><div class="detail-section-label">Теги</div><div class="detail-tags">${tagsHtml}</div></div>`:""}
-            <div class="detail-section">
-                <div class="detail-section-label">Статус внедрения</div>
-                <select class="detail-status-select" onchange="setStatus('${id}',this.value)">
-                    <option value="">Без статуса</option>
-                    <option value="idea"${status==="idea"?" selected":""}>💡 Идея</option>
-                    <option value="wip"${status==="wip"?" selected":""}>⚙️ В работе</option>
-                    <option value="works"${status==="works"?" selected":""}>✅ Работает</option>
-                    <option value="nope"${status==="nope"?" selected":""}>❌ Не подошло</option>
-                </select>
-            </div>
-            <div class="detail-section">
-                <div class="detail-section-label">Заметки</div>
-                <textarea class="detail-notes" id="notesArea-${id}" placeholder="Добавьте заметки о результатах...">${notes}</textarea>
-                <button class="detail-save" onclick="saveNotes('${id}')">Сохранить заметки</button>
-            </div>
-        </div>
-    `;
-    document.getElementById("detailOverlay").classList.add("open");
-    document.body.style.overflow = "hidden";
-}
-
-function closeDetail(){
-    document.getElementById("detailOverlay").classList.remove("open");
-    document.body.style.overflow = "";
-    selectedItem = null;
-}
-
-function setStatus(id, status){
-    if(status) S.statuses[id]=status; else delete S.statuses[id];
-    saveS(); renderRevision(); showToast("Статус обновлён");
-}
-function saveNotes(id){
-    const a = document.getElementById("notesArea-"+id);
-    if(a){S.notes[id]=a.value; saveS(); showToast("Заметки сохранены");}
-}
-
-// ============================================================
-// DIAGNOSTICS
-// ============================================================
-function calcDiag(){
-    const base = parseFloat(document.getElementById("d_base").value)||0;
-    const or = parseFloat(document.getElementById("d_or").value)||0;
-    const ctr = parseFloat(document.getElementById("d_ctr").value)||0;
-    const conv = parseFloat(document.getElementById("d_conv").value)||0;
-    const check = parseFloat(document.getElementById("d_check").value)||0;
-    const sleep = parseFloat(document.getElementById("d_sleep").value)||0;
-    if(!base||!or) return;
-    const activeNow = Math.round(base*or/100);
-    const buyersNow = Math.round(base*conv/100);
-    const revNow = buyersNow*check;
-    const sleepCount = Math.round(base*sleep/100);
-    const orNew = Math.min(or*1.35,100);
-    const convNew = conv*1.20;
-    const activeNew = Math.round(base*orNew/100);
-    const buyersNew = Math.round(base*convNew/100);
-    const revNew = buyersNew*check;
-    const revGrowth = revNow>0?Math.round((revNew-revNow)/revNow*100):0;
-    document.getElementById("diagResult").innerHTML = `
-        <div class="diag-result">
-            <div class="diag-result-title">После системной активации (+35% OR, +20% конв.)</div>
-            <div class="diag-result-row"><span class="diag-result-label">Open Rate</span><span class="diag-result-val">${or}% → ${orNew.toFixed(1)}%</span></div>
-            <div class="diag-result-row"><span class="diag-result-label">Активных читателей</span><span class="diag-result-val">${activeNow.toLocaleString()} → ${activeNew.toLocaleString()}</span></div>
-            <div class="diag-result-row"><span class="diag-result-label">Покупателей</span><span class="diag-result-val">${buyersNow.toLocaleString()} → ${buyersNew.toLocaleString()}</span></div>
-            ${sleep>0?`<div class="diag-result-row"><span class="diag-result-label">Спящих для реактивации</span><span class="diag-result-val">${sleepCount.toLocaleString()} чел.</span></div>`:""}
-            ${check>0?`<div class="diag-result-row"><span class="diag-result-label">Выручка</span><span class="diag-result-val positive">${revNow.toLocaleString()}₽ → ${revNew.toLocaleString()}₽ (+${revGrowth}%)</span></div>`:""}
-        </div>
-    `;
-    let health = [];
-    if(or<15) health.push("🔴 Open Rate ниже нормы (< 15%). Нужна реактивация базы");
-    else if(or<25) health.push("🟡 Open Rate в норме, есть потенциал роста");
-    else health.push("🟢 Хороший Open Rate. Поддерживайте регулярность");
-    if(ctr<1) health.push("🔴 CTR очень низкий. Улучшите CTA и релевантность");
-    else if(ctr<3) health.push("🟡 CTR ниже среднего. Тестируйте форматы");
-    else health.push("🟢 Хороший CTR");
-    if(conv<1) health.push("🔴 Низкая конверсия. Проверьте оффер и прогрев");
-    else if(conv<3) health.push("🟡 Конверсия в норме, можно улучшить");
-    else health.push("🟢 Высокая конверсия");
-    if(sleep>50) health.push("🔴 Более 50% базы спит. Срочная реактивация");
-    else if(sleep>30) health.push("🟡 Значительная доля спящих. Запустите реактивацию");
-    document.getElementById("diagHealth").innerHTML = health.join("<br>");
-    let recs = [];
-    if(or<20) recs.push("→ Запустите реактивационную цепочку для спящих");
-    if(ctr<2) recs.push("→ Добавьте персонализацию и сегментацию рассылок");
-    if(conv<2) recs.push("→ Усильте прогрев: добавьте кейсы и отзывы");
-    if(sleep>30) recs.push("→ Проведите опрос с подарком для пробуждения базы");
-    if(or>=25&&ctr>=3) recs.push("→ База здорова. Масштабируйте через реферальную программу");
-    recs.push("→ Тестируйте новые форматы: вебинары, челленджи, Telegram-боты");
-    document.getElementById("diagRecs").innerHTML = recs.join("<br>");
-}
-
-// ============================================================
-// EVENTS
-// ============================================================
 function renderEvents(){
-    const IMPACT = {hp:"Высокое влияние",mp:"Среднее влияние",lp:"Низкое влияние"};
-    const IMPACT_CL = {hp:"badge-hp",mp:"badge-mp",lp:"badge-lp"};
-    document.getElementById("eventsGrid").innerHTML = EVENTS_DATA.map(e=>`
-        <div class="event-card" onclick="showToast('${e.title}: ${e.desc.substring(0,50)}...')">
-            <div class="event-num">${e.num}</div>
-            <div class="event-title">${e.title}</div>
-            <div class="event-desc">${e.desc}</div>
-            <span class="event-badge ${IMPACT_CL[e.impact]}">${IMPACT[e.impact]}</span>
-        </div>
-    `).join("");
+const q=document.getElementById("searchInput").value.toLowerCase();
+let html="";
+EVENTS_CATS.forEach(cat=>{
+let items=cat.items;
+if(q)items=items.filter(it=>it.toLowerCase().includes(q));
+html+=`<div class="event-col"><div class="event-col-title">${cat.title}</div><ul class="event-list">`;
+items.forEach(item=>{
+const id=mkId(cat.id,item);
+const st=S.statuses[id]||"";
+html+=`<li class="event-item${st?" s-"+st:""}" onclick="openDetail('${id}','${esc(item)}')" id="ei_${id}"><span class="event-item-dash">&#8212;</span><span class="event-item-text">${item}</span></li>`;
+});
+html+=`</ul></div>`;
+});
+document.getElementById("eventsGrid").innerHTML=html;
 }
-
-// ============================================================
-// LAUNCH STAGES
-// ============================================================
-function renderLaunch(){
-    document.getElementById("launchStages").innerHTML = LAUNCH_STAGES.map((stage,i)=>`
-        <div class="launch-stage${i===0?" open":""}" id="stage-${stage.id}">
-            <div class="launch-stage-head" onclick="toggleStage('${stage.id}')">
-                <span class="launch-stage-num">${String(i+1).padStart(2,"0")}</span>
-                <span class="launch-stage-title">${stage.title}</span>
-                <span class="launch-stage-arrow">▾</span>
-            </div>
-            <div class="launch-stage-body">
-                ${stage.items.map(item=>`
-                    <div class="launch-item">
-                        <div class="launch-item-dot"></div>
-                        <span>${item}</span>
-                    </div>
-                `).join("")}
-            </div>
-        </div>
-    `).join("");
+function renderFunnel(){
+const q=document.getElementById("searchInput").value.toLowerCase();
+let html="";
+FUNNEL_CATS.forEach(cat=>{
+let items=cat.items;
+if(q)items=items.filter(it=>it.toLowerCase().includes(q));
+html+=`<div class="funnel-col"><div class="funnel-col-title">${cat.title}</div><ul class="funnel-list">`;
+items.forEach(item=>{
+const id=mkId(cat.id,item);
+const st=S.statuses[id]||"";
+html+=`<li class="funnel-item${st?" s-"+st:""}" onclick="openDetail('${id}','${esc(item)}')" id="fi_${id}"><span class="funnel-item-dash">&#8212;</span><span class="funnel-item-text">${item}</span></li>`;
+});
+html+=`</ul></div>`;
+});
+document.getElementById("funnelGrid").innerHTML=html;
 }
-function toggleStage(id){
-    document.getElementById("stage-"+id).classList.toggle("open");
+function renderDiagMetrics(containerId,metrics){
+const el=document.getElementById(containerId);
+if(!el)return;
+let html="";
+metrics.forEach(m=>{
+const val=S.diag[m.id]!==undefined?S.diag[m.id]:m.norm;
+const isOk=val>=m.norm;
+const step=m.step||1;
+html+=`<div class="diag-metric-row">
+<div class="diag-metric-name"><span>${m.label}</span><span style="font-weight:700;color:var(--text)">${val}${m.unit}</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span class="diag-norm-badge ${isOk?"ok":"warn"}">${isOk?"&#10003; Норма достигнута":"&#8593; Ниже нормы"}</span>
+<span style="font-size:10px;color:var(--dim);margin-left:auto">Норма: ${m.normLabel}</span>
+</div>
+<input class="diag-slider" type="range" min="0" max="${m.max}" step="${step}" value="${val}" oninput="updateMetric('${m.id}',this.value)">
+<div class="diag-slider-labels"><span>0${m.unit}</span><span>${m.normLabel}</span><span>${m.max}${m.unit}</span></div>
+</div>`;
+});
+el.innerHTML=html;
 }
-
-// ============================================================
-// CHECKLISTS
-// ============================================================
-function renderChecklists(){
-    const keys = Object.keys(CHECKLISTS);
-    document.getElementById("clTabs").innerHTML = keys.map(k=>`
-        <div class="cl-tab${clTab===k?" active":""}" onclick="switchClTab('${k}')">${CHECKLISTS[k].label}</div>
-    `).join("");
-    const cl = CHECKLISTS[clTab];
-    const items = cl.items;
-    const checked = items.filter(i=>S.checklists[clTab]&&S.checklists[clTab][i.id]).length;
-    const pct = Math.round(checked/items.length*100);
-    document.getElementById("clProgress").innerHTML = `
-        <div class="cl-progress">
-            <div class="cl-progress-label">${checked} из ${items.length} выполнено (${pct}%)</div>
-            <div class="cl-progress-bg"><div class="cl-progress-fill" style="width:${pct}%"></div></div>
-        </div>
-    `;
-    document.getElementById("clList").innerHTML = items.map(item=>{
-        const isChecked = S.checklists[clTab]&&S.checklists[clTab][item.id];
-        return `<div class="cl-item${isChecked?" checked":""}" onclick="toggleCl('${clTab}','${item.id}')">
-            <div class="cl-checkbox"><span class="cl-check-icon">✓</span></div>
-            <div class="cl-text">${item.text}</div>
-        </div>`;
-    }).join("");
+function updateMetric(id,val){
+S.diag[id]=parseFloat(val);saveS();calcDiag();
+renderDiagMetrics("avocado-metrics",AVOCADO_METRICS);
+renderDiagMetrics("check-metrics",CHECK_METRICS);
+renderDiagMetrics("base-metrics",BASE_METRICS);
+renderProfileBars();
 }
-function switchClTab(key){ clTab=key; renderChecklists(); }
-function toggleCl(listKey,itemId){
-    if(!S.checklists[listKey]) S.checklists[listKey]={};
-    if(S.checklists[listKey][itemId]) delete S.checklists[listKey][itemId];
-    else S.checklists[listKey][itemId]=true;
-    saveS(); renderChecklists();
+function calcDiag(){
+const raw=(document.getElementById("incomeInput").value||"").replace(/\s/g,"").replace(/[^0-9]/g,"");
+const income=parseInt(raw)||0;
+if(!income){["diagForecast","diagExtra"].forEach(id=>document.getElementById(id).textContent="\u2014 \u20BD");document.getElementById("diagGrowth").textContent="\u2014";document.getElementById("diagMult").textContent="\u2014";return;}
+S.diag.income=income;
+let avocadoMult=1;
+AVOCADO_METRICS.forEach(m=>{const val=S.diag[m.id]!==undefined?S.diag[m.id]:m.norm;if(val<m.norm)avocadoMult*=1+(m.norm-val)/m.norm*0.15;});
+avocadoMult=Math.max(1,Math.min(avocadoMult,3));
+const checkVal=S.diag.avgCheck!==undefined?S.diag.avgCheck:100;
+const checkMult=Math.max(1,checkVal/100);
+const baseVal=S.diag.baseGrowth!==undefined?S.diag.baseGrowth:0;
+const baseMult=Math.max(1,1+baseVal/100);
+const totalMult=avocadoMult*checkMult*baseMult;
+const forecast=Math.round(income*totalMult);
+const growth=Math.round((totalMult-1)*100);
+const extra=forecast-income;
+document.getElementById("diagForecast").textContent=fmtNum(forecast)+" \u20BD";
+document.getElementById("diagGrowth").textContent="+"+growth+"%";
+document.getElementById("diagExtra").textContent=fmtNum(extra)+" \u20BD";
+document.getElementById("diagMult").textContent="\xD7"+totalMult.toFixed(2).replace(".",",");
+document.getElementById("vAvocado").textContent="\xD7"+avocadoMult.toFixed(2).replace(".",",");
+document.getElementById("vCheck").textContent="\xD7"+checkMult.toFixed(2).replace(".",",");
+document.getElementById("vBase").textContent="\xD7"+baseMult.toFixed(2).replace(".",",");
+document.getElementById("vTotal").textContent="\xD7"+totalMult.toFixed(2).replace(".",",");
+document.getElementById("mult-avocado").textContent="\xD7"+avocadoMult.toFixed(2).replace(".",",");
+document.getElementById("mult-check").textContent="\xD7"+checkMult.toFixed(2).replace(".",",");
+document.getElementById("mult-base").textContent="\xD7"+baseMult.toFixed(2).replace(".",",");
+saveS();
 }
-
-// ============================================================
-// VIEW TOGGLE
-// ============================================================
-let compactView = false;
-function toggleViewMode(){
-    compactView = !compactView;
-    document.getElementById("viewToggleBtn").classList.toggle("active",compactView);
-    document.querySelectorAll(".rev-item-text").forEach(el=>{
-        el.style.fontSize = compactView?"12px":"14px";
-    });
-    document.querySelectorAll(".rev-item").forEach(el=>{
-        el.style.padding = compactView?"6px 0":"10px 0";
-    });
+function fmtNum(n){return n.toLocaleString("ru-RU");}
+function renderProfileBars(){
+const bars=document.getElementById("profileBars");
+if(!bars)return;
+let html="";
+AVOCADO_METRICS.forEach(m=>{
+const val=S.diag[m.id]!==undefined?S.diag[m.id]:m.norm;
+const pct=Math.min(100,(val/m.max)*100);
+html+=`<div class="diag-profile-bar-row"><div class="diag-profile-bar-label">${m.label}</div><div class="diag-profile-bar-bg"><div class="diag-profile-bar-fill" style="width:${pct}%"></div></div><div class="diag-profile-bar-val">${val}${m.unit}</div></div>`;
+});
+bars.innerHTML=html;
 }
-
-// ============================================================
-// TOAST
-// ============================================================
-function showToast(msg){
-    const t = document.getElementById("toast");
-    t.textContent = msg;
-    t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"),2500);
+function resetDiag(){
+S.diag={income:0,clientShare:12,oldSales:80,repeatSales:80,conversion:2.5,active:40,openRate:15,avgCheck:100,baseGrowth:0};saveS();
+document.getElementById("incomeInput").value="";
+renderDiagMetrics("avocado-metrics",AVOCADO_METRICS);renderDiagMetrics("check-metrics",CHECK_METRICS);renderDiagMetrics("base-metrics",BASE_METRICS);renderProfileBars();
+["diagForecast","diagExtra"].forEach(id=>document.getElementById(id).textContent="\u2014 \u20BD");
+document.getElementById("diagGrowth").textContent="\u2014";document.getElementById("diagMult").textContent="\u2014";
 }
-
-// ============================================================
-// START
-// ============================================================
+function toggleAcc(id){document.getElementById("acc-"+id).classList.toggle("open");}
+function openDetail(id,name){
+const st=S.statuses[id]||"";const notes=S.notes[id]||"";const isHidden=S.hidden[id];
+const panel=document.getElementById("detailPanel");
+panel.innerHTML=`<div class="dp-header"><div class="dp-title">${name}</div><button class="dp-close" onclick="closeDetail()">&#10005;</button></div>
+<div class="dp-body">
+<div><div class="dp-label">Статус внедрения</div>
+<div class="dp-status-row">
+<button class="dp-sbtn s-idea${st==="idea"?" active":""}" onclick="setStatus('${id}','idea')">&#128161; Идея</button>
+<button class="dp-sbtn s-inprogress${st==="inprogress"?" active":""}" onclick="setStatus('${id}','inprogress')">&#128260; В работе</button>
+<button class="dp-sbtn s-working${st==="working"?" active":""}" onclick="setStatus('${id}','working')">&#9989; Работает</button>
+<button class="dp-sbtn s-notfit${st==="notfit"?" active":""}" onclick="setStatus('${id}','notfit')">&#10060; Не подошло</button>
+</div></div>
+<div><div class="dp-label">Заметки</div><textarea class="dp-notes" placeholder="Добавьте заметки о внедрении..." onchange="saveNote('${id}',this.value)">${notes}</textarea></div>
+<div><button class="dp-hide-btn" onclick="toggleHide('${id}')">${isHidden?"&#128065; Показать приём":"&#128584; Скрыть приём"}</button></div>
+</div>`;
+document.getElementById("detailOverlay").classList.add("open");
+}
+function closeDetail(){document.getElementById("detailOverlay").classList.remove("open");}
+function setStatus(id,status){
+if(S.statuses[id]===status)delete S.statuses[id];else S.statuses[id]=status;saveS();
+const name=document.querySelector("#detailPanel .dp-title").textContent;openDetail(id,name);updateItemClass(id);
+}
+function saveNote(id,val){S.notes[id]=val;saveS();}
+function toggleHide(id){
+if(S.hidden[id])delete S.hidden[id];else S.hidden[id]=true;saveS();
+const name=document.querySelector("#detailPanel .dp-title").textContent;openDetail(id,name);updateItemClass(id);
+}
+function updateItemClass(id){
+const st=S.statuses[id]||"";const hid=S.hidden[id];
+["ri_","ei_","fi_"].forEach(p=>{
+const el=document.getElementById(p+id);if(!el)return;
+el.className=el.className.replace(/\s*s-\S+/g,"");
+if(st)el.classList.add("s-"+st);if(hid)el.classList.add("s-hidden");
+});
+}
+let currentTab="revision";
+function switchTab(tab,btn){
+currentTab=tab;
+document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById("view-"+tab).classList.add("active");
+const subs={revision:"Анализ стратегий по сегментам аудитории",diag:"Оцените метрики школы и получите прогноз на 12 месяцев",checklist:"Чек-листы проекта",events:"Анализ стратегий по сегментам аудитории",funnel:"Профессиональные приемы по типам мероприятий"};
+document.getElementById("toolbarSubtitle").textContent=subs[tab]||"";
+document.getElementById("filterBtn").style.display=(tab==="revision")?"flex":"none";
+document.getElementById("discussBtn").style.display=(tab==="revision"||tab==="events")?"flex":"none";
+if(tab==="diag"){renderDiagMetrics("avocado-metrics",AVOCADO_METRICS);renderDiagMetrics("check-metrics",CHECK_METRICS);renderDiagMetrics("base-metrics",BASE_METRICS);renderProfileBars();calcDiag();}
+}
+function toggleFilter(){showToast("Фильтр по типу метрик — в разработке");}
+function handleSearch(){if(currentTab==="revision")renderRevision();else if(currentTab==="events")renderEvents();else if(currentTab==="funnel")renderFunnel();}
+function toggleViewMode(){document.getElementById("viewToggleBtn").classList.toggle("active");}
+function setFunnelFilter(btn){document.querySelectorAll(".funnel-filter-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500);}
+function init(){
+renderRevision();renderEvents();renderFunnel();
+const params=new URLSearchParams(window.location.search);
+const name=params.get("name")||localStorage.getItem("arppu_project_name")||"Мой первый проект";
+document.getElementById("projTitle").textContent=name;
+document.title=name+" | ARPPU.RU";
+if(S.diag&&S.diag.income&&S.diag.income>0){document.getElementById("incomeInput").value=S.diag.income;calcDiag();}
+}
 init();
 </script>
 </body>
