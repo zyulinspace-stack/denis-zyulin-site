@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/baza", "destination": "/baza.html" },
+    { "source": "/project", "destination": "/project.html" },
     { "source": "/cases/primekraft", "destination": "/cases/primekraft.html" },
     { "source": "/cases/online-school-webinar", "destination": "/cases/online-school-webinar.html" },
     { "source": "/cases/online-school-vk", "destination": "/cases/online-school-vk.html" },
