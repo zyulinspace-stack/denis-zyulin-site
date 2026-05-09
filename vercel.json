@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/baza", "destination": "/baza.html" },
+    { "source": "/cases/primekraft", "destination": "/cases/primekraft.html" },
+    { "source": "/cases/online-school-webinar", "destination": "/cases/online-school-webinar.html" },
+    { "source": "/cases/online-school-vk", "destination": "/cases/online-school-vk.html" },
+    { "source": "/cases/eteri", "destination": "/cases/eteri.html" },
+    { "source": "/cases/skillfactory", "destination": "/cases/skillfactory.html" },
+    { "source": "/cases/primekraft-romi", "destination": "/cases/primekraft-romi.html" },
+    { "source": "/cases/distill", "destination": "/cases/distill.html" },
+    { "source": "/cases/logomashina", "destination": "/cases/logomashina.html" },
+    { "source": "/cases/online-college", "destination": "/cases/online-college.html" }
+  ]
+}
